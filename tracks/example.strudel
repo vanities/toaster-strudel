@@ -1,0 +1,34 @@
+// example — sparse ambient sketch
+// Three voices: sustained drone, sparse bells, distant kick.
+// Reference vibe: early Eno (Music for Airports), Stars of the Lid.
+//
+// This is the only track in the public repo. The /tracks directory is
+// otherwise gitignored — it holds in-progress personal work.
+
+setcps(0.4)
+
+stack(
+  // Sustained low drone, slowly opening filter
+  note("<C2 G1 Ab1 F1>")
+    .s("sawtooth")
+    .lpf(sine.range(200, 900).slow(16))
+    .gain(0.4)
+    .room(0.9),
+
+  // Sparse bells, one note per 2 cycles
+  note("<C5 ~ Eb5 ~ G5 ~ Bb4 ~>/2")
+    .s("triangle")
+    .gain(0.25)
+    .room(0.95)
+    .delay(0.6)
+    .delaytime(0.5)
+    .delayfeedback(0.55),
+
+  // Distant kick, every 4 cycles
+  s("bd")
+    .bank("AkaiLinn")
+    .slow(4)
+    .gain(0.4)
+    .lpf(140)
+    .room(0.7),
+)

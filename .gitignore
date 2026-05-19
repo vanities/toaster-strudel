@@ -1,0 +1,26 @@
+# Runtime
+.server.pid
+.server.log
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# macOS
+.DS_Store
+
+# EP working tracks (personal, in-progress) — keep the example demo public
+tracks/*
+!tracks/example.strudel
+
+# Style skills that live in the Artist-Vault-Kit (private). Public repo ships
+# only style-bonobo as a worked example of the artist-style-as-skill pattern.
+skills/skills/style-djrum/
+skills/skills/style-floating-points/
+skills/skills/style-kiasmos/
+skills/skills/style-skee-mask/
+skills/skills/style-switch-angel/

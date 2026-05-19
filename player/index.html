@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" data-theme="aurora">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>toaster-strudel</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-aura"></div>
+
+  <header>
+    <h1 class="brand-wrap">
+      <span class="logo">
+        <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
+          <defs>
+            <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="var(--accent)"/>
+              <stop offset="1" stop-color="var(--accent2)"/>
+            </linearGradient>
+          </defs>
+          <rect x="3" y="9" width="26" height="16" rx="3" fill="none" stroke="url(#lg)" stroke-width="1.6"/>
+          <path d="M11 9 L11 6 M16 9 L16 5 M21 9 L21 6" stroke="url(#lg)" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M8 17 L24 17" stroke="url(#lg)" stroke-width="1.2" stroke-linecap="round" opacity=".6"/>
+        </svg>
+      </span>
+      <span class="brand">toaster-strudel</span>
+      <span class="version">live</span>
+    </h1>
+
+    <div class="controls">
+      <select id="track-select" aria-label="Track"></select>
+      <button id="prev"   class="btn btn-icon" title="Previous track (←)" aria-label="Previous track"><span>‹</span></button>
+      <button id="play"   class="btn btn-icon btn-primary" title="Play (Space)" aria-label="Play"><span>▶</span></button>
+      <button id="stop"   class="btn btn-icon" title="Stop (Space)" disabled aria-label="Stop"><span>■</span></button>
+      <button id="next"   class="btn btn-icon" title="Next track (→)" aria-label="Next track"><span>›</span></button>
+      <button id="reload" class="btn btn-icon" title="Reload (R)" aria-label="Reload"><span>↻</span></button>
+      <a      id="open-cc" class="btn btn-icon btn-link" href="#" target="_blank" rel="noopener" title="Open in strudel.cc" aria-label="Open in strudel.cc"><span>↗</span></a>
+      <button id="rec-btn" class="btn btn-icon" title="Record live (saves WAV; convert to FLAC via ffmpeg)" aria-label="Record"><span>●</span></button>
+      <button id="render-btn" class="btn btn-icon" title="Render full album offline (faster than real-time, synth-only)" aria-label="Render"><span>⤓</span></button>
+    </div>
+
+    <div class="status">
+      <span class="status-block" id="status-bpm">
+        <span class="status-label">bpm</span>
+        <span class="status-value bpm" id="bpm">—</span>
+      </span>
+      <span class="status-block" id="status-time">
+        <span class="status-label">elapsed / total</span>
+        <span class="status-value" id="time-readout">0:00 / 0:00</span>
+      </span>
+      <span class="status-block" id="status-next">
+        <span class="status-label">next section</span>
+        <span class="status-value" id="next-readout">—</span>
+      </span>
+      <span class="status-block status-state">
+        <span class="status-value state" id="state">init</span>
+      </span>
+      <button id="theme-btn" class="btn theme-pill" title="Cycle theme (T)">aurora</button>
+      <button id="help-btn"  class="btn btn-icon" title="Show keybinds (?)" aria-label="Help"><span>?</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section id="code-panel" data-open="true">
+      <header class="code-header">
+        <div class="code-label">
+          <span class="live-dot" id="live-dot"></span>
+          <span class="track-num" id="track-num">—</span>
+          <span class="track-title" id="track-title">loading…</span>
+        </div>
+        <div class="code-meta">
+          <span id="patch-flash" class="patch-flash"></span>
+          <span id="code-path" class="code-path">tracks/01-dawn.strudel</span>
+        </div>
+      </header>
+
+      <div class="timeline" id="timeline">
+        <button id="tl-prev"   title="Previous section (,)">‹</button>
+        <div    id="tl-strip" class="tl-strip"></div>
+        <button id="tl-next"   title="Next section (.)">›</button>
+        <button id="tl-auto"   title="Auto-advance through sections (A)">⟳</button>
+        <button id="tl-section-len" class="btn section-pill" title="Section length (click to cycle)">32c</button>
+        <button id="tl-reset"  title="Reset cycle on manual section swap (Z)">↺</button>
+        <button id="tl-replay" title="Replay all sections once (\\)">⏵⏵</button>
+        <span   id="tl-info"   class="tl-info">live</span>
+        <button id="tl-clear"  title="Refresh (K)">↻</button>
+      </div>
+
+      <pre id="code-pre" class="code"></pre>
+    </section>
+
+    <div id="splitter" title="Drag to resize"></div>
+
+    <section id="viz">
+      <canvas id="butterchurn"></canvas>
+      <canvas id="mandala"></canvas>
+      <canvas id="spectrogram"></canvas>
+      <canvas id="wave"></canvas>
+      <canvas id="voices"></canvas>
+      <div class="center-rune" id="center-rune">⊙</div>
+      <div class="beat-ring" id="beat-ring"></div>
+      <div class="viz-hud" id="viz-hud">
+        <span id="viz-preset" class="viz-hud-line"></span>
+        <span id="viz-voices-count" class="viz-hud-line"></span>
+      </div>
+
+      <div id="loader" class="loader">
+        <div class="loader-ring"></div>
+        <div class="loader-text">
+          <div class="loader-title">toaster-strudel</div>
+          <div class="loader-step" id="loader-step">booting…</div>
+          <div class="loader-bar"><div class="loader-bar-fill" id="loader-fill"></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="help" hidden>
+    <div class="help-card">
+      <header class="help-header">
+        <span>keybindings</span>
+        <button id="help-close">×</button>
+      </header>
+      <table>
+        <tr><td><kbd>space</kbd></td><td>play / stop</td></tr>
+        <tr><td><kbd>←</kbd> <kbd>→</kbd></td><td>previous / next track</td></tr>
+        <tr><td><kbd>1</kbd>–<kbd>4</kbd></td><td>jump to track</td></tr>
+        <tr><td><kbd>r</kbd></td><td>reload current track</td></tr>
+        <tr><td><kbd>t</kbd></td><td>cycle theme</td></tr>
+        <tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>tempo −10% / +10%</td></tr>
+        <tr><td><kbd>m</kbd></td><td>mute / unmute</td></tr>
+        <tr><td><kbd>,</kbd> <kbd>.</kbd></td><td>previous / next section</td></tr>
+        <tr><td><kbd>a</kbd></td><td>auto-advance through sections</td></tr>
+        <tr><td><kbd>b</kbd></td><td>toggle Butterchurn (WebGL viz) — disable if audio glitches</td></tr>
+        <tr><td>click <kbd>32c</kbd></td><td>change section length (click cycles up · shift-click / right-click cycles down)</td></tr>
+        <tr><td><kbd>z</kbd></td><td>toggle reset-on-swap (manual section change re-arms the section timer)</td></tr>
+        <tr><td><kbd>\</kbd></td><td>replay all sections</td></tr>
+        <tr><td><kbd>k</kbd></td><td>refresh sections from disk</td></tr>
+        <tr><td><kbd>?</kbd></td><td>this help</td></tr>
+        <tr><td><kbd>esc</kbd></td><td>close help</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <script type="module" src="player.js"></script>
+</body>
+</html>
