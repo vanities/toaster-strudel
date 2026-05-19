@@ -6,11 +6,11 @@
     </linearGradient>
   </defs>
 
-  <g stroke="url(#line)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <!-- toaster body with a gap in the top edge for the slot -->
-    <path d="M 5 13 L 11 13 M 21 13 L 27 13 Q 29 13 29 15 L 29 26 Q 29 28 27 28 L 5 28 Q 3 28 3 26 L 3 15 Q 3 13 5 13 Z"/>
+    <path stroke="url(#line)" d="M 5 13 L 11 13 M 21 13 L 27 13 Q 29 13 29 15 L 29 26 Q 29 28 27 28 L 5 28 Q 3 28 3 26 L 3 15 Q 3 13 5 13 Z"/>
 
-    <!-- strudel rising through the slot -->
-    <path d="M 11 13 C 9 7, 13 2, 16 2 C 19 2, 23 7, 21 13"/>
+    <!-- strudel rising through the slot — yellow -->
+    <path stroke="#ffd56b" d="M 11 13 C 9 7, 13 2, 16 2 C 19 2, 23 7, 21 13"/>
   </g>
 </svg>
