@@ -1,30 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
   <defs>
-    <linearGradient id="pastry" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffd56b"/>
-      <stop offset="1" stop-color="#ff8a3d"/>
-    </linearGradient>
-    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#9b6dff"/>
       <stop offset="1" stop-color="#5dd0ff"/>
     </linearGradient>
   </defs>
-  <!-- strudel rising out of slot -->
-  <path d="M10 13 C 10 6, 14 2, 17 2 C 21 2, 23 5, 23 9 C 23 11, 21 12, 21 13 Z"
-        fill="url(#pastry)"/>
-  <!-- laminated pastry stripes -->
-  <path d="M11 11 Q 17 9 22 11" stroke="#ff6a1a" stroke-width="0.6" fill="none" stroke-linecap="round"/>
-  <path d="M11 8 Q 17 6 22 8" stroke="#ff6a1a" stroke-width="0.6" fill="none" stroke-linecap="round"/>
-  <path d="M13 5 Q 17 3 21 5" stroke="#ff6a1a" stroke-width="0.6" fill="none" stroke-linecap="round"/>
-  <!-- powdered sugar dots -->
-  <circle cx="15" cy="4" r="0.5" fill="#ffffff" opacity="0.85"/>
-  <circle cx="19" cy="3.5" r="0.5" fill="#ffffff" opacity="0.85"/>
-  <!-- toaster body -->
-  <rect x="3" y="12" width="26" height="16" rx="3" fill="url(#body)"/>
-  <!-- slot opening -->
-  <rect x="5" y="13" width="22" height="2.5" rx="0.8" fill="#1a1530"/>
-  <!-- heating element accent -->
-  <line x1="6" y1="21" x2="26" y2="21" stroke="#ffd56b" stroke-width="0.8" opacity="0.7" stroke-linecap="round"/>
-  <!-- lever -->
-  <circle cx="25" cy="24.5" r="1.2" fill="#ffd56b"/>
+
+  <g stroke="url(#line)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- toaster body with a gap in the top edge for the slot -->
+    <path d="M 5 13 L 11 13 M 21 13 L 27 13 Q 29 13 29 15 L 29 26 Q 29 28 27 28 L 5 28 Q 3 28 3 26 L 3 15 Q 3 13 5 13 Z"/>
+
+    <!-- strudel rising through the slot -->
+    <path d="M 11 13 C 9 7, 13 2, 16 2 C 19 2, 23 7, 21 13"/>
+  </g>
 </svg>
