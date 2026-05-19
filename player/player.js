@@ -32,9 +32,60 @@ let strudelCtx = null;
   window.AudioContext = TappedAudioContext;
   if (window.webkitAudioContext) window.webkitAudioContext = TappedAudioContext;
 
+  // Stats so we can see cross-context attempts + reach to each destination
+  window.__connectStats = {
+    total: 0,
+    crossContext: 0,
+    crossContextErrors: 0,
+    toAnyDestination: 0,
+    perDestinationCounts: new WeakMap(),
+  };
+  // Cross-context redirect mode — when ON, any attempt to connect a node
+  // in one AudioContext to a node in another is rewritten to connect to
+  // this.context.destination instead. Strudel caches a master output node
+  // at initStrudel() time (in the live context). When the offline renderer
+  // swaps the context, new sources still try to connect to that cached
+  // master → cross-context error → caught silently → audio dies. With
+  // this flag on, those final connections are redirected to the offline
+  // destination so audio reaches the rendered buffer.
+  //
+  // It's blunt: we lose whatever master-bus processing (limiter, master
+  // gain) was applied — but that beats total silence, and we can refine.
+  window.__crossContextRedirect = false;
+  window.__connectStats = {
+    total: 0,
+    crossContext: 0,
+    crossContextErrors: 0,
+    crossContextRedirected: 0,
+    toAnyDestination: 0,
+    perDestinationCounts: new WeakMap(),
+  };
   const originalConnect = AudioNode.prototype.connect;
   AudioNode.prototype.connect = function (target, ...rest) {
-    const result = originalConnect.call(this, target, ...rest);
+    const stats = window.__connectStats;
+    stats.total++;
+    // Cross-context detection
+    if (target && target instanceof AudioNode && this.context !== target.context) {
+      stats.crossContext++;
+      if (window.__crossContextRedirect) {
+        target = this.context.destination;
+        stats.crossContextRedirected++;
+      }
+    }
+    if (target instanceof AudioDestinationNode) {
+      stats.toAnyDestination++;
+      const c = (stats.perDestinationCounts.get(target) || 0) + 1;
+      stats.perDestinationCounts.set(target, c);
+    }
+    let result;
+    try {
+      result = originalConnect.call(this, target, ...rest);
+    } catch (e) {
+      if (target instanceof AudioNode && this.context !== target.context) {
+        stats.crossContextErrors++;
+      }
+      throw e;
+    }
     if (analyser && this !== analyser && target instanceof AudioDestinationNode) {
       try { originalConnect.call(this, analyser); } catch (_) {}
     }
@@ -97,6 +148,7 @@ let strudelCtx = null;
 import {
   initStrudel, hush, evaluate, getAudioContext, samples,
   setAudioContext, webaudioOutput,
+  getSuperdoughAudioController, setSuperdoughAudioController,
 } from 'https://unpkg.com/@strudel/web@1.3.0/dist/index.mjs';
 
 // ── diagnostic logging ─────────────────────────────────────────
@@ -870,6 +922,35 @@ async function renderAlbumOffline() {
     }
   }
 
+  // ── swap the SuperdoughAudioController so per-orbit reverb/delay/master
+  // get rebuilt against offlineCtx, not the live context.
+  //
+  // Why: superdough caches a single SuperdoughAudioController at first call
+  // (with the live AudioContext). It owns the per-orbit Orbit objects
+  // (reverbNode, delayNode, summingNode, output gain) plus the
+  // SuperdoughOutput (channelMerger → destinationGain → ac.destination).
+  // All of those live in the live context. When we just swap the context,
+  // new sources spawn in offlineCtx but try to connect to live-context
+  // master nodes → cross-context error → silence (or mono-mixed wreck
+  // when redirected to destination).
+  //
+  // Solution: instantiate a fresh controller bound to offlineCtx. Strudel
+  // calls getSuperdoughAudioController() during webaudioOutput, finds the
+  // new offline-context controller, and builds everything correctly.
+  const liveController = getSuperdoughAudioController();
+  const offlineController = new liveController.constructor(offlineCtx);
+  setSuperdoughAudioController(offlineController);
+  dremote('render', {
+    phase: 'controller-swap',
+    liveCtor: liveController.constructor?.name,
+    offlineCtxIs: offlineController.audioContext === offlineCtx,
+  });
+
+  // Keep the redirect hack OFF — with the proper controller swap, all
+  // connections should be within-offline-ctx now. If we hit any
+  // cross-context attempts in the diagnostic, that's a follow-up bug.
+  window.__crossContextRedirect = false;
+
   // Strudel reads getAudioContext() lazily for each note; setAudioContext
   // swaps the global ref so subsequent webaudioOutput calls target offline.
   try {
@@ -893,27 +974,17 @@ async function renderAlbumOffline() {
     JSON.parse(JSON.stringify(ctx?.__ctxNodeCounts || {}));
   const beforeLive    = snapshotCtxCounts(liveCtx);
   const beforeOffline = snapshotCtxCounts(offlineCtx);
+  const beforeConnStats = {
+    total: window.__connectStats.total,
+    crossContext: window.__connectStats.crossContext,
+    crossContextErrors: window.__connectStats.crossContextErrors,
+    toAnyDestination: window.__connectStats.toAnyDestination,
+    toLiveDest: window.__connectStats.perDestinationCounts.get(liveCtx.destination) || 0,
+    toOfflineDest: window.__connectStats.perDestinationCounts.get(offlineCtx.destination) || 0,
+  };
   dremote('render', { phase: 'counts-before',
-    live: beforeLive, offline: beforeOffline });
+    live: beforeLive, offline: beforeOffline, conns: beforeConnStats });
 
-  // ── direct-oscillator control test ──
-  // Schedule a 440Hz beep for 0.3s at time 0 using raw Web Audio (no
-  // Strudel). If this produces sound in the rendered buffer but Strudel's
-  // haps don't, we've isolated the bug to Strudel's audio engine (most
-  // likely AudioWorklet modules aren't registered in the offline context).
-  try {
-    const osc = offlineCtx.createOscillator();
-    const gain = offlineCtx.createGain();
-    gain.gain.value = 0.5;
-    osc.frequency.value = 440;
-    osc.connect(gain);
-    gain.connect(offlineCtx.destination);
-    osc.start(0);
-    osc.stop(0.3);
-    dremote('render', { phase: 'control-osc-scheduled', start: 0, stop: 0.3, freq: 440 });
-  } catch (e) {
-    dremote('render', { phase: 'control-osc-failed', error: String(e?.message || e) });
-  }
 
   let timeCursor = 0;
   let scheduledHaps = 0;
@@ -984,6 +1055,14 @@ async function renderAlbumOffline() {
   // created in which context during its webaudioOutput() calls.
   const afterLive    = snapshotCtxCounts(liveCtx);
   const afterOffline = snapshotCtxCounts(offlineCtx);
+  const afterConnStats = {
+    total: window.__connectStats.total,
+    crossContext: window.__connectStats.crossContext,
+    crossContextErrors: window.__connectStats.crossContextErrors,
+    toAnyDestination: window.__connectStats.toAnyDestination,
+    toLiveDest: window.__connectStats.perDestinationCounts.get(liveCtx.destination) || 0,
+    toOfflineDest: window.__connectStats.perDestinationCounts.get(offlineCtx.destination) || 0,
+  };
   const diffCounts = (before, after) => {
     const out = {};
     const keys = new Set([...Object.keys(before), ...Object.keys(after)]);
@@ -993,13 +1072,15 @@ async function renderAlbumOffline() {
     }
     return out;
   };
+  const connDiff = diffCounts(beforeConnStats, afterConnStats);
   dremote('render', { phase: 'counts-after-scheduling',
     liveDiff:    diffCounts(beforeLive,    afterLive),
     offlineDiff: diffCounts(beforeOffline, afterOffline),
+    connDiff,
     interpretation:
-      (Object.keys(diffCounts(beforeOffline, afterOffline)).length === 0
-        ? 'Strudel created NO nodes in offlineCtx — using cached liveCtx state'
-        : 'Strudel did create nodes in offlineCtx'),
+      (connDiff.toOfflineDest === undefined || connDiff.toOfflineDest === 0)
+        ? `ZERO connections to offlineCtx.destination → audio never reaches offline output. ${connDiff.toLiveDest ? 'But '+connDiff.toLiveDest+' to liveCtx.destination — cached master in live context.' : ''} ${connDiff.crossContextErrors ? connDiff.crossContextErrors+' cross-context errors caught.' : ''}`
+        : `${connDiff.toOfflineDest} connections to offlineCtx.destination — but audio still silent. Investigate node chain.`,
   });
 
   // ── progress polling during the render ──
@@ -1035,8 +1116,11 @@ async function renderAlbumOffline() {
     clearInterval(progressInterval);
   }
 
-  // Restore live context
+  // Restore live context and live controller
   setAudioContext(liveCtx);
+  setSuperdoughAudioController(liveController);
+  window.__crossContextRedirect = false;
+  dremote('render', { phase: 'controller-restored', toLive: getSuperdoughAudioController() === liveController });
 
   // Diagnostic: peak/rms of the rendered buffer. Also sample a few windows
   // across the timeline to know if any audio appeared anywhere.
@@ -1065,15 +1149,6 @@ async function renderAlbumOffline() {
       }
     }
     const rms = Math.sqrt(sumSq / n);
-    // Also probe specifically inside the control-osc window (0–0.4s)
-    const sr = buffer.sampleRate;
-    const controlEnd = Math.min(buffer.length, Math.floor(0.4 * sr));
-    let controlPeak = 0;
-    const d0 = buffer.getChannelData(0);
-    for (let i = 0; i < controlEnd; i++) {
-      const v = Math.abs(d0[i]);
-      if (v > controlPeak) controlPeak = v;
-    }
     dremote('render', {
       phase: 'buffer-rendered',
       scheduledHaps,
@@ -1082,14 +1157,8 @@ async function renderAlbumOffline() {
       bufferDurationSec: buffer.length / buffer.sampleRate,
       peak: Number(peak.toFixed(6)),
       rms: Number(rms.toFixed(6)),
-      controlOscPeak: Number(controlPeak.toFixed(4)),
       windowPeaks,
       verdict: peak === 0 ? 'ALL_ZERO' : (peak < 0.001 ? 'NEAR_SILENT' : 'HAS_AUDIO'),
-      hint: controlPeak > 0.01 && peak < 0.001
-        ? 'CONTROL_OSC_WORKS_BUT_STRUDEL_SILENT → confirms Strudel-side bug (likely AudioWorklet not registered in offline ctx)'
-        : (controlPeak < 0.001 && peak < 0.001
-          ? 'EVERYTHING_SILENT → offline context itself broken (e.g. cross-context AudioNode patch interference)'
-          : 'mixed signal — read window peaks for clues'),
     });
   }
 
@@ -1123,6 +1192,16 @@ async function renderAlbumOffline() {
   document.body.appendChild(a);
   a.click();
   setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 200);
+
+  // Stop Strudel's scheduler from auto-resuming with the last-evaluated
+  // section pattern. Without this, after render the player would start
+  // playing section 8 of whichever track was rendered.
+  try { hush(); } catch (_) {}
+  try { await evaluate('silence'); } catch (_) {}
+  isPlaying = false;
+  els.play.disabled = false;
+  els.stop.disabled = true;
+  setStatus('rendered · stopped');
 
   showRenderLoader(`done · ${scheduledHaps} events rendered`, 100);
   setTimeout(hideRenderLoader, 1800);
@@ -2196,12 +2275,38 @@ els.tlClear.addEventListener('click', clearHistory);
 const recBtn = document.getElementById('rec-btn');
 if (recBtn) recBtn.addEventListener('click', toggleRecord);
 const renderBtn = document.getElementById('render-btn');
-if (renderBtn) renderBtn.addEventListener('click', () => {
-  renderAlbumOffline().catch((e) => {
+if (renderBtn) renderBtn.addEventListener('click', async () => {
+  try {
+    // Warmup: on a fresh page-load the worklet registry is empty (Strudel
+    // only registers its worklets on first play). Without this, the very
+    // first Render produces silence because there are no worklets to
+    // replay into offlineCtx. We do a brief play→stop dance to populate
+    // the registry before kicking off the render.
+    const registered = (window.__registeredWorkletURLs || new Set()).size;
+    if (registered === 0) {
+      showRenderLoader('warming up the audio engine…', 2);
+      try { await play(); } catch (_) {}
+      // Wait until at least one worklet is registered (or 1.5s ceiling)
+      const t0 = performance.now();
+      while ((window.__registeredWorkletURLs || new Set()).size === 0
+             && performance.now() - t0 < 1500) {
+        await new Promise(r => setTimeout(r, 50));
+      }
+      try { stop(); } catch (_) {}
+      // Give the scheduler a tick to settle
+      await new Promise(r => setTimeout(r, 100));
+      dremote('render', {
+        phase: 'warmup-complete',
+        workletsRegistered: (window.__registeredWorkletURLs || new Set()).size,
+        elapsedMs: Math.round(performance.now() - t0),
+      });
+    }
+    await renderAlbumOffline();
+  } catch (e) {
     console.error(e);
     hideRenderLoader();
     alert('Render failed: ' + e.message);
-  });
+  }
 });
 const sectionLenBtn = document.getElementById('tl-section-len');
 if (sectionLenBtn) {
