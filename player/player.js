@@ -40,6 +40,57 @@ let strudelCtx = null;
     }
     return result;
   };
+
+  // Track every AudioWorklet.addModule URL globally so we can replay them
+  // into a fresh OfflineAudioContext before offline rendering. Without this,
+  // any AudioWorkletNode Strudel creates in the offline context fails
+  // silently because the processor name isn't registered.
+  window.__registeredWorkletURLs = new Set();
+  if (window.AudioWorklet) {
+    const origAdd = window.AudioWorklet.prototype.addModule;
+    window.AudioWorklet.prototype.addModule = function (url, ...rest) {
+      try { window.__registeredWorkletURLs.add(String(url)); } catch (_) {}
+      return origAdd.call(this, url, ...rest);
+    };
+  }
+
+  // Per-context node creation counters. Each context gets its own counter
+  // object stored as a non-enumerable property. We diff these before vs.
+  // after a render to know which context Strudel actually targeted.
+  const CREATE_METHODS = [
+    'createGain', 'createOscillator', 'createBufferSource', 'createBuffer',
+    'createBiquadFilter', 'createDelay', 'createDynamicsCompressor',
+    'createPanner', 'createStereoPanner', 'createWaveShaper',
+    'createConvolver', 'createAnalyser', 'createChannelMerger',
+    'createChannelSplitter', 'createConstantSource', 'createIIRFilter',
+    'createPeriodicWave', 'createScriptProcessor',
+  ];
+  CREATE_METHODS.forEach((m) => {
+    const proto = (window.BaseAudioContext && window.BaseAudioContext.prototype)
+      || (window.AudioContext && window.AudioContext.prototype);
+    if (!proto || typeof proto[m] !== 'function') return;
+    const orig = proto[m];
+    proto[m] = function (...args) {
+      try {
+        this.__ctxNodeCounts = this.__ctxNodeCounts || {};
+        this.__ctxNodeCounts[m] = (this.__ctxNodeCounts[m] || 0) + 1;
+      } catch (_) {}
+      return orig.apply(this, args);
+    };
+  });
+  // Also patch AudioWorkletNode constructor — superdough uses one
+  if (window.AudioWorkletNode) {
+    const OrigAWN = window.AudioWorkletNode;
+    window.AudioWorkletNode = function (ctx, name, opts) {
+      try {
+        ctx.__ctxNodeCounts = ctx.__ctxNodeCounts || {};
+        const key = `AudioWorkletNode(${name})`;
+        ctx.__ctxNodeCounts[key] = (ctx.__ctxNodeCounts[key] || 0) + 1;
+      } catch (_) {}
+      return new OrigAWN(ctx, name, opts);
+    };
+    window.AudioWorkletNode.prototype = OrigAWN.prototype;
+  }
 })();
 
 // ── strudel ────────────────────────────────────────────────────
@@ -61,7 +112,27 @@ function dwarn(category, ...args) {
   console.warn(`%c[${t.padStart(7)}s][${category}]`, 'color:#ff8a3d;font-weight:600', ...args);
 }
 window.__dlog = dlog;
+
+// Remote logging — JSON-line POST to /log so we can tail /tmp/strudel-debug.log
+// instead of screen-scraping the DevTools console.
+function dremote(category, payload) {
+  const t = ((performance.now() - T0) / 1000).toFixed(2);
+  const entry = { tSec: t, category, payload };
+  // Don't await — fire and forget; failures are silent
+  try {
+    fetch('/log', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entry),
+    }).catch(() => {});
+  } catch (_) {}
+  // Also log locally
+  dlog(category, payload);
+}
+window.__dremote = dremote;
+
 dlog('boot', 'player.js loaded; T0=', new Date().toISOString());
+dremote('boot', { ua: navigator.userAgent, ts: new Date().toISOString() });
 
 // Watch for Strudel's "skip query: too late" warnings — wrap console.log to
 // flag them with our diagnostic prefix so they line up with our other logs.
@@ -527,7 +598,8 @@ function buildTap(pattern) {
   const tapped = pattern.onTrigger((hap) => {
     try {
       const locs = hap?.context?.locations || [];
-      for (const loc of locs) flashRange(loc.start, loc.end);
+      const color = colorForHap(hap);
+      for (const loc of locs) flashRange(loc.start, loc.end, color);
       if (locs.length) registerVoiceHit(locs[0], hap);
     } catch (_) {}
   }, false);
@@ -602,6 +674,97 @@ function disconnectRecorder() {
 
 function recordDuration() { return isRecording ? performance.now() - recStartedAt : 0; }
 
+// ── always-on ring buffer ──────────────────────────────────────
+// AudioWorklet (audio-thread) captures the last 30s of master output.
+// Uploaded to the server every 2s so Claude can curl /audio?seconds=N
+// and get a WAV without driving the UI.
+//
+// Topology note: the worklet is a SINK (0 outputs). We deliberately do NOT
+// connect it to destination — the patched AudioNode.connect at the top of
+// this file would auto-route any-→destination edges to analyser, creating
+// a cycle (analyser → ringNode → analyser) that mutes the analyser tap
+// (which the waveform visualiser reads from).
+let ringNode = null;
+let ringUploadTimer = null;
+let lastUploadAt = 0;
+const RING_SECONDS = 30;
+const UPLOAD_EVERY_MS = 2000;
+
+async function setupRingBuffer() {
+  if (!strudelCtx || !analyser || ringNode) return;
+  try {
+    await strudelCtx.audioWorklet.addModule('/player/ring-buffer-worklet.js');
+    ringNode = new AudioWorkletNode(strudelCtx, 'ring-buffer', {
+      numberOfInputs: 1,
+      numberOfOutputs: 0,
+      processorOptions: { seconds: RING_SECONDS },
+    });
+    analyser.connect(ringNode);
+    dlog('ring', `capturing last ${RING_SECONDS}s of audio · sr=${strudelCtx.sampleRate}`);
+    startRingUploadLoop();
+    // Expose for manual triggering / debugging
+    window.__ringNode = ringNode;
+    window.__uploadRingBuffer = uploadRingBuffer;
+  } catch (e) {
+    dwarn('ring', 'setupRingBuffer failed:', e.message);
+  }
+}
+
+// Always expose the setup function so it can be invoked manually (e.g. from
+// agent-browser in headless mode where the autoplay user-gesture chain
+// doesn't fire reliably).
+window.__setupRingBuffer = () => setupRingBuffer();
+
+function startRingUploadLoop() {
+  if (ringUploadTimer) return;
+  ringUploadTimer = setInterval(uploadRingBuffer, UPLOAD_EVERY_MS);
+}
+
+async function uploadRingBuffer() {
+  if (!ringNode || !strudelCtx) return;
+  // Don't upload if we just did — avoid stacking pending msg responses.
+  // (Even when suspended we still upload — the ring buffer keeps the most
+  // recent audio so /audio?seconds=N stays meaningful after stop.)
+  const now = performance.now();
+  if (now - lastUploadAt < UPLOAD_EVERY_MS - 200) return;
+  lastUploadAt = now;
+
+  const data = await new Promise((resolve) => {
+    const handler = (e) => {
+      ringNode.port.removeEventListener('message', handler);
+      resolve(e.data);
+    };
+    ringNode.port.addEventListener('message', handler);
+    ringNode.port.start?.();
+    ringNode.port.postMessage({ cmd: 'getBuffer' });
+  });
+
+  const { left, right, sampleRate, writePos } = data;
+  const numSamples = left.length;
+  // Linearize so oldest sample is at index 0
+  const linL = new Float32Array(numSamples);
+  const linR = new Float32Array(numSamples);
+  for (let i = 0; i < numSamples; i++) {
+    const src = (writePos + i) % numSamples;
+    linL[i] = left[src];
+    linR[i] = right[src];
+  }
+  // Wire format: [sampleRate u32][numSamples u32][left f32...][right f32...]
+  const out = new ArrayBuffer(8 + numSamples * 4 * 2);
+  const view = new DataView(out);
+  view.setUint32(0, sampleRate, true);
+  view.setUint32(4, numSamples, true);
+  new Float32Array(out, 8, numSamples).set(linL);
+  new Float32Array(out, 8 + numSamples * 4, numSamples).set(linR);
+  try {
+    await fetch('/upload-buffer', {
+      method: 'POST',
+      body: out,
+      headers: { 'Content-Type': 'application/octet-stream' },
+    });
+  } catch (_) { /* server may be offline; that's fine */ }
+}
+
 function toggleRecord() {
   setupRecorder();
   if (isRecording) {
@@ -665,6 +828,8 @@ async function renderAlbumOffline() {
   const list = getSections(id);
   if (!list.length) return;
 
+  dremote('render', { phase: 'start', track: id, sections: list.length });
+
   // Pause anything live
   if (isPlaying) stop();
   hush();
@@ -682,12 +847,72 @@ async function renderAlbumOffline() {
     sampleRate,
   });
 
+  dremote('render', {
+    phase: 'contexts-created',
+    liveCtxSampleRate: liveCtx.sampleRate,
+    liveCtxState: liveCtx.state,
+    offlineCtxSampleRate: offlineCtx.sampleRate,
+    offlineCtxLength: offlineCtx.length,
+    totalSecs, cpsBase,
+  });
+
+  // Replay every AudioWorklet module Strudel registered in the live context
+  // into the offline context. Without this, AudioWorkletNodes created in
+  // offlineCtx (which is how superdough actually makes sound) silently
+  // fail because the processor name isn't registered.
+  const workletURLs = Array.from(window.__registeredWorkletURLs || []);
+  dremote('render', { phase: 'replaying-worklets', count: workletURLs.length, urls: workletURLs });
+  for (const url of workletURLs) {
+    try {
+      await offlineCtx.audioWorklet.addModule(url);
+    } catch (e) {
+      dremote('render', { phase: 'worklet-replay-fail', url, error: String(e?.message || e) });
+    }
+  }
+
   // Strudel reads getAudioContext() lazily for each note; setAudioContext
   // swaps the global ref so subsequent webaudioOutput calls target offline.
   try {
     setAudioContext(offlineCtx);
   } catch (e) {
     console.error('setAudioContext failed:', e);
+  }
+  // Diagnostic: did the swap actually take? If false, Strudel will keep
+  // routing to the live context and the render will be silent.
+  const ctxAfterSwap = getAudioContext();
+  dremote('render', {
+    phase: 'after-setAudioContext',
+    swapSucceeded: offlineCtx === ctxAfterSwap,
+    reportedSampleRate: ctxAfterSwap.sampleRate,
+    reportedState: ctxAfterSwap.state || 'n/a',
+    isOfflineCtx: ctxAfterSwap instanceof OfflineAudioContext,
+  });
+
+  // Snapshot per-context node creation counts BEFORE scheduling.
+  const snapshotCtxCounts = (ctx) =>
+    JSON.parse(JSON.stringify(ctx?.__ctxNodeCounts || {}));
+  const beforeLive    = snapshotCtxCounts(liveCtx);
+  const beforeOffline = snapshotCtxCounts(offlineCtx);
+  dremote('render', { phase: 'counts-before',
+    live: beforeLive, offline: beforeOffline });
+
+  // ── direct-oscillator control test ──
+  // Schedule a 440Hz beep for 0.3s at time 0 using raw Web Audio (no
+  // Strudel). If this produces sound in the rendered buffer but Strudel's
+  // haps don't, we've isolated the bug to Strudel's audio engine (most
+  // likely AudioWorklet modules aren't registered in the offline context).
+  try {
+    const osc = offlineCtx.createOscillator();
+    const gain = offlineCtx.createGain();
+    gain.gain.value = 0.5;
+    osc.frequency.value = 440;
+    osc.connect(gain);
+    gain.connect(offlineCtx.destination);
+    osc.start(0);
+    osc.stop(0.3);
+    dremote('render', { phase: 'control-osc-scheduled', start: 0, stop: 0.3, freq: 440 });
+  } catch (e) {
+    dremote('render', { phase: 'control-osc-failed', error: String(e?.message || e) });
   }
 
   let timeCursor = 0;
@@ -720,6 +945,8 @@ async function renderAlbumOffline() {
       continue;
     }
 
+    let sectionHapsScheduled = 0, sectionHapErrors = [];
+    let firstHapValue = null;
     for (const hap of haps) {
       if (!hap.hasOnset?.()) continue;
       try {
@@ -727,31 +954,167 @@ async function renderAlbumOffline() {
         const endCyc   = Number(hap.whole.end);
         const t   = timeCursor + (startCyc / cps);
         const dur = Math.max(0.001, (endCyc - startCyc) / cps);
+        if (!firstHapValue) {
+          firstHapValue = { t, dur, value: hap.value };
+        }
         webaudioOutput(hap, 0, dur, cps, t);
         scheduledHaps++;
-      } catch (_) { /* skip individual hap failures */ }
+        sectionHapsScheduled++;
+      } catch (e) {
+        if (sectionHapErrors.length < 3) {
+          sectionHapErrors.push(String(e?.message || e));
+        }
+      }
     }
+    dremote('render', {
+      phase: 'section-scheduled',
+      i, file: snap.file, label: snap.label,
+      cps, sectionCyclesV, sectionSecs,
+      totalHaps: haps.length,
+      onsetHaps: sectionHapsScheduled,
+      errors: sectionHapErrors,
+      firstHap: firstHapValue,
+    });
 
     timeCursor += sectionSecs;
   }
 
-  showRenderLoader(`rendering ${scheduledHaps} events…`, 70);
+  // Snapshot AFTER all haps have been scheduled but before render kicks off.
+  // Diff against the BEFORE snapshot to know exactly which nodes Strudel
+  // created in which context during its webaudioOutput() calls.
+  const afterLive    = snapshotCtxCounts(liveCtx);
+  const afterOffline = snapshotCtxCounts(offlineCtx);
+  const diffCounts = (before, after) => {
+    const out = {};
+    const keys = new Set([...Object.keys(before), ...Object.keys(after)]);
+    for (const k of keys) {
+      const d = (after[k] || 0) - (before[k] || 0);
+      if (d !== 0) out[k] = d;
+    }
+    return out;
+  };
+  dremote('render', { phase: 'counts-after-scheduling',
+    liveDiff:    diffCounts(beforeLive,    afterLive),
+    offlineDiff: diffCounts(beforeOffline, afterOffline),
+    interpretation:
+      (Object.keys(diffCounts(beforeOffline, afterOffline)).length === 0
+        ? 'Strudel created NO nodes in offlineCtx — using cached liveCtx state'
+        : 'Strudel did create nodes in offlineCtx'),
+  });
+
+  // ── progress polling during the render ──
+  // Poll offlineCtx.currentTime — it advances as the render progresses, and
+  // the setInterval fires while we're awaiting startRendering(). Works in
+  // every implementation; OfflineAudioContext.suspend() doesn't (notably
+  // absent in some Chromium builds — gives "is not a function" at runtime).
+  showRenderLoader(`rendering ${scheduledHaps} events…`, 60);
+  const renderStartPct = 60, renderEndPct = 90;
+  const totalRenderSecs = totalSamples / sampleRate;
+  const progressInterval = setInterval(() => {
+    const t = offlineCtx.currentTime || 0;
+    if (t <= 0 || t >= totalRenderSecs) return;
+    const frac = Math.min(1, t / totalRenderSecs);
+    const pct = renderStartPct + frac * (renderEndPct - renderStartPct);
+    showRenderLoader(
+      `rendering · ${fmtMMSS(t * 1000)} / ${fmtMMSS(totalRenderSecs * 1000)}`,
+      pct,
+    );
+  }, 200);
+
   let buffer;
   try {
     buffer = await offlineCtx.startRendering();
   } catch (e) {
     console.error('startRendering failed:', e);
     setAudioContext(liveCtx);
+    clearInterval(progressInterval);
     hideRenderLoader();
     alert('Offline render failed: ' + e.message);
     return;
+  } finally {
+    clearInterval(progressInterval);
   }
 
   // Restore live context
   setAudioContext(liveCtx);
+
+  // Diagnostic: peak/rms of the rendered buffer. Also sample a few windows
+  // across the timeline to know if any audio appeared anywhere.
+  {
+    let peak = 0, sumSq = 0, n = 0;
+    const windowPeaks = [];
+    const numWindows = 10;
+    const wSize = Math.floor(buffer.length / numWindows);
+    for (let c = 0; c < buffer.numberOfChannels; c++) {
+      const d = buffer.getChannelData(c);
+      for (let i = 0; i < d.length; i++) {
+        const v = Math.abs(d[i]);
+        if (v > peak) peak = v;
+        sumSq += d[i] * d[i];
+        n++;
+      }
+      if (c === 0) {
+        for (let w = 0; w < numWindows; w++) {
+          let wp = 0;
+          for (let i = w * wSize; i < Math.min((w + 1) * wSize, d.length); i++) {
+            const v = Math.abs(d[i]);
+            if (v > wp) wp = v;
+          }
+          windowPeaks.push(Number(wp.toFixed(4)));
+        }
+      }
+    }
+    const rms = Math.sqrt(sumSq / n);
+    // Also probe specifically inside the control-osc window (0–0.4s)
+    const sr = buffer.sampleRate;
+    const controlEnd = Math.min(buffer.length, Math.floor(0.4 * sr));
+    let controlPeak = 0;
+    const d0 = buffer.getChannelData(0);
+    for (let i = 0; i < controlEnd; i++) {
+      const v = Math.abs(d0[i]);
+      if (v > controlPeak) controlPeak = v;
+    }
+    dremote('render', {
+      phase: 'buffer-rendered',
+      scheduledHaps,
+      bufferLength: buffer.length,
+      bufferChannels: buffer.numberOfChannels,
+      bufferDurationSec: buffer.length / buffer.sampleRate,
+      peak: Number(peak.toFixed(6)),
+      rms: Number(rms.toFixed(6)),
+      controlOscPeak: Number(controlPeak.toFixed(4)),
+      windowPeaks,
+      verdict: peak === 0 ? 'ALL_ZERO' : (peak < 0.001 ? 'NEAR_SILENT' : 'HAS_AUDIO'),
+      hint: controlPeak > 0.01 && peak < 0.001
+        ? 'CONTROL_OSC_WORKS_BUT_STRUDEL_SILENT → confirms Strudel-side bug (likely AudioWorklet not registered in offline ctx)'
+        : (controlPeak < 0.001 && peak < 0.001
+          ? 'EVERYTHING_SILENT → offline context itself broken (e.g. cross-context AudioNode patch interference)'
+          : 'mixed signal — read window peaks for clues'),
+    });
+  }
+
   showRenderLoader('encoding WAV…', 92);
 
   const wav = audioBufferToWav(buffer);
+
+  // ── auto-upload to server so Claude can grab the render without touching
+  // the Downloads folder. Fire-and-forget — failure here doesn't block the
+  // local download.
+  showRenderLoader('uploading…', 96);
+  try {
+    const r = await fetch(`/save-wav?name=${encodeURIComponent(id)}`, {
+      method: 'POST',
+      body: wav,
+      headers: { 'Content-Type': 'audio/wav' },
+    });
+    if (r.ok) {
+      const j = await r.json().catch(() => ({}));
+      dlog('render', `uploaded to ${j.path || 'server'} (${j.size || wav.byteLength} bytes)`);
+    }
+  } catch (e) {
+    dwarn('render', 'save-wav upload failed:', e.message);
+  }
+
   const blob = new Blob([wav], { type: 'audio/wav' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -840,11 +1203,85 @@ function encodeWav(left, right, sampleRate) {
   return buf;
 }
 
+// ── color system ───────────────────────────────────────────────
+// Each event (hap) gets a color from its musical content:
+//   - Pitched notes → hue from pitch class (C=0°, C#=30°, ..., B=330°),
+//     saturation/lightness modulated by sound type, octave shifts lightness.
+//   - Drums / untuned samples → role-based palette (kick, snare, hat, ...).
+//   - Anything unrecognized → falls back to VOICE_PALETTE indexed by voice.
+// Tune any of these to taste.
+
+// Pitch-class hue around the wheel
+const PITCH_HUE = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+//                 C  C# D  D#  E    F   F#   G   G#   A   A#   B
+
+// Sound family → saturation/lightness for pitched voices
+const SOUND_MOD = {
+  sawtooth: { s: 85, l: 55 },
+  saw:      { s: 85, l: 55 },
+  square:   { s: 90, l: 55 },
+  triangle: { s: 65, l: 65 },
+  sine:     { s: 45, l: 70 },
+  piano:    { s: 70, l: 60 },
+  kalimba:  { s: 80, l: 65 },
+  marimba:  { s: 75, l: 60 },
+  vibraphone:{s: 70, l: 70 },
+  white:    { s: 0,  l: 80 },
+};
+
+// Untuned / drum samples → role-based colors
+const DRUM_COLOR = {
+  bd:  'hsl(345, 80%, 60%)',  // kick   — red
+  sd:  'hsl(25,  85%, 60%)',  // snare  — orange
+  rim: 'hsl(40,  80%, 65%)',
+  cp:  'hsl(180, 75%, 60%)',  // clap   — cyan
+  hh:  'hsl(85,  75%, 60%)',  // hat    — lime
+  oh:  'hsl(75,  70%, 70%)',
+  cy:  'hsl(265, 70%, 65%)',  // cymbal — purple
+  sh:  'hsl(50,  60%, 70%)',  // shaker — gold
+  tom: 'hsl(15,  70%, 55%)',
+  perc:'hsl(200, 70%, 65%)',
+};
+
+function parseNote(note) {
+  if (typeof note !== 'string') return null;
+  const m = note.trim().match(/^([a-gA-G])([#b]?)(-?\d+)?$/);
+  if (!m) return null;
+  const [, letter, acc, oct] = m;
+  const base = { c: 0, d: 2, e: 4, f: 5, g: 7, a: 9, b: 11 }[letter.toLowerCase()];
+  const shift = acc === '#' ? 1 : acc === 'b' ? -1 : 0;
+  const pc = (base + shift + 12) % 12;
+  return { pc, octave: oct != null ? parseInt(oct, 10) : 4 };
+}
+
+function colorForHap(hap, fallback) {
+  const v = hap?.value || {};
+  const s = String(v.s || '').toLowerCase();
+
+  // Sample name might be "bd:5" — strip the variant suffix
+  const sBase = s.split(':')[0];
+
+  // Untuned / drum samples
+  if (DRUM_COLOR[sBase]) return DRUM_COLOR[sBase];
+
+  // Pitched: try v.note first, then fall back to v.freq → note name
+  const parsed = parseNote(v.note);
+  if (parsed) {
+    const hue = PITCH_HUE[parsed.pc];
+    const mod = SOUND_MOD[sBase] || { s: 70, l: 60 };
+    const lShift = (parsed.octave - 4) * 5;
+    const L = Math.max(30, Math.min(80, mod.l + lShift));
+    return `hsl(${hue}, ${mod.s}%, ${L}%)`;
+  }
+
+  return fallback || 'hsl(0, 0%, 70%)';
+}
+
 // ── per-voice particle system ──────────────────────────────────
 // Each distinct voice in the running pattern (identified by its source
-// location) gets a fixed angular position around the center and its own
-// colour. Every hap triggers a burst of particles from that position.
-// Layered: 1 voice = single ribbon; 8 voices = colored bloom.
+// location) gets a fixed angular position around the center. Particle
+// colors come from `colorForHap()`; the voice anchor takes the color of
+// its first hap (stable arc, melodic particles).
 const VOICE_PALETTE = [
   '#9b6dff', '#5dd0ff', '#ff8a3d', '#5dffb1',
   '#ff7ad9', '#ffd56b', '#b16dff', '#6dffd0',
@@ -857,12 +1294,14 @@ const PARTICLE_MAX = 800;
 function registerVoiceHit(loc, hap) {
   const key = `${loc.start}-${loc.end}`;
   let v = voiceMap.get(key);
+  const fallback = VOICE_PALETTE[voiceMap.size % VOICE_PALETTE.length];
+  const hapColor = colorForHap(hap, fallback);
   if (!v) {
     const i = voiceMap.size;
     // golden-angle distribution gives even-ish spread regardless of count
     v = {
       angle: ((i * 137.508) % 360) * Math.PI / 180,
-      color: VOICE_PALETTE[i % VOICE_PALETTE.length],
+      color: hapColor,
       lastHit: 0,
       hits: 0,
       intensity: 0,
@@ -872,14 +1311,15 @@ function registerVoiceHit(loc, hap) {
   v.lastHit = performance.now();
   v.hits++;
   v.intensity = Math.min(1, v.intensity + 0.4);
-  // burst of particles from this voice's emitter point
+  // burst of particles from this voice's emitter point — each particle
+  // takes the CURRENT hap's color, so melodic voices fan out in a gradient
   const gain = hap?.value?.gain ?? 0.5;
   const n = 4 + Math.floor(gain * 6);
-  for (let i = 0; i < n; i++) spawnParticle(v, gain);
+  for (let i = 0; i < n; i++) spawnParticle(v, gain, hapColor);
   if (particles.length > PARTICLE_MAX) particles.splice(0, particles.length - PARTICLE_MAX);
 }
 
-function spawnParticle(voice, gain) {
+function spawnParticle(voice, gain, color) {
   const speed = 0.6 + Math.random() * 1.4 + gain * 1.0;
   const spread = 0.35;
   const ang = voice.angle + (Math.random() - 0.5) * spread;
@@ -890,7 +1330,7 @@ function spawnParticle(voice, gain) {
     drift: (Math.random() - 0.5) * 0.015,
     life: 1,
     decay: 0.012 + Math.random() * 0.008,
-    color: voice.color,
+    color: color || voice.color,
     size: 1.5 + Math.random() * 2.8,
     spawnAng: ang,
   });
@@ -952,10 +1392,11 @@ function drawVoiceField() {
   ctxVoices.globalAlpha = 1;
 }
 
-function flashRange(start, end) {
+function flashRange(start, end, color) {
   for (let i = start; i < end; i++) {
     const span = charSpans[i];
     if (!span) continue;
+    if (color) span.style.setProperty('--lit', color);
     span.classList.remove('lit');
     void span.offsetWidth;
     span.classList.add('lit');
@@ -1372,6 +1813,10 @@ async function play() {
       try { await strudelCtx.resume(); } catch (_) {}
       dlog('audio', 'AudioContext state now:', strudelCtx?.state);
     }
+    // Set up the ring buffer once the context is alive — first play() is the
+    // earliest reliable moment the AudioContext is running and the worklet
+    // module can be loaded.
+    if (!ringNode) setupRingBuffer();
     const t0 = performance.now();
     await evaluate(transformCode(currentCode));
     dlog('eval', `play() evaluate took ${(performance.now() - t0).toFixed(0)}ms`);
@@ -1394,6 +1839,7 @@ async function play() {
 function stop() {
   hush();
   isPlaying = false;
+  stopAutoAdvance();
   setStatus('stopped');
   els.play.disabled = false;
   els.stop.disabled = true;
@@ -1438,6 +1884,12 @@ function resizeCanvases() {
 }
 resizeCanvases();
 window.addEventListener('resize', () => { resizeCanvases(); bcResize(); });
+// Catch parent-container size changes (sidebar toggles, layout reflow, etc.)
+// that don't fire window.resize but still shift the canvas's CSS box.
+const vizEl = document.getElementById('viz');
+if (vizEl && 'ResizeObserver' in window) {
+  new ResizeObserver(() => { resizeCanvases(); bcResize(); }).observe(vizEl);
+}
 
 // onset / beat detection (very rough — RMS spike)
 let lastRms = 0;

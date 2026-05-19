@@ -2,6 +2,8 @@
 
 Live-coding music workspace built on [Strudel](https://strudel.cc), driven by Claude Code agents. The repo contains skills that teach agents how to compose / perform / iterate on tracks, a browser-based player for live editing, and one worked example track.
 
+![toaster-strudel player preview](preview.gif)
+
 The private fork that drove this includes a four-track EP and additional artist-style skills. This public release ships the framework, the player, and `style-bonobo` as a worked example of the artist-as-skill pattern.
 
 ## Vocabulary
@@ -32,6 +34,8 @@ strudel-skills/
 │   ├── strudel-iterate/         ← A/B variation workflow
 │   ├── strudel-sample-library/  ← what samples we have + how to load more
 │   ├── strudel-effects/         ← filters, modulation, the "weird stuff"
+│   ├── strudel-modifiers/       ← complete modifier index (pattern construction,
+│   │                              time, signals, randomness, scales, sample slicing)
 │   ├── strudel-test/            ← verifying patterns via strudel.cc
 │   └── style-bonobo/            ← example artist-style skill (production
 │                                   lens with librosa analysis of Black Sands)

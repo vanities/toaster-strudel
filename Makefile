@@ -25,7 +25,7 @@ serve:
 	@if [ -f $(PIDFILE) ] && kill -0 `cat $(PIDFILE)` 2>/dev/null; then \
 		echo "server already running (pid `cat $(PIDFILE)`, port $(PORT))"; \
 	else \
-		uv run python -m http.server $(PORT) > .server.log 2>&1 & echo $$! > $(PIDFILE); \
+		PORT=$(PORT) node tools/server.mjs > .server.log 2>&1 & echo $$! > $(PIDFILE); \
 		sleep 0.4; \
 		echo "serving on $(URL) (pid `cat $(PIDFILE)`)"; \
 	fi

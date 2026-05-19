@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="toast" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd56b"/>
+      <stop offset="1" stop-color="#ff8a3d"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9b6dff"/>
+      <stop offset="1" stop-color="#5dd0ff"/>
+    </linearGradient>
+  </defs>
+  <!-- two slices of toast popping up -->
+  <rect x="7"  y="3" width="7" height="10" rx="1.4" fill="url(#toast)"/>
+  <rect x="17" y="5" width="7" height="8"  rx="1.4" fill="url(#toast)" opacity="0.9"/>
+  <!-- toaster body -->
+  <rect x="3" y="12" width="26" height="16" rx="3" fill="url(#body)"/>
+  <!-- slot opening -->
+  <rect x="5" y="13" width="22" height="2.5" rx="0.8" fill="#1a1530"/>
+  <!-- heating element accent -->
+  <line x1="6" y1="21" x2="26" y2="21" stroke="#ffd56b" stroke-width="0.8" opacity="0.7"/>
+  <!-- lever -->
+  <circle cx="25" cy="24.5" r="1.2" fill="#ffd56b"/>
+</svg>

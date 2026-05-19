@@ -19,8 +19,5 @@ tracks/*
 
 # Style skills that live in the Artist-Vault-Kit (private). Public repo ships
 # only style-bonobo as a worked example of the artist-style-as-skill pattern.
-skills/skills/style-djrum/
-skills/skills/style-floating-points/
-skills/skills/style-kiasmos/
-skills/skills/style-skee-mask/
-skills/skills/style-switch-angel/
+skills/skills/style-*/
+!skills/skills/style-bonobo/
