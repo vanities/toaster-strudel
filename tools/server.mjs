@@ -209,6 +209,33 @@ const server = http.createServer(async (req, res) => {
       return res.end(JSON.stringify(status));
     }
 
+    // ── GET /tracks — auto-discover playable tracks on disk ──
+    // Returns top-level tracks/*.strudel as [{ id, label }], sorted.
+    // Excludes section dirs, _scrapped/, and dot/underscore files so the
+    // player menu always mirrors what's actually in the folder.
+    if (url.pathname === '/tracks' && req.method === 'GET') {
+      const tracksDir = path.join(ROOT, 'tracks');
+      let entries = [];
+      try {
+        entries = fs.readdirSync(tracksDir, { withFileTypes: true });
+      } catch {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end('[]');
+      }
+      const tracks = entries
+        .filter(d => d.isFile() && d.name.endsWith('.strudel')
+          && !d.name.startsWith('_') && !d.name.startsWith('.'))
+        .map(d => {
+          const id = d.name.replace(/\.strudel$/, '');
+          const dash = id.indexOf('-');
+          const label = dash > 0 ? `${id.slice(0, dash)} — ${id.slice(dash + 1)}` : id;
+          return { id, label };
+        })
+        .sort((a, b) => a.id.localeCompare(b.id));
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify(tracks));
+    }
+
     // ── static files (everything else) ───────────────────────
     if (req.method === 'GET' || req.method === 'HEAD') {
       return serveStatic(req, res, url.pathname);
@@ -225,6 +252,7 @@ server.listen(PORT, () => {
   console.log(`strudel-skills server on http://localhost:${PORT}/player/`);
   console.log(`  GET  /audio?seconds=N    — latest N seconds as WAV`);
   console.log(`  GET  /audio/status       — buffer availability + age`);
+  console.log(`  GET  /tracks             — auto-discovered track list (JSON)`);
   console.log(`  POST /save-wav?name=X    — persist full WAV to /tmp/strudel-renders/X.wav`);
   console.log(`  POST /upload-buffer      — (used by the player)`);
 });

@@ -203,12 +203,9 @@ dremote('boot', { ua: navigator.userAgent, ts: new Date().toISOString() });
 const SAMPLE_BASE = 'https://raw.githubusercontent.com/felixroos/dough-samples/main';
 
 // ── state / refs ───────────────────────────────────────────────
-const TRACKS = [
-  { id: '01-dawn',  label: '01 — dawn'  },
-  { id: '02-drift', label: '02 — drift' },
-  { id: '03-tides', label: '03 — tides' },
-  { id: '04-dusk',  label: '04 — dusk'  },
-];
+// Auto-discovered at boot from GET /tracks (the server lists tracks/*.strudel).
+// Don't hardcode track entries here — the menu reflects what's on disk.
+let TRACKS = [];
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -280,12 +277,15 @@ applyTheme();
 const themeColor = (name) =>
   getComputedStyle(document.documentElement).getPropertyValue(`--${name}`).trim() || '#fff';
 
-// ── populate dropdown ─────────────────────────────────────────
-for (const t of TRACKS) {
-  const opt = document.createElement('option');
-  opt.value = t.id;
-  opt.textContent = t.label;
-  els.select.appendChild(opt);
+// ── populate dropdown (called after tracks are discovered) ────
+function populateTrackMenu() {
+  els.select.innerHTML = '';
+  for (const t of TRACKS) {
+    const opt = document.createElement('option');
+    opt.value = t.id;
+    opt.textContent = t.label;
+    els.select.appendChild(opt);
+  }
 }
 
 // ── strudel init + sample load ────────────────────────────────
@@ -2406,9 +2406,30 @@ if (sectionLenBtn) {
   });
 })();
 
+// Discover tracks from disk via the dev server, then build the menu.
+async function discoverTracks() {
+  try {
+    const res = await fetch('/tracks', { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    TRACKS = await res.json();
+  } catch (err) {
+    dwarn('init', 'track discovery failed:', err.message);
+    TRACKS = [];
+  }
+  return TRACKS;
+}
+
 // kick off
 applyAutoAdvanceUI();
 applyResetUI();
 const resetBtn = document.getElementById('tl-reset');
 if (resetBtn) resetBtn.addEventListener('click', toggleResetOnSwap);
-loadTrack(0);
+(async () => {
+  await discoverTracks();
+  populateTrackMenu();
+  if (TRACKS.length === 0) {
+    setStatus('no tracks found');
+    return;
+  }
+  await loadTrack(0);
+})();
