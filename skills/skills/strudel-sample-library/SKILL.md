@@ -37,6 +37,7 @@ A voice can be in the `stack()`, parse fine, and STILL be inaudible. The usual c
 - **Don't over-hpf a hat.** `hpf(4200)` strips almost all of a hi-hat's body and it goes silent. Keep shaker/hat `hpf` around **1200–2000**.
 - **A low-passed kick disappears in a dense mix.** `s("bd").lpf(150)` is a fine sparse-intro thud, but in a full section (kick + sub + pad all stacked low) it has no transient to cut through and reads as "not there." For groove/climax sections give the kick presence — `lpf` ≥ ~1000 or none — and keep sub/pad out of its low-end way.
 - **Same-family voices mask each other.** A `vibraphone` counter under a `vibraphone_bowed` pad muddies — vary the timbre (use `marimba`/`kalimba`/`harp` for the counter).
+- **A pure sine sub is FELT, not heard.** A low `sine` (e.g. C2 ≈ 65 Hz) puts all its energy at the fundamental, which laptop/phone speakers barely reproduce — so it seems missing no matter the gain. Give it harmonics that land in ~150–400 Hz: use `triangle` (warm) or `sawtooth` instead of `sine` and open the `lpf` to ~600–800, and/or octave-double (same note one octave up). Then the bass translates on any speaker.
 
 ## What's in the full TidalCycles Dirt set (loaded by default)
 
