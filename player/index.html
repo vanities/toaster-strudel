@@ -71,8 +71,11 @@
           <span class="track-title" id="track-title">loading…</span>
         </div>
         <div class="code-meta">
+          <span id="edit-status" class="edit-status"></span>
           <span id="patch-flash" class="patch-flash"></span>
           <span id="code-path" class="code-path">tracks/01-dawn.strudel</span>
+          <button id="edit-btn" class="btn code-btn" title="Edit code (E) — pauses auto-advance, hear changes live">edit</button>
+          <button id="save-btn" class="btn code-btn" title="Save edits to this file on disk" disabled hidden>save</button>
         </div>
       </header>
 
@@ -88,7 +91,11 @@
         <button id="tl-clear"  title="Refresh (K)">↻</button>
       </div>
 
-      <pre id="code-pre" class="code"></pre>
+      <div class="code-wrap" id="code-wrap">
+        <pre id="code-pre" class="code"></pre>
+        <textarea id="code-edit" class="code" spellcheck="false" autocomplete="off"
+                  autocapitalize="off" autocorrect="off" wrap="off" hidden></textarea>
+      </div>
     </section>
 
     <div id="splitter" title="Drag to resize"></div>
@@ -138,8 +145,9 @@
         <tr><td><kbd>z</kbd></td><td>toggle reset-on-swap (manual section change re-arms the section timer)</td></tr>
         <tr><td><kbd>\</kbd></td><td>replay all sections</td></tr>
         <tr><td><kbd>k</kbd></td><td>refresh sections from disk</td></tr>
+        <tr><td><kbd>e</kbd></td><td>edit code (pauses auto-advance; changes apply live)</td></tr>
+        <tr><td><kbd>esc</kbd></td><td>exit edit mode (resumes auto-advance) · close help</td></tr>
         <tr><td><kbd>?</kbd></td><td>this help</td></tr>
-        <tr><td><kbd>esc</kbd></td><td>close help</td></tr>
       </table>
     </div>
   </div>

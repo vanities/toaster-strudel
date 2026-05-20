@@ -488,7 +488,69 @@ body.dragging { cursor: col-resize; user-select: none; }
   white-space: pre;
   tab-size: 2;
   min-height: 0;
+  box-sizing: border-box;
 }
+
+/* Editor overlay: a transparent <textarea> sits exactly over the highlighted
+   <pre>. The textarea is the edit surface (real caret + text), the <pre> is the
+   colour/glow layer showing through. Both share .code metrics so glyphs align
+   1:1. */
+.code-wrap {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+#code-pre, #code-edit {
+  position: absolute;
+  inset: 0;
+  scrollbar-width: none;            /* clean look; wheel still scrolls */
+}
+#code-pre::-webkit-scrollbar, #code-edit::-webkit-scrollbar { display: none; }
+#code-edit {
+  background: transparent;
+  border: 0;
+  outline: none;
+  resize: none;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  caret-color: var(--accent);
+  z-index: 2;
+}
+#code-edit::selection { background: color-mix(in srgb, var(--accent) 32%, transparent); }
+/* While editing, the highlighted <pre> shouldn't intercept the caret. */
+#code-panel[data-editing="true"] #code-pre { pointer-events: none; }
+
+/* Code-panel toolbar buttons (edit / save). */
+.code-btn {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 0.2rem 0.55rem;
+  line-height: 1.4;
+  border-radius: 5px;
+}
+.code-btn.active {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+#save-btn:not([disabled]) {
+  background: color-mix(in srgb, var(--warm) 22%, transparent);
+  border-color: var(--warm);
+  color: var(--warm);
+}
+#save-btn[disabled] { opacity: 0.4; }
+.edit-status {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.edit-status.error { color: #ff6b6b; }
+.edit-status.ok    { color: var(--accent); }
 
 .code .tk-comment { color: var(--text-dim); font-style: italic; }
 .code .tk-string  { color: var(--accent2); }

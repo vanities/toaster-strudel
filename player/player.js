@@ -242,6 +242,10 @@ const els = {
   vizVoicesCount: $('viz-voices-count'),
   codePanel: $('code-panel'),
   codePre:   $('code-pre'),
+  codeEdit:  $('code-edit'),
+  editBtn:   $('edit-btn'),
+  saveBtn:   $('save-btn'),
+  editStatus:$('edit-status'),
   codePath:  $('code-path'),
   patchFlash:$('patch-flash'),
   tlStrip:   $('tl-strip'),
@@ -255,11 +259,14 @@ const els = {
 
 let currentIndex = 0;
 let currentCode = '';
+let originalCode = '';           // on-disk version of the current file (for save-diff)
 let currentCps = 0.5;
 let cpsOverride = null;          // [/] adjustments
 let isPlaying = false;
 let isMuted = false;
 let strudelReady = false;
+let isEditing = false;           // code editor open → auto-advance paused
+let liveEvalTimer = null;        // debounce for live-as-you-type re-evaluation
 
 // ── themes ─────────────────────────────────────────────────────
 const THEMES = ['aurora', 'sunset', 'forest', 'void'];
@@ -526,6 +533,10 @@ function updateTimeReadout() {
 let nextSectionAt = 0;
 function updateNextReadout() {
   if (!els.nextReadout) return;
+  if (isEditing && pausedAdvanceMs != null) {
+    els.nextReadout.textContent = `paused ${fmtMMSS(pausedAdvanceMs)}`;
+    return;
+  }
   if (!autoAdvance || !nextSectionAt) {
     els.nextReadout.textContent = '—';
     return;
@@ -544,6 +555,7 @@ function transformCode(raw) {
 
 // ── track loading ─────────────────────────────────────────────
 async function loadTrack(index) {
+  if (isEditing) exitEditMode({ resume: false });
   currentIndex = (index + TRACKS.length) % TRACKS.length;
   const track = TRACKS[currentIndex];
   els.select.value = track.id;
@@ -557,6 +569,7 @@ async function loadTrack(index) {
     const code = await res.text();
 
     currentCode = code;
+    originalCode = code;
     cpsOverride = null;
     currentCps = parseCps(code) ?? 0.5;
     updateBpm();
@@ -635,6 +648,129 @@ function flashPatch(label = 'patched') {
   els.patchFlash.textContent = `● ${label}`;
   els.patchFlash.classList.add('show');
   setTimeout(() => els.patchFlash.classList.remove('show'), 1200);
+}
+
+// ── code editor ────────────────────────────────────────────────
+// A transparent <textarea> overlays the highlighted <pre>. Typing updates the
+// highlight live and (debounced) re-evaluates into the running audio. Entering
+// edit mode pauses section auto-advance (and the live file-poll, which would
+// otherwise clobber edits); exiting resumes it.
+
+// Path of the file currently shown — live track file, or a section file when
+// viewing one. Used as the save target and the diff baseline.
+function currentTrackFilePath() {
+  const id = TRACKS[currentIndex]?.id;
+  if (!id) return '';
+  if (viewedIndex < 0) return `tracks/${id}.strudel`;
+  const snap = getSections(id)[viewedIndex];
+  return snap ? `tracks/${id}/${snap.file}` : `tracks/${id}.strudel`;
+}
+
+function setEditStatus(msg, kind = '') {
+  if (!els.editStatus) return;
+  els.editStatus.textContent = msg || '';
+  els.editStatus.classList.toggle('error', kind === 'error');
+  els.editStatus.classList.toggle('ok', kind === 'ok');
+}
+
+// Save button is visible only in edit mode, enabled only when the buffer
+// differs from what's on disk.
+function refreshSaveButton() {
+  if (!els.saveBtn) return;
+  const dirty = isEditing && currentCode !== originalCode;
+  els.saveBtn.hidden = !isEditing;
+  els.saveBtn.disabled = !dirty;
+}
+
+function enterEditMode() {
+  if (isEditing) return;
+  isEditing = true;
+  els.codePanel?.setAttribute('data-editing', 'true');
+  els.editBtn?.classList.add('active');
+  els.codeEdit.value = currentCode;
+  els.codeEdit.hidden = false;
+  // start the editor scrolled to match the highlight layer
+  els.codeEdit.scrollTop = els.codePre.scrollTop;
+  els.codeEdit.scrollLeft = els.codePre.scrollLeft;
+  els.codeEdit.focus();
+  pauseAutoAdvance();
+  refreshSaveButton();
+  setEditStatus(autoAdvance && isPlaying ? 'editing · auto-advance paused' : 'editing');
+  updateNextReadout();
+}
+
+function exitEditMode({ resume = true } = {}) {
+  if (!isEditing) return;
+  isEditing = false;
+  els.codePanel?.removeAttribute('data-editing');
+  els.editBtn?.classList.remove('active');
+  els.codeEdit.hidden = true;
+  els.codeEdit.blur();
+  clearTimeout(liveEvalTimer);
+  // resume from remaining time, unless we're navigating away (the nav re-arms
+  // the timer fresh for the new section/track).
+  if (resume) resumeAutoAdvance();
+  else pausedAdvanceMs = null;
+  refreshSaveButton();
+  setEditStatus('');
+  updateNextReadout();
+}
+
+function toggleEditMode() { isEditing ? exitEditMode() : enterEditMode(); }
+
+function onEditInput() {
+  currentCode = els.codeEdit.value;
+  currentCps = parseCps(currentCode) ?? currentCps;
+  updateBpm();
+  renderCode(currentCode);          // rebuild the highlight layer behind
+  syncEditScroll();
+  refreshSaveButton();
+  // live-as-you-type: debounce so we only re-evaluate after a brief pause,
+  // and never on every keystroke (each eval swaps the pattern).
+  clearTimeout(liveEvalTimer);
+  liveEvalTimer = setTimeout(applyLiveEdit, 320);
+}
+
+async function applyLiveEdit() {
+  if (!isPlaying || isMuted) { setEditStatus('editing'); return; }
+  try {
+    await evaluate(transformCode(currentCode));
+    hookPattern();
+    setEditStatus('applied', 'ok');
+  } catch (err) {
+    // Keep the last good pattern playing; just surface the parse/runtime error.
+    setEditStatus(String(err?.message || err).slice(0, 60), 'error');
+  }
+}
+
+function syncEditScroll() {
+  els.codePre.scrollTop = els.codeEdit.scrollTop;
+  els.codePre.scrollLeft = els.codeEdit.scrollLeft;
+}
+
+async function saveEdits() {
+  if (currentCode === originalCode) return;
+  const rel = currentTrackFilePath();
+  try {
+    const res = await fetch(`/save-track?path=${encodeURIComponent(rel)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: currentCode,
+    });
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok || !j.ok) throw new Error(j.error || `HTTP ${res.status}`);
+    originalCode = currentCode;
+    // Keep the in-memory section snapshot in sync so re-opening it shows saved code.
+    if (viewedIndex >= 0) {
+      const snap = getSections(TRACKS[currentIndex].id)[viewedIndex];
+      if (snap) snap.code = currentCode;
+    }
+    refreshSaveButton();
+    setEditStatus(`saved ${rel}`, 'ok');
+    flashPatch('saved');
+  } catch (err) {
+    setEditStatus(`save failed: ${String(err?.message || err).slice(0, 48)}`, 'error');
+  }
 }
 
 // ── live highlight tap ────────────────────────────────────────
@@ -1685,13 +1821,16 @@ function startAutoAdvance() {
   scheduleNextAdvance();
 }
 
-function scheduleNextAdvance() {
+function scheduleNextAdvance(overrideSecs) {
   const list = getSections(TRACKS[currentIndex].id);
   if (!list.length) return;
   const cur = viewedIndex < 0 ? 0 : viewedIndex;
-  const secs = sectionSeconds(list[cur]);
+  const fullSecs = sectionSeconds(list[cur]);
+  // overrideSecs lets resume() re-arm with only the time that was left when
+  // editing paused the timer, so a section isn't given a fresh full duration.
+  const secs = overrideSecs != null ? overrideSecs : fullSecs;
   nextSectionAt = performance.now() + secs * 1000;
-  startAutoAdvanceProgress(secs);
+  startAutoAdvanceProgress(fullSecs, fullSecs - secs);
   autoAdvanceTimer = setTimeout(async () => {
     if (!autoAdvance) return;
     const list2 = getSections(TRACKS[currentIndex].id);
@@ -1725,7 +1864,7 @@ function stopAutoAdvance() {
   stopAutoAdvanceProgress();
 }
 
-function startAutoAdvanceProgress(totalSecs) {
+function startAutoAdvanceProgress(totalSecs, elapsedOffset = 0) {
   stopAutoAdvanceProgress();
   // Insert a progress bar into the timeline strip parent
   let bar = document.querySelector('.tl-progress');
@@ -1734,12 +1873,36 @@ function startAutoAdvanceProgress(totalSecs) {
     bar.className = 'tl-progress';
     document.getElementById('timeline').appendChild(bar);
   }
-  const startedAt = performance.now();
+  // Backdate startedAt by elapsedOffset so a resumed section's bar continues
+  // from where it paused instead of snapping back to 0.
+  const startedAt = performance.now() - elapsedOffset * 1000;
   autoAdvanceProgress = setInterval(() => {
     const elapsed = (performance.now() - startedAt) / 1000;
     const frac = (elapsed % totalSecs) / totalSecs;
     bar.style.width = (frac * 100) + '%';
   }, 100);
+}
+
+// ── pause / resume the section auto-advance timer ──────────────
+// Editing pauses it so the section you're tweaking doesn't advance out from
+// under you; exiting edit mode resumes from the remaining time.
+let pausedAdvanceMs = null;
+function pauseAutoAdvance() {
+  if (!autoAdvanceTimer) return;            // nothing scheduled (off / not playing)
+  pausedAdvanceMs = Math.max(0, nextSectionAt - performance.now());
+  clearTimeout(autoAdvanceTimer);
+  autoAdvanceTimer = null;
+  stopAutoAdvanceProgress();
+  updateNextReadout();
+}
+function resumeAutoAdvance() {
+  const remaining = pausedAdvanceMs;
+  pausedAdvanceMs = null;
+  if (!(autoAdvance && isPlaying)) return;
+  if (autoAdvanceTimer) return;                       // already running
+  // Resume from the time that was left, or arm fresh if playback only began
+  // during the edit (no paused remainder captured).
+  scheduleNextAdvance(remaining != null ? remaining / 1000 : undefined);
 }
 
 function stopAutoAdvanceProgress() {
@@ -1779,6 +1942,7 @@ function renderTimeline() {
 }
 
 async function jumpToSection(index, opts = {}) {
+  if (isEditing && !opts.auto) exitEditMode({ resume: false });
   const id = TRACKS[currentIndex].id;
   const list = getSections(id);
   if (!list.length) return;
@@ -1788,6 +1952,7 @@ async function jumpToSection(index, opts = {}) {
   viewedIndex = clamped;
   const snap = list[clamped];
   currentCode = snap.code;
+  originalCode = snap.code;
   currentCps = parseCps(snap.code) ?? currentCps;
   cpsOverride = null;
   updateBpm();
@@ -1813,6 +1978,9 @@ async function jumpToSection(index, opts = {}) {
   // scheduler already re-schedule themselves naturally.
   if (!opts.auto && resetOnSwap && autoAdvance && isPlaying) {
     stopAutoAdvance();
+    scheduleNextAdvance();
+  } else if (autoAdvance && isPlaying && !autoAdvanceTimer) {
+    // No timer running (e.g. we just left edit mode) — arm it fresh.
     scheduleNextAdvance();
   }
   dlog('section', `total jump ${(performance.now() - t0).toFixed(0)}ms (manual=${!opts.auto})`);
@@ -1879,6 +2047,7 @@ let lastSectionCount = 0;
 
 async function pollForChanges() {
   if (!TRACKS[currentIndex]) return;
+  if (isEditing) return;        // don't clobber the buffer you're editing
   if (viewedIndex >= 0) return; // viewing a section — don't auto-follow live
   try {
     const res = await fetch(`../tracks/${TRACKS[currentIndex].id}.strudel`, { cache: 'no-cache' });
@@ -1886,6 +2055,7 @@ async function pollForChanges() {
     const code = await res.text();
     if (code !== currentCode) {
       currentCode = code;
+      originalCode = code;
       currentCps = parseCps(code) ?? currentCps;
       cpsOverride = null;
       updateBpm();
@@ -1966,7 +2136,8 @@ async function play() {
     els.play.disabled = true;
     els.stop.disabled = false;
     updateTimeReadout();
-    if (autoAdvance && !autoAdvanceTimer) startAutoAdvance();
+    // Don't arm auto-advance while editing — it stays paused until you exit.
+    if (autoAdvance && !autoAdvanceTimer && !isEditing) startAutoAdvance();
   } catch (err) {
     console.error(err);
     setStatus(`error: ${err.message.slice(0, 40)}`);
@@ -2241,8 +2412,12 @@ function closeHelp() { els.help.hidden = true; }
 
 // ── keybinds ──────────────────────────────────────────────────
 window.addEventListener('keydown', (e) => {
-  // Don't hijack typing in the dropdown.
-  if (e.target.tagName === 'INPUT') return;
+  // Don't hijack typing in the dropdown or the code editor. Escape still
+  // exits edit mode / closes help.
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || isEditing) {
+    if (e.code === 'Escape') { isEditing ? exitEditMode() : closeHelp(); }
+    return;
+  }
 
   switch (e.code) {
     case 'Space':
@@ -2309,8 +2484,35 @@ window.addEventListener('keydown', (e) => {
     case 'z': case 'Z':
       toggleResetOnSwap();
       return;
+    case 'e': case 'E':
+      toggleEditMode();
+      return;
   }
 });
+
+// ── code editor wiring ─────────────────────────────────────────
+if (els.codeEdit) {
+  els.codeEdit.addEventListener('input', onEditInput);
+  els.codeEdit.addEventListener('scroll', syncEditScroll);
+  els.codeEdit.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      // Insert two spaces instead of moving focus.
+      e.preventDefault();
+      const ta = els.codeEdit;
+      const s = ta.selectionStart, end = ta.selectionEnd;
+      ta.value = ta.value.slice(0, s) + '  ' + ta.value.slice(end);
+      ta.selectionStart = ta.selectionEnd = s + 2;
+      onEditInput();
+    } else if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+      // ⌘/Ctrl+Enter forces an immediate apply (skips the debounce).
+      e.preventDefault();
+      clearTimeout(liveEvalTimer);
+      applyLiveEdit();
+    }
+  });
+}
+if (els.editBtn) els.editBtn.addEventListener('click', toggleEditMode);
+if (els.saveBtn) els.saveBtn.addEventListener('click', saveEdits);
 
 
 // ── click wiring ──────────────────────────────────────────────

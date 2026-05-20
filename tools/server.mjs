@@ -195,6 +195,25 @@ const server = http.createServer(async (req, res) => {
       return res.end(JSON.stringify({ path: outPath, size: body.length, name: safeName }));
     }
 
+    // ── POST /save-track?path=tracks/<id>.strudel — write edited code ──
+    // The player's editor POSTs the current buffer here when you hit "save".
+    // Path is validated to stay inside tracks/ and end in .strudel so the
+    // endpoint can't be used to clobber arbitrary files.
+    if (url.pathname === '/save-track' && req.method === 'POST') {
+      const rel = decodeURIComponent(url.searchParams.get('path') || '');
+      const target = path.normalize(path.join(ROOT, rel));
+      const tracksDir = path.join(ROOT, 'tracks');
+      if (!target.startsWith(tracksDir + path.sep) || !target.endsWith('.strudel')) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ ok: false, error: 'path must be tracks/*.strudel' }));
+      }
+      const body = await readBody(req);
+      fs.mkdirSync(path.dirname(target), { recursive: true });
+      fs.writeFileSync(target, body);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ ok: true, path: rel, size: body.length }));
+    }
+
     // ── /audio/status ───────────────────────────────────────
     if (url.pathname === '/audio/status' && req.method === 'GET') {
       const status = latest
