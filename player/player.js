@@ -647,11 +647,31 @@ let charSpans = [];
 
 function buildTap(pattern) {
   if (!pattern || pattern.__tapped) return pattern;
-  const tapped = pattern.onTrigger((hap) => {
+  // Callback signature (per-hap onTrigger): (hap, currentTime, cps, targetTime)
+  const tapped = pattern.onTrigger((hap, _now, cps, targetTime) => {
     try {
       const locs = hap?.context?.locations || [];
       const color = colorForHap(hap);
-      for (const loc of locs) flashRange(loc.start, loc.end, color);
+      const v = hap?.value || {};
+      // Note length in seconds = whole-event span (cycles) ÷ cps. Long/held
+      // notes (pads, drones) stay lit and pulse for their full duration.
+      let durSec = 0;
+      if (hap?.whole && cps > 0) {
+        durSec = (Number(hap.whole.end) - Number(hap.whole.begin)) / cps;
+      }
+      // Loudness drives "lighter → more color": gain×velocity. Attack drives
+      // the swell-in. Glow pulses at the beat (1 cycle = 4 beats), phase-locked
+      // to the beat grid so held notes breathe together.
+      const gain = (v.gain ?? 0.4) * (v.velocity ?? 1);
+      const attackSec = Number(v.attack) || 0;
+      const beatSec = cps > 0 ? 1 / (cps * 4) : 0.5;
+      let pulseDelay = 0;
+      if (cps > 0 && Number.isFinite(targetTime)) {
+        const beatPhase = ((targetTime * cps * 4) % 1 + 1) % 1;
+        pulseDelay = -beatPhase * beatSec;
+      }
+      const opts = { durSec, gain, attackSec, beatSec, pulseDelay };
+      for (const loc of locs) flashRange(loc.start, loc.end, color, opts);
       if (locs.length) registerVoiceHit(locs[0], hap);
     } catch (_) {}
   }, false);
@@ -1471,15 +1491,54 @@ function drawVoiceField() {
   ctxVoices.globalAlpha = 1;
 }
 
-function flashRange(start, end, color) {
+const HELD_MIN_SEC = 0.5;   // notes ≥ this stay lit + pulse; shorter ones flash
+// Track gains sit ~0.18–0.6; normalise over that so quiet=pale, loud=full colour.
+const GAIN_FULL = 0.55;
+
+function flashRange(start, end, color, opts = {}) {
+  const { durSec = 0, gain = 0.4, attackSec = 0, beatSec = 0.6, pulseDelay = 0 } = opts;
+  const held = durSec >= HELD_MIN_SEC;
+  const intensity = Math.max(0, Math.min(1, gain / GAIN_FULL));
+  // Swell-in can't outlast the note itself.
+  const attackDur = Math.max(0, Math.min(attackSec, durSec));
   for (let i = start; i < end; i++) {
     const span = charSpans[i];
     if (!span) continue;
     if (color) span.style.setProperty('--lit', color);
-    span.classList.remove('lit');
-    void span.offsetWidth;
-    span.classList.add('lit');
-    setTimeout(() => span.classList.remove('lit'), 500);
+    span.style.setProperty('--intensity', intensity.toFixed(3));
+    // Cancel any pending un-light so an earlier note's timer can't cut this
+    // one short (matters for held notes that outlive a previous flash).
+    if (span.__litTimer) { clearTimeout(span.__litTimer); span.__litTimer = null; }
+    span.classList.remove('lit', 'held');
+    void span.offsetWidth;   // restart the animation
+    if (held) {
+      span.style.setProperty('--held-dur', `${beatSec.toFixed(3)}s`);
+      span.style.setProperty('--attack-dur', `${attackDur.toFixed(3)}s`);
+      span.style.setProperty('--pulse-delay', `${pulseDelay.toFixed(3)}s`);
+      span.classList.add('held');
+      span.__litTimer = setTimeout(() => releaseHeld(span), durSec * 1000);
+    } else {
+      span.classList.add('lit');
+      span.__litTimer = setTimeout(() => {
+        span.classList.remove('lit');
+        span.__litTimer = null;
+      }, 500);
+    }
+  }
+}
+
+// A held note ended — drop the steady glow; the base-span text-shadow
+// transition (styles.css) eases it back out rather than hard-cutting.
+function releaseHeld(span) {
+  span.classList.remove('held');
+  span.__litTimer = null;
+}
+
+function clearHighlights() {
+  for (const span of charSpans) {
+    if (!span) continue;
+    if (span.__litTimer) { clearTimeout(span.__litTimer); span.__litTimer = null; }
+    span.classList.remove('lit', 'held');
   }
 }
 
@@ -1917,6 +1976,7 @@ async function play() {
 
 function stop() {
   hush();
+  clearHighlights();
   isPlaying = false;
   stopAutoAdvance();
   setStatus('stopped');

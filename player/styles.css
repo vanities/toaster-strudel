@@ -497,18 +497,59 @@ body.dragging { cursor: col-resize; user-select: none; }
 .code .tk-method  { color: color-mix(in srgb, var(--accent) 70%, var(--text)); }
 .code .tk-ident, .code .tk-op { color: var(--text); }
 
+/* Held notes ease their text-glow back out on release. Scoped to text-shadow
+   only: the flash (.lit) uses box-shadow, so its onset stays instant and it
+   leaves no colour trail. The held-pulse animation overrides this while active. */
+.code span[data-pos] {
+  transition: text-shadow 0.4s ease-out;
+}
+
+/* Transient hits: punchy inverted block. Glow size scales with loudness. */
 .code .lit {
   background: var(--lit, var(--accent));
   color: var(--bg) !important;
   border-radius: 2px;
   box-shadow:
-    0 0 14px var(--lit, var(--accent)),
-    0 0 28px color-mix(in srgb, var(--lit, var(--accent)) 50%, transparent);
+    0 0 calc(8px + var(--intensity, 0.5) * 12px) var(--lit, var(--accent)),
+    0 0 calc(16px + var(--intensity, 0.5) * 24px) color-mix(in srgb, var(--lit, var(--accent)) 50%, transparent);
   animation: lit-fade 0.55s ease-out forwards;
 }
 @keyframes lit-fade {
   0%   { background: var(--lit, var(--accent)); }
   100% { background: transparent; box-shadow: 0 0 0 transparent; color: inherit; }
+}
+
+/* Held notes (pads/drones) stay lit and breathe for the note's full duration.
+   --intensity (gain) → "lighter to more colour": near-white & faint when soft,
+   saturated hue & big glow when loud. --held-dur is one beat, --pulse-delay
+   phase-locks the breathing to the beat grid, --attack-dur swells it in. */
+.code .held {
+  border-radius: 2px;
+  color: color-mix(in srgb, var(--lit, var(--accent)) calc(25% + var(--intensity, 0.5) * 75%), #fff);
+  background: color-mix(in srgb, var(--lit, var(--accent)) calc(6% + var(--intensity, 0.5) * 22%), transparent);
+  animation:
+    held-pulse var(--held-dur, 0.6s) ease-in-out var(--pulse-delay, 0s) infinite,
+    held-attack var(--attack-dur, 0s) ease-out 0s 1 both;
+}
+@keyframes held-pulse {
+  0%, 100% {   /* on the beat — glow swells */
+    text-shadow:
+      0 0 calc(3px + var(--intensity, 0.5) * 8px) var(--lit, var(--accent)),
+      0 0 calc(8px + var(--intensity, 0.5) * 20px) var(--lit, var(--accent));
+    box-shadow: 0 0 calc(6px + var(--intensity, 0.5) * 18px)
+      color-mix(in srgb, var(--lit, var(--accent)) calc(25% + var(--intensity, 0.5) * 45%), transparent);
+  }
+  50% {        /* between beats — glow recedes */
+    text-shadow:
+      0 0 calc(1px + var(--intensity, 0.5) * 2px) var(--lit, var(--accent)),
+      0 0 calc(2px + var(--intensity, 0.5) * 5px) var(--lit, var(--accent));
+    box-shadow: 0 0 calc(2px + var(--intensity, 0.5) * 5px)
+      color-mix(in srgb, var(--lit, var(--accent)) calc(6% + var(--intensity, 0.5) * 15%), transparent);
+  }
+}
+@keyframes held-attack {  /* mirror the envelope's attack: swell in */
+  from { opacity: 0.08; }
+  to   { opacity: 1; }
 }
 
 /* ── viz pane ───────────────────────────────────────────── */
