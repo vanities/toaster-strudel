@@ -31,10 +31,11 @@
 
     <div class="controls">
       <select id="track-select" aria-label="Track"></select>
-      <button id="prev"   class="btn btn-icon" title="Previous track (←)" aria-label="Previous track"><span>‹</span></button>
+      <button id="prev"   class="btn btn-icon" title="Previous track (←)" aria-label="Previous track"><span>⏮</span></button>
       <button id="play"   class="btn btn-icon btn-primary" title="Play (Space)" aria-label="Play"><span>▶</span></button>
       <button id="stop"   class="btn btn-icon" title="Stop (Space)" disabled aria-label="Stop"><span>■</span></button>
-      <button id="next"   class="btn btn-icon" title="Next track (→)" aria-label="Next track"><span>›</span></button>
+      <button id="next"   class="btn btn-icon" title="Next track (→)" aria-label="Next track"><span>⏭</span></button>
+      <span class="ctrl-divider" aria-hidden="true"></span>
       <button id="reload" class="btn btn-icon" title="Reload (R)" aria-label="Reload"><span>↻</span></button>
       <a      id="open-cc" class="btn btn-icon btn-link" href="#" target="_blank" rel="noopener" title="Open in strudel.cc" aria-label="Open in strudel.cc"><span>↗</span></a>
       <button id="rec-btn" class="btn btn-icon" title="Record live (saves WAV; convert to FLAC via ffmpeg)" aria-label="Record"><span>●</span></button>
@@ -77,15 +78,17 @@
       </header>
 
       <div class="timeline" id="timeline">
-        <button id="tl-prev"   title="Previous section (,)">‹</button>
+        <div class="tl-nav" role="group" aria-label="Section navigation">
+          <button id="tl-prev" class="btn" title="Previous section (,)">◂</button>
+          <button id="tl-next" class="btn" title="Next section (.)">▸</button>
+        </div>
         <div    id="tl-strip" class="tl-strip"></div>
-        <button id="tl-next"   title="Next section (.)">›</button>
-        <button id="tl-auto"   title="Auto-advance through sections (A)">⟳</button>
+        <button id="tl-auto"   class="btn" title="Auto-advance through sections (A)">⟳</button>
         <button id="tl-section-len" class="btn section-pill" title="Section length (click to cycle)">32c</button>
-        <button id="tl-reset"  title="Reset cycle on manual section swap (Z)">↺</button>
-        <button id="tl-replay" title="Replay all sections once (\\)">⏵⏵</button>
+        <button id="tl-reset"  class="btn" title="Reset cycle on manual section swap (Z)">↺</button>
+        <button id="tl-replay" class="btn" title="Replay all sections once (\\)">⏵⏵</button>
         <span   id="tl-info"   class="tl-info">live</span>
-        <button id="tl-clear"  title="Refresh (K)">↻</button>
+        <button id="tl-clear"  class="btn" title="Refresh (K)">↻</button>
       </div>
 
       <pre id="code-pre" class="code"></pre>

@@ -218,6 +218,16 @@ select   { padding: 0.45rem 0.7rem; max-width: 12em; }
   justify-self: center;
 }
 
+/* Separates the transport cluster (skip / play / stop / skip) from the
+   utility buttons (reload / open / record / render). */
+.ctrl-divider {
+  width: 1px;
+  height: 22px;
+  background: var(--border);
+  margin: 0 0.3rem;
+  flex-shrink: 0;
+}
+
 /* ── status blocks ──────────────────────────────────────── */
 .status {
   display: flex;
@@ -380,6 +390,23 @@ body.dragging { cursor: col-resize; user-select: none; }
   height: 26px;
 }
 
+/* Section prev/next as one joined segmented control. */
+.tl-nav {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.tl-nav .btn:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.tl-nav .btn:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: -1px;
+}
+/* keep the joined pair flat — no per-button lift that would split the seam */
+.tl-nav .btn:hover:not(:disabled) { transform: none; }
+
 .tl-strip {
   flex: 1;
   display: flex;
@@ -465,15 +492,28 @@ body.dragging { cursor: col-resize; user-select: none; }
 .tl-info.frozen { color: var(--warm); }
 .tl-info.live   { color: var(--accent); }
 
+/* Faint full-width groove so the section row always shows a progress track,
+   even between sections when the fill is briefly absent. */
+.timeline::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: color-mix(in srgb, var(--border) 70%, transparent);
+  z-index: 0;
+  pointer-events: none;
+}
 .tl-progress {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 2px;
+  height: 3px;
   background: linear-gradient(90deg, var(--accent), var(--accent2));
   width: 0;
   transition: width 0.18s linear;
-  box-shadow: 0 0 8px var(--accent);
+  box-shadow: 0 0 10px var(--accent), 0 0 5px var(--accent2);
+  border-radius: 0 2px 2px 0;
+  z-index: 1;
 }
 
 /* ── code body ──────────────────────────────────────────── */
