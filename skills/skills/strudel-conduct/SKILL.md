@@ -147,6 +147,11 @@ note("<~ E4 ~ ~ G4 ~ D4 ~>/2").s("triangle")
 - **`@strudel/repl` web component via esm.sh fails** — transitive `soundfont2` dep doesn't resolve. Use `@strudel/web` (a clean pre-bundled drop-in) instead.
 - **CSS `display: flex` beats `[hidden]`** in specificity — explicitly add `#help[hidden] { display: none }` when toggling overlays via the `hidden` attribute.
 - **Sample gain ranges that *look* fine sound silent** — `gain(perlin.range(0.04, 0.10))` is barely above the noise floor. Practical shaker minimum: 0.18.
+- **A low-passed kick vanishes in a dense mix** — `s("bd").lpf(150)` is a fine sparse-intro thud, but with sub + pad stacked in the low end it has no transient to cut through and reads as "not playing." In full/climax sections open the kick (`lpf` ≥ ~1000 or none) and keep sub/pad out of its way.
+- **Over-hpf'd hats go silent** — `hpf(4200)` strips a hi-hat's body; it disappears. Keep hat/shaker `hpf` ~1200–2000. (Both this and the kick one are in [[strudel-sample-library]] → "Mixing pitfalls that read as 'not playing'.")
+- **`rand.range(a,b)` throws `rand.range is not a function` in @strudel/web@1.3.0** — it works on strudel.cc, but the `rand` signal isn't exposed with `.range` in this bundle's eval scope. Use `sine.range(a,b).slow(N)` (rock-solid — every pad's `lpf(sine.range(...))` proves it) or `perlin.range(a,b)` for humanised gain. **It throws during eval, which silences the ENTIRE section, not just that voice.**
+- **Chord-stacks inside `<...>` break the mini-notation parser** — `note("<[c,e,g] [d,f,a]>/16")` throws and silences the whole section. To alternate chords, stack single-note lines instead: `stack(note("<c d>/16"), note("<e f>/16"), note("<g a>/16"))`. (Single notes inside `<...>` are fine — `<c eb g>/2` — it's the `[,]` chord *inside* `<>` that breaks.)
+- **"Nothing plays" = an eval error in ONE voice, almost never a bad approach.** A single throwing function or bad syntax anywhere in the `stack()` kills the whole section's audio. When a section goes silent, get the REAL error before rewriting: open the browser console, or drive it with `agent-browser eval`/`console`, or read `/tmp/strudel-debug.log`. Don't guess — this session burned many turns guessing at chord syntax when the actual culprit was `rand.range`.
 
 ## When you're not in the loop
 

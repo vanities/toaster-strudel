@@ -64,6 +64,38 @@ s("hh*8").gain(rand.range(0.2, 0.45)).pan(sine.slow(7).range(-0.3, 0.3))
 // All voices start with .mask("<0 0 0 0 1 1 1 1>/8") to hold off entry
 ```
 
+## Melodic DNA (transcribed from "Kong")
+
+Basic Pitch → music21. Caveat: full-mix transcription, so contour blends melody + harmony; intervals/pitch-classes are aggregate.
+
+- **Key:** F♯ minor (0.886 confidence)
+- **Motion:** mostly *repeated notes + stepwise* (M2), with occasional m3 / M6 leaps. NOT heavily arpeggiated — the kalimba ostinato hovers and steps rather than wandering.
+- **Scale-degree emphasis:** F♯ (tonic), A (♭3), C♯ (5), E (♭7) — F♯-minor-pentatonic core (F♯ A B C♯ E)
+- **Contour:** `F♯4 G♯4 E5 A4 F♯3 A3 C♯4 F♯4 G♯4 A4 E5` — hovers around F♯-A-C♯, steps up to E5
+- **Chord progressions (web-verified, Hooktheory/ChordU):**
+  - *Kong* is **F♯ Dorian** — not just minor; the raised 6 (D♯) is the modal color.
+  - *Black Sands*: **Cm → A♭maj7 → Fm → B♭** (i ♭VI iv ♭VII) — a quintessential Bonobo cinematic-minor loop.
+  - *Eyesdown* (feat. Andreya Triana): E minor — **Em → Bm → A → D → G**.
+  - *Kiara*: B♭ minor — **B♭m → E♭m → G♭ → E♭ → B♭**.
+  - Pattern across tracks: minor/Dorian home, ♭VI and ♭VII borrowings, simple loops.
+- **Compose like this:** stay in F♯ Dorian / minor pentatonic; build a repetitive ostinato (repeat notes, step by M2, leap by m3/M6 sparingly). Hypnotic, not developmental. For chords, the Black Sands i-♭VI-iv-♭VII is the move.
+
+## Deeper cuts (measured)
+
+Beyond Black Sands — two catalog favorites measured (Basic Pitch + librosa), revealing a *more dynamic* Bonobo than the album-average "~5×" suggests:
+
+| Track | Album | BPM | Key | Centroid | Dyn | Note |
+|-------|-------|-----|-----|----------|-----|------|
+| **Cirrus** | The North Borders (2013) | 118 | D min | 2066 | **49×** | bright, propulsive, big dynamics |
+| **Nightlite** | Black Sands (2010) | 81 | D min | 1715 | **50×** | slower, vocal-led (Bajka), big dynamics |
+
+Both hit **~50× dynamic range** — the **open-in-near-silence → full-mix bloom** move, not a flat groove. Both sit in **D minor**. Two distinct melodic modes:
+
+- **Cirrus = pedal-tone hammer** — D repeated relentlessly (×1060 in the transcription), then F (♭3): a D-minor-pentatonic ostinato hovering F4↔E5. Hypnotic.
+- **Nightlite = a real stepwise melody** — D/A/C/F/G spread, P5 + M2 motion (an actual singable line, not a pedal).
+
+**Compose like this:** D minor home, build the big dynamic arc (open near-silent, bloom to full mix, ~50×). Pick a mode — hammered-pedal ostinato (Cirrus) or stepwise vocal-ish melody (Nightlite). The Black Sands i-♭VI-iv-♭VII loop still anchors the harmony.
+
 ## Critique any track through this lens
 
 - **Does every voice EARN its slot?** Mute each in turn — if the song still works, that voice doesn't belong.

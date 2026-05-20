@@ -7,14 +7,21 @@ What samples we can use, what they sound like, and how to add more.
 
 ## Currently loaded by default in our player
 
-The init code in `player/player.js` calls `samples()` on these manifests at boot:
+The init block in `player/player.js` calls `samples()` on ALL of these at boot — not just drums + piano. Everything here is available with no extra loading:
 
-| Pack | Sounds | Source |
-|---|---|---|
-| `tidal-drum-machines` | 683 | `dough-samples/tidal-drum-machines.json` |
-| `piano` | 1 (pitched) | `dough-samples/piano.json` |
+| Pack | Sounds | Source | Gives you |
+|---|---|---|---|
+| `tidal-drum-machines` | 683 | `dough-samples/tidal-drum-machines.json` | ~50 drum kits via `.bank()` |
+| `piano` | 1 (pitched) | `dough-samples/piano.json` | `piano` |
+| `vcsl` | 128 | `dough-samples/vcsl.json` | orchestral: 5× `kalimba`, `vibraphone` (+`_bowed`, `_soft`), `marimba`, `xylophone`, `glockenspiel`, `tubularbells`, `harp`, `folkharp`, `sax`, `organ`, `pipeorgan`, `wineglass`(`_slow`), `psaltery_bow`, `recorder_bass_sus`… |
+| `mridangam` | 13 | `dough-samples/mridangam.json` | South Indian hand drum (`ka nam ta ki dhin…`) |
+| `EmuSP12` | 14 | `dough-samples/EmuSP12.json` | SP-12 boom-bap kit |
+| `Dirt-Samples` (curated) | 9 | `dough-samples/Dirt-Samples.json` | `casio crow insect wind jazz metal east space numbers` |
+| `tidalcycles/Dirt-Samples` (full) | 218 folders | `github:tidalcycles/Dirt-Samples` | `tabla sitar jvbass breaks125/152/157/165 speakspell …` (wrapped in try/catch — skips silently if the fetch fails) |
 
-Drum kits inside `tidal-drum-machines` you can reach with `.bank("...")`:
+So in practice you already have **piano, the whole VCSL orchestral set, mridangam/SP-12/Linn/808/909 drums, and the full TidalCycles Dirt library** without adding anything. There is still **no sustained string-ensemble / violin / cello** sample anywhere — VCSL is plucked/mallet/wind. For a wide sustained pad, layer `vibraphone_bowed` / `wineglass_slow` for character over a quiet synth bed, or use a detuned `sawtooth`/`triangle` supersaw (the one job synths do better than these samples).
+
+Drum kits inside `tidal-drum-machines` you reach with `.bank("...")`:
 
 `AkaiLinn` (warm/brushy, our default) · `AkaiMPC60` · `RolandTR808` · `RolandTR909` · `KorgKR55` · `KorgKPR77` · `OberheimDMX` · `RolandCR8000` · `RolandTR606` · `BossDR55` · `RolandTR707` · ~50 more
 
@@ -22,22 +29,18 @@ Each kit has the same vocabulary: `bd cp cb cr hh ht lt mt oh rd sd` (+ kit-spec
 
 **`.bank()` is required** — `s("bd")` alone silently drops. Always chain `.bank("AkaiLinn")`.
 
-## Available but NOT loaded yet (in dough-samples)
+## Mixing pitfalls that read as "not playing" (learned the hard way)
 
-These are one-line additions to player.js's init — manifests are tiny, individual samples lazy-load.
+A voice can be in the `stack()`, parse fine, and STILL be inaudible. The usual culprits — check these before assuming a sound "doesn't work":
 
-| Pack | Sounds | Why you'd want it | Artist fit |
-|---|---|---|---|
-| **`vcsl`** | 128 | Versilian orchestral. **5 kalimba variants**, vibraphone × 3, marimba, xylophone, sax, sax_stacc, sax_vib, saxello, glockenspiel, tubularbells × 2, handbells, sleighbells, folkharp, harp, fmpiano, organ, pipeorgan | **Bonobo** (kalimba is his Black Sands signature) · **Kiasmos** (strings under techno) · **FP** (orchestral palette) |
-| **`mridangam`** | 13 | South Indian hand drum — `ka nam ta ki dhin na chaapu dhum ardha thom dhi tha gumki`. Real hand-percussion, not 909. | **Floating Points** · **DJRUM** ensemble feel · world-influenced Bonobo |
-| **`EmuSP12`** | 14 | SP-12 sampler kit. Boom-bap hip-hop character. Different feel from Linn/909. | hip-hop Bonobo (Migration era) · DJRUM dub |
-| **`Dirt-Samples`** | 9 | `casio crow insect wind jazz metal east space numbers` — field-recording/atmosphere multi-samples | Skee Mask granular ambient interludes |
+- **Drum gain floor.** Sample drums under ~0.18 gain vanish under synths. Hats/shakers want **0.25–0.5**, not 0.12–0.18 (see [[strudel-conduct]] gotcha: "gain ranges that look fine sound silent").
+- **Don't over-hpf a hat.** `hpf(4200)` strips almost all of a hi-hat's body and it goes silent. Keep shaker/hat `hpf` around **1200–2000**.
+- **A low-passed kick disappears in a dense mix.** `s("bd").lpf(150)` is a fine sparse-intro thud, but in a full section (kick + sub + pad all stacked low) it has no transient to cut through and reads as "not there." For groove/climax sections give the kick presence — `lpf` ≥ ~1000 or none — and keep sub/pad out of its low-end way.
+- **Same-family voices mask each other.** A `vibraphone` counter under a `vibraphone_bowed` pad muddies — vary the timbre (use `marimba`/`kalimba`/`harp` for the counter).
 
-## Available but NOT loaded yet (other sources)
+## What's in the full TidalCycles Dirt set (loaded by default)
 
-### `tidalcycles/Dirt-Samples` — the FULL TidalCycles set
-
-218 sample folders, FAR more than the dough-samples curated 9. Highlights:
+The `github:tidalcycles/Dirt-Samples` load gives 218 folders — far more than the dough-samples curated 9. Highlights you can reference right now (no loading needed):
 
 | Sound name | What it is | Use |
 |---|---|---|
@@ -50,11 +53,9 @@ These are one-line additions to player.js's init — manifests are tiny, individ
 | `speakspell` `speech` | Voice samples | DJRUM-style chopped vocal stems |
 | `flick` `glasstap` | Hand percussion / found-sound | One-shot accents |
 
-Load with the GitHub shortcut:
-```javascript
-await samples('github:tidalcycles/Dirt-Samples');
-```
-(Strudel resolves `github:user/repo` → `https://raw.githubusercontent.com/user/repo/main/strudel.json`.)
+(Already loaded by `player.js` via `samples('github:tidalcycles/Dirt-Samples')` — Strudel resolves `github:user/repo` → `https://raw.githubusercontent.com/user/repo/main/strudel.json`. Just reference the sound names directly.)
+
+## Available to add — not pre-loaded (on-demand)
 
 ### Shabda → Freesound · the wildcard
 
