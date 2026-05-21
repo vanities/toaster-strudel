@@ -61,6 +61,8 @@ polymeter(note("c e g"), note("c f a b"))   // 3-step over 4-step
 polyrhythm(note("c e g"), note("c f a b"))
 ```
 
+> Metric-modulation flips (÷6 vs ÷4), polymeter drift, and odd meters *as a style* → [[strudel-weird]].
+
 ## Time manipulation
 
 | Method | Effect |
@@ -212,6 +214,8 @@ s("bd*8").bank("AkaiLinn").chunk(4, x => x.ply(2))
 n("0 2 4 6 4 2").scale("C:dorian").s("triangle")
 // Plays C, E, G, B, G, E in C Dorian — but mode-aware (Eb, not E)
 ```
+
+> Xenharmonic recipes (n-EDO via fractional MIDI, just-intonation `freq` ratios, neutral/harmonic "blue" notes) → [[strudel-weird]].
 
 **Recipe — pitch-shift entire phrase up an octave for the restatement:**
 ```javascript
