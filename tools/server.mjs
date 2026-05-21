@@ -236,6 +236,35 @@ const server = http.createServer(async (req, res) => {
       return res.end(JSON.stringify(tracks));
     }
 
+    // ── GET /sections?track=<id> — enumerate a track's sections ──
+    // Reads tracks/<id>/ from disk and returns the real section list with
+    // contents inlined, so the player never blind-probes for files that
+    // may not exist (manifest.json, NN.ascii, the phantom end-of-list probe).
+    //   { manifest: <parsed manifest.json|null>, sections: [{ file, code, ascii }] }
+    if (url.pathname === '/sections' && req.method === 'GET') {
+      const id = url.searchParams.get('track') || '';
+      if (!/^[A-Za-z0-9_-]+$/.test(id)) {   // blocks path traversal (no . / ..)
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ error: 'invalid track id' }));
+      }
+      const dir = path.join(ROOT, 'tracks', id);
+      let manifest = null;
+      try { manifest = JSON.parse(fs.readFileSync(path.join(dir, 'manifest.json'), 'utf8')); } catch {}
+      let files = [];
+      try { files = fs.readdirSync(dir); } catch {}
+      const sections = files
+        .filter(f => /^\d+\.strudel$/.test(f))   // NN.strudel only
+        .sort()
+        .map(f => {
+          const code = fs.readFileSync(path.join(dir, f), 'utf8');
+          let ascii = '';
+          try { ascii = fs.readFileSync(path.join(dir, f.replace(/\.strudel$/, '.ascii')), 'utf8'); } catch {}
+          return { file: f, code, ascii };
+        });
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ manifest, sections }));
+    }
+
     // ── static files (everything else) ───────────────────────
     if (req.method === 'GET' || req.method === 'HEAD') {
       return serveStatic(req, res, url.pathname);

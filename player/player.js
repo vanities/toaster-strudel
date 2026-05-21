@@ -1557,40 +1557,35 @@ const sections = new Map();  // trackId → [{ index, file, code, label }]
 function getSections(id) { return sections.get(id) || []; }
 
 async function fetchSections(id) {
-  // Optional manifest with per-section config. If present, its `cycles` (and
-  // optional `label`) override the per-file @cycles directive and title.
-  let manifest = null;
+  // The server enumerates tracks/<id>/ for us — it has filesystem access; the
+  // browser can't list a directory, which is why this used to blind-probe
+  // 01,02,03… until a 404. Now one request returns the real section list with
+  // code + ascii inlined → no 404s. Manifest `cycles`/`label` still override
+  // the per-file @cycles directive and header title.
+  let data = { manifest: null, sections: [] };
   try {
-    const mr = await fetch(`../tracks/${id}/manifest.json`, { cache: 'no-cache' });
-    if (mr.ok) manifest = await mr.json();
-  } catch (_) {}
-
-  const list = [];
-  for (let i = 1; i <= 999; i++) {
-    const num = String(i).padStart(2, '0');
-    try {
-      const res = await fetch(`../tracks/${id}/${num}.strudel`, { cache: 'no-cache' });
-      if (!res.ok) break;
-      const code = await res.text();
-      const header = parseHeader(code);
-      const cyclesMatch = code.match(/\/\/\s*@cycles\s+(\d+)/i);
-      // Accept both `sections` (preferred) and `slots` (legacy) in manifest
-      const manSections = manifest?.sections || manifest?.slots;
-      const sectionMan = manSections?.[i - 1] || null;
-      const cycles = sectionMan?.cycles ?? (cyclesMatch ? parseInt(cyclesMatch[1], 10) : null);
-      let ascii = '';
-      try {
-        const ar = await fetch(`../tracks/${id}/${num}.ascii`, { cache: 'no-cache' });
-        if (ar.ok) ascii = await ar.text();
-      } catch (_) {}
-      list.push({
-        index: i,
-        file: `${num}.strudel`,
-        code, ascii, cycles,
-        label: sectionMan?.label || header.title || `v${i}`,
-      });
-    } catch (_) { break; }
+    const res = await fetch(`/sections?track=${encodeURIComponent(id)}`, { cache: 'no-cache' });
+    if (res.ok) data = await res.json();
+  } catch (e) {
+    dwarn('sections', `discovery failed for ${id}:`, e.message);
   }
+
+  // Accept both `sections` (preferred) and `slots` (legacy) in manifest
+  const manSections = data.manifest?.sections || data.manifest?.slots;
+  const list = data.sections.map((s, idx) => {
+    const header = parseHeader(s.code);
+    const cyclesMatch = s.code.match(/\/\/\s*@cycles\s+(\d+)/i);
+    const sectionMan = manSections?.[idx] || null;
+    const cycles = sectionMan?.cycles ?? (cyclesMatch ? parseInt(cyclesMatch[1], 10) : null);
+    return {
+      index: idx + 1,
+      file: s.file,
+      code: s.code,
+      ascii: s.ascii || '',
+      cycles,
+      label: sectionMan?.label || header.title || `v${idx + 1}`,
+    };
+  });
   sections.set(id, list);
   return list;
 }
@@ -1902,33 +1897,19 @@ async function pollForChanges() {
   } catch (_) { /* network blip */ }
 }
 
-// Bumped to 30s — previously 2.5s with 404 spam on every poll.
+// Detects sections added/removed on disk so the timeline updates live.
+// The server enumerates the folder (no 404 probing), so we just re-list and
+// re-render when the section count actually changes.
 async function pollForSections() {
   if (!TRACKS[currentIndex]) return;
   const id = TRACKS[currentIndex].id;
-  const current = getSections(id);
-  const known = current.length;
-  if (known === 0) {
-    // first poll or after a clear — do a full scan
-    const list = await fetchSections(id);
-    if (list.length !== lastSectionCount) {
-      lastSectionCount = list.length;
-      renderTimeline();
-      if (list.length > 0) flashPatch(`${list.length} sections`);
-    }
-    return;
+  const known = getSections(id).length;
+  const list = await fetchSections(id);
+  if (list.length !== lastSectionCount) {
+    lastSectionCount = list.length;
+    renderTimeline();
+    if (list.length > 0 && known !== 0) flashPatch(`${list.length} sections`);
   }
-  // Cheap probe: just try the next-numbered file. If it exists, full re-fetch.
-  const nextNum = String(known + 1).padStart(2, '0');
-  try {
-    const res = await fetch(`../tracks/${id}/${nextNum}.strudel`, { cache: 'no-cache', method: 'HEAD' });
-    if (res.ok) {
-      const list = await fetchSections(id);
-      lastSectionCount = list.length;
-      renderTimeline();
-      flashPatch(`${list.length} sections`);
-    }
-  } catch (_) {}
 }
 
 setInterval(pollForChanges, POLL_MS);
