@@ -11,8 +11,10 @@
   "license": "ISC",
   "packageManager": "pnpm@10.16.0",
   "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.2.141",
     "@strudel/core": "^1.2.6",
     "@strudel/mini": "^1.2.6",
-    "@strudel/transpiler": "^1.2.6"
+    "@strudel/transpiler": "^1.2.6",
+    "zod": "^4.4.3"
   }
 }

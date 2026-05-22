@@ -14,6 +14,7 @@ import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { handleChatRequest, handleAuthRequest } from './chat-route.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -109,6 +110,11 @@ const server = http.createServer(async (req, res) => {
   }
 
   try {
+    // ── /api/chat — agentic track editing over SSE ──────────
+    // Delegated to chat-route.mjs (Claude Agent SDK + strudel file tools).
+    if (url.pathname === '/api/chat') return await handleChatRequest(req, res);
+    if (url.pathname === '/api/chat/auth') return await handleAuthRequest(req, res);
+
     // ── /upload-buffer ──────────────────────────────────────
     // Browser POSTs raw Float32 ring buffer here every ~2s.
     // Format: [sampleRate u32][numSamples u32][left f32...][right f32...]
@@ -284,4 +290,6 @@ server.listen(PORT, () => {
   console.log(`  GET  /tracks             — auto-discovered track list (JSON)`);
   console.log(`  POST /save-wav?name=X    — persist full WAV to /tmp/strudel-renders/X.wav`);
   console.log(`  POST /upload-buffer      — (used by the player)`);
+  console.log(`  POST /api/chat           — agentic track editing (SSE)`);
+  console.log(`  GET  /api/chat/auth      — Claude credential status`);
 });

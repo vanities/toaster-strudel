@@ -2,6 +2,9 @@
 .server.pid
 .server.log
 
+# Chat credentials (pasted Claude OAuth token / API key) — never commit
+.chat-settings.json
+
 # Python
 .venv/
 __pycache__/

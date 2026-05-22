@@ -141,12 +141,52 @@
         <tr><td><kbd>z</kbd></td><td>toggle reset-on-swap (manual section change re-arms the section timer)</td></tr>
         <tr><td><kbd>\</kbd></td><td>replay all sections</td></tr>
         <tr><td><kbd>k</kbd></td><td>refresh sections from disk</td></tr>
+        <tr><td><kbd>c</kbd></td><td>open chat (ask Claude to edit the music)</td></tr>
         <tr><td><kbd>?</kbd></td><td>this help</td></tr>
         <tr><td><kbd>esc</kbd></td><td>close help</td></tr>
       </table>
     </div>
   </div>
 
+  <!-- chat · embedded composing assistant -->
+  <button id="chat-fab" class="chat-fab" title="Ask Claude to edit the music (C)" aria-label="Open chat">
+    <span class="chat-fab-glyph">✦</span>
+    <span class="chat-fab-label">ask claude</span>
+  </button>
+
+  <aside id="chat-panel" class="chat-panel" data-open="false" aria-hidden="true">
+    <header class="chat-head">
+      <span class="chat-title"><span class="chat-dot" id="chat-dot"></span> claude</span>
+      <span id="chat-context" class="chat-context"></span>
+      <span class="chat-head-actions">
+        <button id="chat-new" class="btn btn-icon" title="New session" aria-label="New session"><span>⟲</span></button>
+        <button id="chat-close" class="btn btn-icon" title="Close (Esc)" aria-label="Close chat"><span>×</span></button>
+      </span>
+    </header>
+
+    <div id="chat-auth" class="chat-auth" hidden>
+      <p class="chat-auth-msg">
+        Connect Claude: run <code>claude setup-token</code> in a terminal and paste the token below —
+        or start the server with <code>CLAUDE_CODE_OAUTH_TOKEN</code> in its env.
+      </p>
+      <div class="chat-auth-row">
+        <input id="chat-token" type="password" class="chat-token" placeholder="claude oauth token…" autocomplete="off" spellcheck="false" />
+        <button id="chat-token-save" class="btn" type="button">save</button>
+      </div>
+    </div>
+
+    <div id="chat-log" class="chat-log" aria-live="polite"></div>
+
+    <div class="chat-status-row"><span id="chat-status" class="chat-status"></span></div>
+
+    <form id="chat-form" class="chat-compose">
+      <textarea id="chat-input" class="chat-input" rows="1" placeholder="ask claude to change the music…" spellcheck="false"></textarea>
+      <button id="chat-stop" type="button" class="btn chat-stop" title="Stop" aria-label="Stop" hidden><span>■</span></button>
+      <button id="chat-send" type="submit" class="btn btn-primary chat-send" title="Send (Enter)" aria-label="Send"><span>↑</span></button>
+    </form>
+  </aside>
+
   <script type="module" src="player.js"></script>
+  <script type="module" src="chat.js"></script>
 </body>
 </html>

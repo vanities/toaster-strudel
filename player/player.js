@@ -147,7 +147,7 @@ let strudelCtx = null;
 // ── strudel ────────────────────────────────────────────────────
 import {
   initStrudel, hush, evaluate, getAudioContext, samples,
-  setAudioContext, webaudioOutput,
+  setAudioContext, webaudioOutput, superdough,
   getSuperdoughAudioController, setSuperdoughAudioController,
 } from 'https://unpkg.com/@strudel/web@1.3.0/dist/index.mjs';
 
@@ -697,6 +697,74 @@ function setupHighlightTap() {
 
 // Kept as a no-op for back-compat with existing call sites.
 function hookPattern() { /* setPattern is patched — pattern is already tapped */ }
+
+// ── click-to-audition (stopped mode) ──────────────────────────
+// When stopped, clicking a note in the code plays just that note in its own
+// voice. The same `context.locations` the highlight tap uses (absolute char
+// offsets into the source) run in reverse here: compile the current code once,
+// index every unique note by its source range + its full control object
+// (s/note/gain/lpf/…), and on click fire a one-shot through superdough — the
+// same engine + instrument + effects the scheduler would use.
+const AUDITION_CYCLES = 32;   // query enough to capture slow melodies (.slow(16))
+const AUDITION_DUR = 0.6;     // seconds to hold each auditioned note
+let auditionCode = null;      // the currentCode auditionLocs were built for
+let auditionLocs = [];        // [{ start, end, value }] — one per unique note location
+
+async function ensureAuditionMap() {
+  if (auditionCode === currentCode) return;   // cached + still fresh
+  auditionCode = currentCode;
+  auditionLocs = [];
+  let pat = null;
+  try {
+    await evaluate(transformCode(currentCode));
+    pat = strudelRepl?.scheduler?.pattern;     // capture BEFORE hush (hush may clear it)
+  } catch (e) {
+    dwarn('audition', 'compile failed:', e?.message);
+  } finally {
+    // We're auditioning while stopped — never let the compile keep playing.
+    if (!isPlaying) { try { hush(); clearHighlights(); } catch (_) {} }
+  }
+  if (!pat) return;
+  const byLoc = new Map();
+  try {
+    const haps = pat.queryArc(0, AUDITION_CYCLES, { _cps: currentCps, cyclist: 'neocyclist' }) || [];
+    for (const h of haps) {
+      const v = h?.value;
+      if (!v || typeof v !== 'object') continue;
+      for (const loc of (h.context?.locations || [])) {
+        if (!Number.isInteger(loc.start) || !Number.isInteger(loc.end)) continue;
+        const key = loc.start + ':' + loc.end;
+        if (!byLoc.has(key)) byLoc.set(key, { start: loc.start, end: loc.end, value: v });
+      }
+    }
+  } catch (e) {
+    dwarn('audition', 'query failed:', e?.message);
+  }
+  auditionLocs = [...byLoc.values()];
+}
+
+async function auditionAt(offset) {
+  await ensureAuditionMap();
+  const hits = auditionLocs.filter((l) => offset >= l.start && offset < l.end);
+  if (!hits.length) return;
+  const ctx = getAudioContext();
+  if (ctx?.state === 'suspended') { try { await ctx.resume(); } catch (_) {} }
+  const t = (ctx ? ctx.currentTime : 0) + 0.04;
+  for (const h of hits) {
+    try { superdough(h.value, t, AUDITION_DUR, currentCps); } catch (e) { dwarn('audition', e?.message); }
+    flashRange(h.start, h.end, colorForHap({ value: h.value }), {
+      durSec: 0.4, gain: h.value.gain ?? 0.4, attackSec: h.value.attack || 0,
+    });
+  }
+}
+
+function onCodeClick(e) {
+  if (isPlaying || !strudelReady) return;      // audition is a stopped-mode tool
+  const span = e.target.closest?.('span[data-pos]');
+  if (!span) return;
+  const offset = +span.dataset.pos;
+  if (Number.isInteger(offset)) auditionAt(offset);
+}
 
 // ── recorder: capture raw PCM and download as WAV ─────────────
 // One ScriptProcessor sits behind the analyser node. Its output is gain-zero
@@ -1946,6 +2014,7 @@ async function play() {
     setStatus('playing');
     els.play.disabled = true;
     els.stop.disabled = false;
+    els.codePre.classList.remove('can-audition');
     updateTimeReadout();
     if (autoAdvance && !autoAdvanceTimer) startAutoAdvance();
   } catch (err) {
@@ -1963,6 +2032,7 @@ function stop() {
   setStatus('stopped');
   els.play.disabled = false;
   els.stop.disabled = true;
+  els.codePre.classList.add('can-audition');
 }
 
 async function toggleMute() {
@@ -2304,6 +2374,8 @@ els.stop  .addEventListener('click', stop);
 els.prev  .addEventListener('click', () => loadTrack(currentIndex - 1));
 els.next  .addEventListener('click', () => loadTrack(currentIndex + 1));
 els.reload.addEventListener('click', () => loadTrack(currentIndex));
+els.codePre.addEventListener('click', onCodeClick);
+els.codePre.classList.add('can-audition');   // player boots stopped
 els.themeBtn.addEventListener('click', cycleTheme);
 els.helpBtn .addEventListener('click', openHelp);
 els.helpClose.addEventListener('click', closeHelp);
