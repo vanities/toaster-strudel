@@ -350,5 +350,33 @@ window.addEventListener('keydown', (e) => {
 
 if (el.trackSelect) el.trackSelect.addEventListener('change', updateContext);
 
+// Append text to the composer (used by shift-click note references), keeping
+// any draft the user already typed and stacking multiple picks on new lines.
+function insertIntoComposer(text) {
+  const cur = el.input.value;
+  el.input.value = cur && !/\s$/.test(cur) ? `${cur}\n${text}` : cur + text;
+  autoGrow();
+  el.input.focus();
+  el.input.selectionStart = el.input.selectionEnd = el.input.value.length;
+}
+
+// Shift-click on a note in the player emits this — drop a reference to the
+// exact track / segment / note into the composer so you can talk about it.
+window.addEventListener('strudel:note-pick', (e) => {
+  const d = e.detail || {};
+  if (el.panel.dataset.open !== 'true') openPanel();
+  const loc = [d.track, d.segment].filter(Boolean).join(' · ');
+  let ref = 're: ';
+  if (loc) ref += loc;
+  if (d.line) ref += ` · line ${d.line}`;
+  if (d.text) ref += ` · \`${d.text}\``;
+  const extra = [];
+  if (d.note && d.note !== d.text) extra.push(`note ${d.note}`);
+  if (d.instrument) extra.push(d.instrument);
+  if (extra.length) ref += ` (${extra.join(', ')})`;
+  ref += ' — ';
+  insertIntoComposer(ref);
+});
+
 showEmpty();
 refreshAuth();

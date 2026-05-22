@@ -758,12 +758,71 @@ async function auditionAt(offset) {
   }
 }
 
+// ── shift-click → drop a note reference into the chat ─────────
+// Builds a chat-ready reference for the token at a source offset: which track,
+// which segment (live vs a section file), line, the token text, and — if the
+// audition map is warm — the note + instrument. Emitted as a CustomEvent so
+// the chat (and a future React chat) can consume it without coupling.
+function noteRefAt(offset) {
+  if (!currentCode) return null;
+  const id = TRACKS[currentIndex]?.id || null;
+  const list = getSections(id);
+  const segment = viewedIndex >= 0 ? (list[viewedIndex]?.file || `section ${viewedIndex + 1}`) : 'live';
+
+  let line = 1, lineStart = 0;
+  for (let i = 0; i < offset && i < currentCode.length; i++) {
+    if (currentCode[i] === '\n') { line++; lineStart = i + 1; }
+  }
+  let lineEnd = currentCode.indexOf('\n', offset);
+  if (lineEnd === -1) lineEnd = currentCode.length;
+
+  let start = offset, end = offset, note = null, instrument = null;
+  if (auditionCode === currentCode) {
+    const hit = auditionLocs.find((l) => offset >= l.start && offset < l.end);
+    if (hit) { start = hit.start; end = hit.end; note = hit.value?.note ?? null; instrument = hit.value?.s ?? null; }
+  }
+  if (start === end) {                         // no warm hit — grab the raw token
+    const tok = /[A-Za-z0-9#._:-]/;
+    while (start > lineStart && tok.test(currentCode[start - 1])) start--;
+    while (end < lineEnd && tok.test(currentCode[end])) end++;
+    if (start === end) end = Math.min(offset + 1, currentCode.length);
+  }
+  return {
+    track: id, segment, line, col: offset - lineStart + 1,
+    start, end, text: currentCode.slice(start, end),
+    note, instrument, lineText: currentCode.slice(lineStart, lineEnd).trim(),
+  };
+}
+
+function flashPick(start, end) {
+  for (let i = start; i < end; i++) {
+    const sp = charSpans[i];
+    if (!sp) continue;
+    sp.style.background = 'color-mix(in srgb, var(--accent2) 45%, transparent)';
+    sp.style.borderRadius = '2px';
+    setTimeout(() => { sp.style.background = ''; sp.style.borderRadius = ''; }, 700);
+  }
+}
+
+function pickNoteForChat(offset) {
+  const ref = noteRefAt(offset);
+  if (!ref) return;
+  flashPick(ref.start, ref.end);
+  window.dispatchEvent(new CustomEvent('strudel:note-pick', { detail: ref }));
+}
+
 function onCodeClick(e) {
-  if (isPlaying || !strudelReady) return;      // audition is a stopped-mode tool
   const span = e.target.closest?.('span[data-pos]');
   if (!span) return;
   const offset = +span.dataset.pos;
-  if (Number.isInteger(offset)) auditionAt(offset);
+  if (!Number.isInteger(offset)) return;
+  if (e.shiftKey) {                            // shift-click → reference into chat (works while playing)
+    e.preventDefault();
+    pickNoteForChat(offset);
+    return;
+  }
+  if (isPlaying || !strudelReady) return;      // plain click auditions — stopped-mode tool
+  auditionAt(offset);
 }
 
 // ── recorder: capture raw PCM and download as WAV ─────────────
