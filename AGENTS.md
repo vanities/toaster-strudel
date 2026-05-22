@@ -9,7 +9,8 @@ You're working in a music repo built around [Strudel](https://strudel.cc), a Jav
   - **`strudel-conduct`** is the comprehensive guide — start there for any live-performance / `/loop` work.
   - `strudel-compose` — write a track from scratch or extend one specific voice.
   - `strudel-test`, `strudel-iterate` — narrower workflows.
-- `player/index.html` + `player.js` + `styles.css` — in-page player using `@strudel/web`. Open via `make play` (Makefile starts a uv-run http server on port 4747, opens the browser). The player has a snapshot timeline so every file change is undoable.
+- `web/` — the player + embedded composing chat, a **Vite + React** app. Imperative engine modules in `web/src/engine/*` drive `@strudel/web` (audio, highlight tap, viz, offline render, recorder); React owns the UI. Run via `make play` (first run: `make install`), which starts the backend API on :4747 and the React dev server on :5273 and opens the browser.
+- `tools/server.mjs` — the backend the web app talks to (proxied by Vite): serves track files, the agent chat (`/api/chat`, via `@anthropic-ai/claude-agent-sdk` + `tools/strudel-tools.mjs`), section discovery, and the audio feedback endpoints (`/audio`, `/upload-buffer`, `/save-wav`).
 
 ## How to test a track
 

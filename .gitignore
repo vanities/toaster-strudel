@@ -12,6 +12,7 @@ __pycache__/
 
 # Node
 node_modules/
+web/dist/
 
 # macOS
 .DS_Store

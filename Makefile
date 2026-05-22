@@ -1,49 +1,55 @@
 # strudel-skills · local dev
 #
-# Quick start:  make play
-# Stop server:  make stop
+# First run:    make install   (installs the web app deps)
+# Quick start:  make play       (backend API + React app at :5273)
+# Stop backend: make stop
 
 PORT ?= 4747
 PIDFILE := .server.pid
-URL := http://localhost:$(PORT)/player/
+WEB_URL := http://localhost:5273/
 
-.PHONY: help play serve open stop list status
+.PHONY: help install play serve web stop status list
 
 help:
 	@echo "strudel-skills"
 	@echo ""
-	@echo "  make play     start server and open the player in your browser"
-	@echo "  make serve    start the static server (background, port $(PORT))"
-	@echo "  make open     open the player URL ($(URL))"
-	@echo "  make stop     stop the background server"
-	@echo "  make status   show whether the server is running"
+	@echo "  make install  install the web app deps (pnpm -C web install)"
+	@echo "  make play     start the backend API + the React app ($(WEB_URL))"
+	@echo "  make serve    start just the backend API (background, port $(PORT))"
+	@echo "  make web      start just the React dev server (foreground, opens browser)"
+	@echo "  make stop     stop the background backend"
+	@echo "  make status   show whether the backend is running"
 	@echo "  make list     list available tracks"
 
-play: serve open
+install:
+	@pnpm -C web install
+
+play: serve web
 
 serve:
 	@if [ -f $(PIDFILE) ] && kill -0 `cat $(PIDFILE)` 2>/dev/null; then \
-		echo "server already running (pid `cat $(PIDFILE)`, port $(PORT))"; \
+		echo "backend already running (pid `cat $(PIDFILE)`, port $(PORT))"; \
 	else \
 		PORT=$(PORT) node tools/server.mjs > .server.log 2>&1 & echo $$! > $(PIDFILE); \
 		sleep 0.4; \
-		echo "serving on $(URL) (pid `cat $(PIDFILE)`)"; \
+		echo "backend API on :$(PORT) (pid `cat $(PIDFILE)`)"; \
 	fi
 
-open:
-	@open $(URL)
+web:
+	@echo "starting React app — $(WEB_URL)"
+	@cd web && pnpm dev --open
 
 stop:
 	@if [ -f $(PIDFILE) ]; then \
 		kill `cat $(PIDFILE)` 2>/dev/null && echo "stopped pid `cat $(PIDFILE)`" || echo "process already gone"; \
 		rm -f $(PIDFILE); \
 	else \
-		echo "no server running"; \
+		echo "no backend running"; \
 	fi
 
 status:
 	@if [ -f $(PIDFILE) ] && kill -0 `cat $(PIDFILE)` 2>/dev/null; then \
-		echo "running · pid `cat $(PIDFILE)` · $(URL)"; \
+		echo "backend running · pid `cat $(PIDFILE)` · :$(PORT) · app at $(WEB_URL)"; \
 	else \
 		echo "stopped"; \
 	fi
