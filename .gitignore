@@ -25,3 +25,6 @@ tracks/*
 # only style-bonobo as a worked example of the artist-style-as-skill pattern.
 skills/skills/style-*/
 !skills/skills/style-bonobo/
+
+# turn-the-crank run history (local — the generated crank tracks are gitignored too)
+skills/skills/turn-the-crank/crank-log.md
