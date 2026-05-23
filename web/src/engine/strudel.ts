@@ -5,6 +5,7 @@
 import { setupHighlightTap } from './highlight';
 
 const STRUDEL_URL = 'https://unpkg.com/@strudel/web@1.3.0/dist/index.mjs';
+const SOUNDFONTS_URL = 'https://unpkg.com/@strudel/soundfonts@1.3.0/dist/index.mjs';
 const SAMPLE_BASE = 'https://raw.githubusercontent.com/felixroos/dough-samples/main';
 
 export interface StrudelModule {
@@ -57,6 +58,20 @@ export function boot(onProgress?: Progress): Promise<void> {
     const m = await getMod();
     onProgress?.('booting audio engine', 8);
     repl = await m.initStrudel();
+    // General MIDI soundfonts — 128 instruments (gm_violin, gm_cello,
+    // gm_string_ensemble_1, gm_flute, gm_alto_sax, gm_trumpet, gm_choir_aahs,
+    // gm_pad_*, gm_lead_*, gm_synth_bass_*, …). Names register here; soundfont
+    // data lazy-loads on first use. This is the orchestral/wind/brass palette
+    // VCSL lacks. From a separate package — @strudel/web doesn't bundle it.
+    onProgress?.('loading instruments (General MIDI)', 16);
+    try {
+      const sf = (await import(/* @vite-ignore */ SOUNDFONTS_URL)) as {
+        registerSoundfonts?: () => Promise<unknown>;
+      };
+      await sf.registerSoundfonts?.();
+    } catch {
+      /* soundfonts optional — synths + samples still play without them */
+    }
     const banks: [string, string, number][] = [
       [`${SAMPLE_BASE}/tidal-drum-machines.json`, 'loading drum samples', 22],
       [`${SAMPLE_BASE}/piano.json`, 'loading piano', 30],
@@ -78,6 +93,16 @@ export function boot(onProgress?: Progress): Promise<void> {
       await m.samples('github:tidalcycles/Dirt-Samples');
     } catch {
       /* optional */
+    }
+    // Extra banks: eddyflux/crate = warm organic/world percussion (djembe,
+    // conga, bongo, clave, bell, rim, stick); Dough-Amen = the amen breaks.
+    onProgress?.('loading percussion + breaks', 64);
+    for (const pack of ['github:eddyflux/crate', 'github:Bubobubobubobubo/Dough-Amen']) {
+      try {
+        await m.samples(pack);
+      } catch {
+        /* optional pack */
+      }
     }
     ready = true;
     onProgress?.('warming up samples', 75);

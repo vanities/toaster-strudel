@@ -1,13 +1,13 @@
 ---
 name: strudel-sample-library
-description: Complete reference for what samples are available to our Strudel tracks — what's loaded by default, what to add for specific artist vibes (kalimba for Bonobo, mridangam for FP/DJRUM, breaks for Skee Mask), and the four ways to load more (dough-samples, github: shortcut, strudel.json URLs, shabda→Freesound). Use when picking a voice for a track or when a sound you want isn't playing.
+description: Complete reference for every sound our Strudel tracks can use — the loaded sample banks (VCSL orchestral mallets/winds, ~50 drum kits, mridangam, the full TidalCycles Dirt set, eddyflux/crate world percussion, amen breaks), the 128 General MIDI soundfont instruments (gm_violin, gm_cello, gm_string_ensemble, gm_flute, gm_choir_aahs, gm_pad_*, gm_lead_*…), the built-in synths + FM, and how to load more (github: packs, shabda→Freesound, the open-strudel-samples explorer). Use when picking a voice, reaching for instrument variety, or when a sound isn't playing.
 ---
 
 What samples we can use, what they sound like, and how to add more.
 
 ## Currently loaded by default in our player
 
-The init block in `player/player.js` calls `samples()` on ALL of these at boot — not just drums + piano. Everything here is available with no extra loading:
+The `boot()` loader in `web/src/engine/strudel.ts` calls `samples()` + `registerSoundfonts()` on ALL of these at startup. Everything here is available with no extra loading:
 
 | Pack | Sounds | Source | Gives you |
 |---|---|---|---|
@@ -17,9 +17,12 @@ The init block in `player/player.js` calls `samples()` on ALL of these at boot �
 | `mridangam` | 13 | `dough-samples/mridangam.json` | South Indian hand drum (`ka nam ta ki dhin…`) |
 | `EmuSP12` | 14 | `dough-samples/EmuSP12.json` | SP-12 boom-bap kit |
 | `Dirt-Samples` (curated) | 9 | `dough-samples/Dirt-Samples.json` | `casio crow insect wind jazz metal east space numbers` |
-| `tidalcycles/Dirt-Samples` (full) | 218 folders | `github:tidalcycles/Dirt-Samples` | `tabla sitar jvbass breaks125/152/157/165 speakspell …` (wrapped in try/catch — skips silently if the fetch fails) |
+| `tidalcycles/Dirt-Samples` (full) | 218 folders | `github:tidalcycles/Dirt-Samples` | `tabla sitar jvbass breaks125/152/157/165 speakspell …` (try/catch — skips silently if the fetch fails) |
+| **General MIDI** | **128** | `@strudel/soundfonts` → `registerSoundfonts()` | the whole orchestra/band — `gm_*` (strings, winds, brass, sax, choir, organs, ethnic, synth pads/leads/fx). **See the GM section below.** |
+| `eddyflux/crate` | ~18 | `github:eddyflux/crate` | warm organic/world percussion: `crate_djembe crate_conga crate_bongo crate_clave crate_bell crate_rim crate_stick crate_perc crate_sh crate_bd/sd/hh/oh` |
+| `Dough-Amen` | 3 | `github:Bubobubobubobubo/Dough-Amen` | the amen breaks — `amen1 amen2 amen3` (chop/slice for jungle/DnB) |
 
-So in practice you already have **piano, the whole VCSL orchestral set, mridangam/SP-12/Linn/808/909 drums, and the full TidalCycles Dirt library** without adding anything. There is still **no sustained string-ensemble / violin / cello** sample anywhere — VCSL is plucked/mallet/wind. For a wide sustained pad, layer `vibraphone_bowed` / `wineglass_slow` for character over a quiet synth bed, or use a detuned `sawtooth`/`triangle` supersaw (the one job synths do better than these samples).
+So in practice you already have **piano, the whole VCSL mallet/wind set, mridangam/SP-12/Linn/808/909 drums, the full TidalCycles Dirt library, organic world percussion, the amen breaks, AND the 128 General MIDI instruments** with no extra loading. **Real sustained strings finally exist** — `gm_string_ensemble_1`, `gm_cello`, `gm_synth_strings_1` — so you no longer *have* to fake a string pad with detuned sawtooths (though that's still a fine Kiasmos/Rone move). Rule of thumb: **VCSL** for plucked/mallet color (kalimba, marimba, vibraphone); **GM** for bowed/blown/sustained (strings, flute, sax, organ, choir); **synths** (saw/square/tri/sine + `fm`) for electronic.
 
 Drum kits inside `tidal-drum-machines` you reach with `.bank("...")`:
 
@@ -28,6 +31,33 @@ Drum kits inside `tidal-drum-machines` you reach with `.bank("...")`:
 Each kit has the same vocabulary: `bd cp cb cr hh ht lt mt oh rd sd` (+ kit-specific extras like `sh` shaker, `tb` tambourine).
 
 **`.bank()` is required** — `s("bd")` alone silently drops. Always chain `.bank("AkaiLinn")`.
+
+## General MIDI instruments (`gm_*`) — the full 128
+
+Registered at boot via `@strudel/soundfonts`. Play like any pitched voice: `note("C4 Eb4 G4").s("gm_string_ensemble_1")`. The soundfont data lazy-loads on first use (a brief one-time delay per `gm_` voice). This is the orchestra + band + GM synths — reach here for *real* bowed/blown/sustained voices the synths and VCSL can't give. **Every option:**
+
+- **Piano / keys:** `gm_piano` `gm_acoustic_piano` `gm_bright_acoustic_piano` `gm_electric_grand_piano` `gm_honky_tonk_piano` `gm_epiano1` `gm_epiano2` `gm_harpsichord` `gm_clavinet`
+- **Chromatic / mallet:** `gm_celesta` `gm_glockenspiel` `gm_music_box` `gm_vibraphone` `gm_marimba` `gm_xylophone` `gm_tubular_bells` `gm_dulcimer` `gm_tinkle_bell`
+- **Organ:** `gm_drawbar_organ` `gm_percussive_organ` `gm_rock_organ` `gm_church_organ` `gm_reed_organ` `gm_accordion` `gm_bandoneon` `gm_harmonica`
+- **Guitar:** `gm_acoustic_guitar_nylon` `gm_acoustic_guitar_steel` `gm_electric_guitar_clean` `gm_electric_guitar_jazz` `gm_electric_guitar_muted` `gm_overdriven_guitar` `gm_distortion_guitar` `gm_guitar_harmonics` `gm_guitar_fret_noise` `gm_banjo`
+- **Bass:** `gm_acoustic_bass` `gm_electric_bass_finger` `gm_electric_bass_pick` `gm_fretless_bass` `gm_slap_bass_1` `gm_slap_bass_2` `gm_synth_bass_1` `gm_synth_bass_2`
+- **Strings:** `gm_violin` `gm_viola` `gm_cello` `gm_contrabass` `gm_fiddle` `gm_tremolo_strings` `gm_pizzicato_strings` `gm_orchestral_harp` `gm_string_ensemble_1` `gm_string_ensemble_2` `gm_synth_strings_1` `gm_synth_strings_2`
+- **Choir / voice:** `gm_choir_aahs` `gm_voice_oohs` `gm_synth_choir` `gm_orchestra_hit`
+- **Brass:** `gm_trumpet` `gm_trombone` `gm_tuba` `gm_muted_trumpet` `gm_french_horn` `gm_brass_section` `gm_synth_brass_1` `gm_synth_brass_2`
+- **Reed / sax:** `gm_soprano_sax` `gm_alto_sax` `gm_tenor_sax` `gm_baritone_sax` `gm_oboe` `gm_english_horn` `gm_bassoon` `gm_clarinet`
+- **Pipe / flute:** `gm_piccolo` `gm_flute` `gm_recorder` `gm_pan_flute` `gm_blown_bottle` `gm_shakuhachi` `gm_whistle` `gm_ocarina`
+- **Synth lead:** `gm_lead_1_square` `gm_lead_2_sawtooth` `gm_lead_3_calliope` `gm_lead_4_chiff` `gm_lead_5_charang` `gm_lead_6_voice` `gm_lead_7_fifths` `gm_lead_8_bass_lead`
+- **Synth pad:** `gm_pad_new_age` `gm_pad_warm` `gm_pad_poly` `gm_pad_choir` `gm_pad_bowed` `gm_pad_metallic` `gm_pad_halo` `gm_pad_sweep`
+- **Synth FX:** `gm_fx_rain` `gm_fx_soundtrack` `gm_fx_crystal` `gm_fx_atmosphere` `gm_fx_brightness` `gm_fx_goblins` `gm_fx_echoes` `gm_fx_sci_fi`
+- **Ethnic:** `gm_sitar` `gm_shamisen` `gm_koto` `gm_kalimba` `gm_bagpipe` `gm_shanai` `gm_steel_drums`
+- **Percussive:** `gm_agogo` `gm_woodblock` `gm_taiko_drum` `gm_melodic_tom` `gm_synth_drum` `gm_timpani` `gm_reverse_cymbal`
+- **Sound FX:** `gm_breath_noise` `gm_seashore` `gm_bird_tweet` `gm_telephone` `gm_helicopter` `gm_applause` `gm_gunshot`
+
+## Built-in synths + FM (no sample load)
+
+- **Oscillators:** `sawtooth` `square` `triangle` `sine` (+ `pulse`, `supersaw`). Noise: `white` `pink` `brown`. Chip engine: `zzfx`.
+- **FM synthesis:** any synth + `.fm(N)` (modulation index) + `.fmh(N)` (harmonic ratio) + `.fmattack`/`.fmdecay` — bells, metallic, growl. e.g. `note("c2").s("sine").fm(4).fmh(2)`.
+- **Make these "different":** `.crush(N)` (bit-crush), `.coarse(N)` (downsample), `.shape(N)`/`.distort(N)` (waveshape), `.vowel("a e i o u")` (formant), `.phaser(N)`, plus full per-note `.attack/.decay/.sustain/.release`. The complete list lives in [[strudel-effects]] + [[strudel-modifiers]].
 
 ## Mixing pitfalls that read as "not playing" (learned the hard way)
 
@@ -55,7 +85,7 @@ The `github:tidalcycles/Dirt-Samples` load gives 218 folders — far more than t
 | `speakspell` `speech` | Voice samples | DJRUM-style chopped vocal stems |
 | `flick` `glasstap` | Hand percussion / found-sound | One-shot accents |
 
-(Already loaded by `player.js` via `samples('github:tidalcycles/Dirt-Samples')` — Strudel resolves `github:user/repo` → `https://raw.githubusercontent.com/user/repo/main/strudel.json`. Just reference the sound names directly.)
+(Already loaded by `web/src/engine/strudel.ts` via `samples('github:tidalcycles/Dirt-Samples')` — Strudel resolves `github:user/repo` → `https://raw.githubusercontent.com/user/repo/main/strudel.json`. Just reference the sound names directly.)
 
 ## Available to add — not pre-loaded (on-demand)
 
@@ -160,15 +190,21 @@ If you're writing for one of our reference artists, reach for these:
 
 ## How to actually load more in our player
 
-Add lines to the init block in `player/player.js`:
+Add to the `boot()` loader in `web/src/engine/strudel.ts` (the `banks` array, the `github:` loads, or another `m.samples(...)` call):
 
 ```javascript
-await samples(`${SAMPLE_BASE}/vcsl.json`);          // VCSL orchestral
-await samples(`${SAMPLE_BASE}/mridangam.json`);     // hand drums
-await samples('github:tidalcycles/Dirt-Samples');   // 218-folder full Dirt
+await m.samples(`${SAMPLE_BASE}/vcsl.json`);     // a dough-samples pack
+await m.samples('github:eddyflux/crate');        // any github repo with a strudel.json
+await samples('shabda:cello:8,strings:8');       // Freesound on-demand (per-track works too)
 ```
 
-The fetches are ~10-50KB JSON each (just manifests). Actual WAVs lazy-load on first reference. Don't load packs you won't use — they're free to add later.
+The fetches are ~10–50KB JSON each (just manifests). Actual WAVs lazy-load on first reference. Don't load packs you won't use — they're free to add later.
+
+**Find more packs:** the [open-strudel-samples explorer](https://therebelrobot.github.io/open-strudel-samples/) and [strudel-samples.alternet.site](https://strudel-samples.alternet.site) search every public `strudel.json` on GitHub — preview, then load with `github:<user>/<repo>`. Beyond what we load: `eddyflux/crate`, `algorave-dave/samples`, `Bubobubobubobubo/Dough-Amen`, `Bubobubobubobubo/Dough-Juj`.
+
+## Enumerate EVERYTHING at runtime
+
+This skill lists the headline voices, but the live registry is ground truth. `web/src/engine/strudel.ts` exposes **`listSounds()`** — it returns *every* registered sound (all loaded sample banks + the 128 `gm_*` + the synths), which is what the on-screen keyboard / instrument picker shows. When you need the exhaustive instrument list, call it. For the exhaustive **modifier / method** list, [[strudel-modifiers]] catalogs every combinator and [[strudel-effects]] every filter/effect — together they are the complete method menu.
 
 ## Sources
 

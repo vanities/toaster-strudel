@@ -336,6 +336,8 @@ See **[[strudel-effects]]** for the full reference + production recipes. Quick i
 | `.scramble(N)` | scramble (with repetition) |
 | `.fix(fn, pat)` | apply fn where pat matches — selective transform |
 | `.smooth()` | smooth value changes (for envelope-like sources) |
+| `.ribbon(start, len)` | loop a `len`-cycle window starting at cycle `start` — grab one slice of a long pattern and repeat it |
+| `.fm(N)` `.fmh(R)` | FM synthesis on a synth voice — `fm` = modulation index (brightness/grit), `fmh` = harmonic ratio. `note("c2").s("sine").fm(4).fmh(2)` → bell/metallic. (Also in [[strudel-sample-library]] → synths.) |
 
 ## What if you can't find a tool?
 
