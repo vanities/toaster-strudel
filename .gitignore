@@ -28,3 +28,12 @@ skills/skills/style-*/
 
 # turn-the-crank run history (local — the generated crank tracks are gitignored too)
 skills/skills/turn-the-crank/crank-log.md
+
+# Project skill symlinks → skills/skills/ (local Claude Code wiring; committing
+# them would leave broken links on a public clone — style-* sources are ignored)
+.claude/skills/
+
+# Vendored Strudel audio (soundfonts + all sample banks) — mirrored locally by
+# tools/mirror-strudel-assets.mjs so the player runs offline. Large; regenerate
+# with `node tools/mirror-strudel-assets.mjs`, don't commit.
+web/public/strudel-assets/

@@ -6,7 +6,11 @@ import { setupHighlightTap } from './highlight';
 
 const STRUDEL_URL = 'https://unpkg.com/@strudel/web@1.3.0/dist/index.mjs';
 const SOUNDFONTS_URL = 'https://unpkg.com/@strudel/soundfonts@1.3.0/dist/index.mjs';
-const SAMPLE_BASE = 'https://raw.githubusercontent.com/felixroos/dough-samples/main';
+// Audio DATA (all soundfont presets + every sample bank) is vendored locally and
+// served by Vite from web/public at /strudel-assets. Regenerate with
+// `node tools/mirror-strudel-assets.mjs`. The two unpkg URLs above are just the
+// JS engine + soundfont module — small, and still CDN-loaded.
+const LOCAL = '/strudel-assets';
 
 export interface StrudelModule {
   initStrudel: (opts?: unknown) => Promise<unknown>;
@@ -67,18 +71,30 @@ export function boot(onProgress?: Progress): Promise<void> {
     try {
       const sf = (await import(/* @vite-ignore */ SOUNDFONTS_URL)) as {
         registerSoundfonts?: () => Promise<unknown>;
+        setSoundfontUrl?: (url: string) => void;
       };
+      // Preset data comes from the local mirror, not felixroos.github.io.
+      sf.setSoundfontUrl?.(`${LOCAL}/soundfonts`);
       await sf.registerSoundfonts?.();
-    } catch {
-      /* soundfonts optional — synths + samples still play without them */
+    } catch (e) {
+      // Surface this — don't swallow. A failure here registers NO gm_ voice at
+      // all; @strudel/soundfonts' bare imports need the import map in index.html.
+      console.warn('[boot] soundfont registration failed — gm_ voices unavailable:', e);
     }
+    // All nine banks load from the local mirror now (was: the dough-samples CDN
+    // plus three github: repos — tidalcycles/Dirt-Samples, eddyflux/crate,
+    // Bubobubobubobubo/Dough-Amen). Same manifest contents; _base rewritten to
+    // the local path by the mirror script, so sound names are unchanged.
     const banks: [string, string, number][] = [
-      [`${SAMPLE_BASE}/tidal-drum-machines.json`, 'loading drum samples', 22],
-      [`${SAMPLE_BASE}/piano.json`, 'loading piano', 30],
-      [`${SAMPLE_BASE}/vcsl.json`, 'loading orchestral (VCSL)', 38],
-      [`${SAMPLE_BASE}/mridangam.json`, 'loading mridangam', 44],
-      [`${SAMPLE_BASE}/EmuSP12.json`, 'loading SP-12', 50],
-      [`${SAMPLE_BASE}/Dirt-Samples.json`, 'loading textures', 53],
+      [`${LOCAL}/samples/tidal-drum-machines.json`, 'loading drum samples', 22],
+      [`${LOCAL}/samples/piano.json`, 'loading piano', 30],
+      [`${LOCAL}/samples/vcsl.json`, 'loading orchestral (VCSL)', 38],
+      [`${LOCAL}/samples/mridangam.json`, 'loading mridangam', 44],
+      [`${LOCAL}/samples/EmuSP12.json`, 'loading SP-12', 50],
+      [`${LOCAL}/samples/Dirt-Samples.json`, 'loading textures', 53],
+      [`${LOCAL}/samples/tidalcycles-Dirt-Samples.json`, 'loading full dirt set', 58],
+      [`${LOCAL}/samples/crate.json`, 'loading world percussion', 62],
+      [`${LOCAL}/samples/Dough-Amen.json`, 'loading amen breaks', 64],
     ];
     for (const [url, msg, pct] of banks) {
       onProgress?.(msg, pct);
@@ -86,22 +102,6 @@ export function boot(onProgress?: Progress): Promise<void> {
         await m.samples(url);
       } catch {
         /* a bank failing shouldn't abort boot */
-      }
-    }
-    onProgress?.('loading full dirt set', 58);
-    try {
-      await m.samples('github:tidalcycles/Dirt-Samples');
-    } catch {
-      /* optional */
-    }
-    // Extra banks: eddyflux/crate = warm organic/world percussion (djembe,
-    // conga, bongo, clave, bell, rim, stick); Dough-Amen = the amen breaks.
-    onProgress?.('loading percussion + breaks', 64);
-    for (const pack of ['github:eddyflux/crate', 'github:Bubobubobubobubo/Dough-Amen']) {
-      try {
-        await m.samples(pack);
-      } catch {
-        /* optional pack */
       }
     }
     ready = true;

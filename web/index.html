@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>toaster-strudel · react</title>
+    <!--
+      @strudel/soundfonts (loaded from a CDN at runtime by the engine) has bare
+      imports — "@strudel/core", "@strudel/webaudio", "sfumato" — which a browser
+      can't resolve on its own, so the import used to throw and NO gm_ voice was
+      ever registered. This map points those specifiers at the SAME @strudel/web
+      bundle the app already loads (it re-exports all of them), so the soundfont
+      module shares one sound registry with the engine. sfumato is self-contained.
+      Without this, gm_* instruments (guitar, Rhodes, strings, flute…) are silent.
+    -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@strudel/core": "https://unpkg.com/@strudel/web@1.3.0/dist/index.mjs",
+          "@strudel/webaudio": "https://unpkg.com/@strudel/web@1.3.0/dist/index.mjs",
+          "sfumato": "https://unpkg.com/sfumato@0.3.0/dist/sfumato.js",
+          "soundfont2-esm": "https://unpkg.com/soundfont2-esm@0.6.0/lib/index.js"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
