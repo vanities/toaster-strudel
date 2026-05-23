@@ -101,9 +101,15 @@ export function drawVoiceField(ctx: CanvasRenderingContext2D, canvas: HTMLCanvas
   ctx.globalCompositeOperation = 'source-over';
 
   const now = performance.now();
-  for (const v of voiceMap.values()) {
+  for (const [key, v] of voiceMap) {
     const age = (now - v.lastHit) / 1000;
-    if (age > 8) continue;
+    // Prune dead voices instead of skipping them. Keys are source locations,
+    // so every section advance / live edit / track switch mints new ones; without
+    // this the map (and the per-frame loops over it) grow for the whole session.
+    if (age > 8) {
+      voiceMap.delete(key);
+      continue;
+    }
     const liveness = Math.max(0, 1 - age / 8);
     v.intensity *= 0.96;
     const r = 24 + liveness * 6;
