@@ -5,7 +5,19 @@ description: Load a Strudel pattern into strudel.cc via agent-browser, play it, 
 
 You cannot hear audio. Your job is to confirm the pattern **parses, plays, and doesn't error** — the user is the ear.
 
-## Workflow
+## Fastest check first: headless parse (no browser)
+
+Before reaching for a browser, run the headless validator — it catches the overwhelming majority of "doesn't parse" bugs in a fraction of a second and needs no page:
+
+```bash
+node tools/validate-strudel.mjs tracks/<id>.strudel tracks/<id>/*.strudel
+```
+
+It does two things per file: (1) a JS-structure check (`new Function`) that catches unbalanced parens/brackets/quotes and bad chaining, and (2) feeds every double-quoted string to `@strudel/mini`'s real krill grammar parser, catching malformed mini-notation (`<>`/`[]`/`,` imbalance, bad steps). It imports `krill-parser.js` directly — the only piece of `@strudel/mini` that loads cleanly in Node (the full index, and `tools/render-strudel.mjs`, are blocked by a transitive `@kabelsalat/web` export mismatch).
+
+What it **can't** tell you: how it *sounds* — mix balance, whether a voice is audible, whether the hook lands. That's still the ear's job. If a green parse is all you need (the common case after composing), stop here. Use the browser workflow below only when you actually need to confirm runtime behavior beyond parsing.
+
+## Workflow (browser — when runtime confirmation is needed)
 
 1. **Open strudel.cc**
    ```bash
