@@ -89,6 +89,16 @@ async function pool(tasks) {
   await Promise.all(workers);
 }
 
+// Decode percent-escapes (e.g. VCSL stores "Struck%20Idiophones") so the file
+// lands on disk with a real space. A static server decodes the URL before the
+// filesystem lookup, so disk names MUST be decoded or the browser 404s → SPA
+// fallback → decodeAudioData "unknown content type". Leaves malformed % alone.
+function decodePath(p) {
+  return String(p).replace(/%[0-9A-Fa-f]{2}/g, (m) => {
+    try { return decodeURIComponent(m); } catch { return m; }
+  });
+}
+
 // Pull all WAV paths out of one manifest entry (value is string[] or {k:string[]}).
 function pathsOf(value) {
   if (Array.isArray(value)) return value.filter((x) => typeof x === 'string');
@@ -118,16 +128,24 @@ async function main() {
     try {
       const manifest = await (await fetch(url)).json();
       const base = (manifest._base || '').replace(/\/?$/, '/');
-      const local = { ...manifest, _base: `/strudel-assets/samples/${bank}/` };
-      localManifests[bank] = local;
+      // Localized manifest: same keys, _base → local, every path DECODED so it
+      // matches the on-disk (decoded) filenames. Fetch still uses the original
+      // (encoded) URL the remote expects.
+      const decodeVal = (v) =>
+        Array.isArray(v) ? v.map(decodePath)
+        : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, decodeVal(x)]))
+        : decodePath(v);
+      const local = { _base: `/strudel-assets/samples/${bank}/` };
       for (const [name, value] of Object.entries(manifest)) {
         if (name === '_base') continue;
+        local[name] = decodeVal(value);
         for (const rel of pathsOf(value)) {
           const src = /^https?:\/\//.test(rel) ? rel : base + rel;
-          const dest = join(OUT, 'samples', bank, rel.replace(/^https?:\/\/[^/]+\//, ''));
+          const dest = join(OUT, 'samples', bank, decodePath(rel.replace(/^https?:\/\/[^/]+\//, '')));
           sampleJobs.push({ src, dest });
         }
       }
+      localManifests[bank] = local;
       console.log(`manifest ${bank}: ${Object.keys(manifest).length - 1} entries`);
     } catch (e) {
       console.log(`manifest ${bank}: FETCH FAILED ${e.message}`);
