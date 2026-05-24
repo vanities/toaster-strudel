@@ -109,7 +109,12 @@ function pathsOf(value) {
 
 async function getSoundfontPresets() {
   const src = await (await fetch(SOUNDFONT_MODULE)).text();
-  const names = new Set(src.match(/[0-9]{3,4}_[A-Za-z0-9]+_(?:sf2_)?file/g) || []);
+  // Bank names can contain underscores (e.g. FluidR3_GM). [A-Za-z0-9]+ stopped at
+  // the first underscore, so the entire FluidR3_GM bank (~467 files) was silently
+  // skipped — breaking any voice whose presets[0] is a FluidR3_GM variant
+  // (gm_koto, gm_trumpet, gm_tuba, gm_ocarina, …): the 404 page got eval'd as a
+  // soundfont, throwing "missing } in compound statement" and playing silence.
+  const names = new Set(src.match(/[0-9]{3,4}_[A-Za-z0-9_]+_file/g) || []);
   return [...names];
 }
 
