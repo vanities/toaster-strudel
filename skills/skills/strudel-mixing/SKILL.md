@@ -28,7 +28,7 @@ The kick and bass together form the rhythmic and tonal spine. They must *complem
 - **Target individual voices at −18 to −12 dBFS average.** Leave peaks no hotter than −6 dBFS per track before summing. Stacking 8 voices at −6 dBFS each clips the mix bus.
 - **The stack accumulates.** Ten voices at `.gain(0.5)` adds up. Work the summed level — if the overall mix is clipping or squashing, the fix is gain on individual voices, not just pulling the master down.
 - **Loudness target for streaming: −14 LUFS integrated.** Don't chase loudness in the mix; leave headroom for mastering. A mix peaking at −3 dBFS going in has nowhere to go.
-- **Velocity / gain variation is dynamics.** A flat `.gain(0.5)` on every hit is metronomic. Use `.gain(".8 .4 .6 .4")` or `gain(rand.range(.3,.6))` for natural dynamics that preserve headroom by breathing.
+- **Velocity / gain variation is dynamics.** A flat `.gain(0.5)` on every hit is metronomic. Use `.gain(".8 .4 .6 .4")` or `gain(perlin.range(.3,.6))` for natural dynamics that preserve headroom by breathing.
 
 ## Sidechain / ducking (the pump and the pocket)
 

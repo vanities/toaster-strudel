@@ -149,8 +149,44 @@ await samples({
 ### Community packs (browse before installing)
 
 - [`therebelrobot/open-strudel-samples`](https://therebelrobot.github.io/open-strudel-samples/) — explorer UI for finding community-curated packs
+- [`strudel-samples.alternet.site`](https://strudel-samples.alternet.site) — search + **preview** every public `strudel.json` on GitHub before loading
 - [`vasilymilovidov/samples`](https://github.com/vasilymilovidov/samples) — personal but high-quality
-- [`awesome-strudel`](https://github.com/terryds/awesome-strudel) — curated list of everything Strudel-related
+
+#### The awesome-strudel bank index (load any with `github:<user>/<repo>`)
+
+Every public bank catalogued in [awesome-strudel](https://github.com/terryds/awesome-strudel). **We already load** the three marked ✓ at boot; the rest are one `await samples('github:…')` away. Descriptions are given only where the name/contents are unambiguous — **preview unfamiliar packs** in the explorer above before committing (community uploads vary in quality and content).
+
+| `github:` shortcut | Notes |
+|---|---|
+| `github:tidalcycles/Dirt-Samples` | ✓ loaded — the canonical 218-folder TidalCycles set |
+| `github:eddyflux/crate` | ✓ loaded — warm organic/world percussion |
+| `github:Bubobubobubobubo/Dough-Amen` | ✓ loaded — the amen breaks |
+| `github:Bubobubobubobubo/Dough-Juj` | companion to Dough-Amen |
+| `github:yaxu/clean-breaks` | breakbeats (Alex McLean / TidalCycles author) |
+| `github:salsicha/capoeira_strudel` | capoeira / berimbau percussion |
+| `github:AustinOliverHaskell/ms-teams-sounds-strudel` | MS Teams notification SFX (meme/found-sound) |
+| `github:QuantumVillage/quantum-music` | QuantumVillage set |
+| `github:TristanCacqueray/mirus` | mirus pack |
+| `github:algorave-dave/samples` | personal pack |
+| `github:AuditeMarlow/samples` | personal pack |
+| `github:EloMorelo/samples` | personal pack |
+| `github:emrexdeger/strudelSamples` | personal pack |
+| `github:fjpolo/fjpolo-Strudel` | personal pack |
+| `github:fstiffo/polifonia-samples` | polifonia set |
+| `github:hvillase/cavlp-25p` | personal pack |
+| `github:k09/samples` · `github:kaiye10/strudelSamples` | personal packs |
+| `github:mot4i/garden` | "garden" pack |
+| `github:mysinglelise/msl-strudel-samples` | personal pack |
+| `github:Nikeryms/Samples` · `github:RikyBac15/samples` | personal packs |
+| `github:prismograph/departure` | "departure" pack |
+| `github:sonidosingapura/rochormatic` | personal pack |
+| `github:terrorhank/samples` · `github:tesspilot/samples` | personal packs |
+| `github:TodePond/samples` | TodePond (sandspiel author) |
+| `github:Veikkosuhonen/graffathon25-demo` | demoscene demo samples |
+| `github:wyan/livecoding-samples` | live-coding set |
+| `github:bruveping/RepositorioDesonidosParaExperimentar02` | experimental sounds |
+
+(To make any of these load by default in our player, add `await m.samples('github:…')` to `boot()` in `web/src/engine/strudel.ts` — see "How to actually load more" above.)
 
 ## Sample → artist style cheat-sheet
 

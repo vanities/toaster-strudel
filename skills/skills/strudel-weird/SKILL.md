@@ -41,7 +41,7 @@ freq("110 165 192.5 151.25").s("sawtooth").lpf(700)
 stack(note("a3"), note("a3").add(0.07)).s("sawtooth")   // ~7 cents → slow chorus beat
 ```
 
-> **Verify by ear** (I can't render offline and don't drive your browser): `.detune(¢)` per-voice cents, `.tune("<name>")` named temperaments, and any glide/portamento between microtones are build-dependent. To *imply* a fretless slide reliably, run a dense ladder of fractional steps fast: `note(run(13).mul(12/24).add(60)).fast(8)`.
+> **Verify by ear** (I can't render offline and don't drive your browser): `.detune(¢)` per-voice cents, `.tune("<name>")` named temperaments, and glide/portamento between microtones are build-dependent — our pinned `@strudel/web@1.3.0` has **no `.glide()`**, though `.slide(semitones)` (pitch-sweep across a note) does exist. To *imply* a fretless slide reliably, run a dense ladder of fractional steps fast: `note(run(13).mul(12/24).add(60)).fast(8)`.
 
 ## Weird rhythm
 

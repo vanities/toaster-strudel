@@ -123,12 +123,12 @@ note("c4 d4 e4 g4").iter(4)
 | `wchoose([[a, 3], [b, 1]])` | weighted random pick |
 | `pick(pat, [a, b, c])` | pick by index from another pattern |
 | `rand` | random value [0, 1] |
-| `rand.range(a, b)` | random value [a, b] |
+| `perlin.range(a, b)` | random value [a, b] |
 | `irand(N)` | random integer [0, N) |
 
 **Recipe — humanise a drum:**
 ```javascript
-s("bd*4").bank("AkaiLinn").gain(rand.range(0.4, 0.6)).nudge(rand.range(-0.01, 0.01))
+s("bd*4").bank("AkaiLinn").gain(perlin.range(0.4, 0.6)).nudge(perlin.range(-0.01, 0.01))
 ```
 
 **Recipe — sometimes-substitute a fill:**
@@ -316,6 +316,7 @@ See **[[strudel-effects]]** for the full reference + production recipes. Quick i
 - Delay: `.delay` `.delaytime` `.delayfeedback`
 - Distortion: `.distort` `.shape` `.crush` `.coarse`
 - Modulation FX: `.vib` `.vibrato` `.tremolo` `.phaser` `.phasersweep` `.leslie`
+- Pitch slide / portamento: `.slide(semitones)` sweeps pitch across the note — pattern it to the interval-to-next-note for a bend *between* notes. NOTE: our pinned `@strudel/web@1.3.0` has **no `.glide()`**; `.slide` is the control that exists (`.accelerate(N)` is the related sample pitch-sweep)
 
 ## Pattern application & control
 
@@ -338,6 +339,31 @@ See **[[strudel-effects]]** for the full reference + production recipes. Quick i
 | `.smooth()` | smooth value changes (for envelope-like sources) |
 | `.ribbon(start, len)` | loop a `len`-cycle window starting at cycle `start` — grab one slice of a long pattern and repeat it |
 | `.fm(N)` `.fmh(R)` | FM synthesis on a synth voice — `fm` = modulation index (brightness/grit), `fmh` = harmonic ratio. `note("c2").s("sine").fm(4).fmh(2)` → bell/metallic. (Also in [[strudel-sample-library]] → synths.) |
+
+## Custom methods in THIS player — prelude + the prebake ecosystem
+
+Our player is an **embed** (`@strudel/web` from CDN), not strudel.cc. Worth knowing:
+
+- **Version reality:** npm's newest `@strudel/web` IS `1.3.0` (= our pin; core/transpiler 1.2.6 under it). strudel.cc runs *unreleased source ahead* of npm — so there's nothing newer to "bump to" without a source build. But 1.3.0 already ships `arrange`, `setcpm`, `stepcat`, `postgain`, `velocity`, `clip`, `crush` — so **one-program strudel.cc songs run here**. The only real gap is REPL-only visualizers.
+- **Viz shims (auto):** `.scope` `._scope` `.pianoroll` `.punchcard` `.spiral` are stubbed to no-op passthrough at boot, so a song **pasted straight from strudel.cc runs unmodified** (our embed has no REPL canvas).
+- **How methods get added:** boot evaluates `web/src/engine/prelude.ts` (our presets + the viz shims), then loads vendored community prebakes from `web/public/strudel-assets/` — gated by `LOAD_COMMUNITY_PREBAKE` in `web/src/engine/strudel.ts`. Add another by dropping a `.strudel` file there and appending its name to the boot loader array (later files win on name clashes).
+
+**Our presets** (`prelude.ts`, chainable, no-arg — edit there to tune):
+
+| Method | Does |
+|---|---|
+| `.bowed()` | vibrato (sine LFO on `detune`) + legato — "played bowed string" life |
+| `.space()` | room + delay — cavernous reverb |
+| `.breathe()` | slow `lpf` sweep — movement |
+| `.wide()` | gentle auto-pan stereo width |
+| `.pad()` / `.pluck()` | slow swell / short percussive envelope |
+
+**Community methods** (vendored prebakes — [switchangel](https://github.com/switchangel/strudel-scripts) + [tzwaan](https://github.com/tzwaan/strudel-scripts), no formal license, loaded as prebakes are meant to be):
+`.humanize` `.strum` `.octave` `.fadeIn` `.fadeOut` `.createRiser` `.acid` `.acidenv` `.trancegate` `.glitch` `.rlpf` `.rhpf` `.rbpf` `.fill` `.dly` `.swap` `.snap` `.dirty` `.bend` …
+- `.bend(...)` is a portamento attempt via a control-bus trick — **may not work in our 1.3.0** (verify by ear; the built-in `.slide` above is the reliable pitch-sweep).
+- These target strudel.cc; a few lean on newer features and may silently no-op here.
+
+**Write your own:** `register('name', (pat) => pat.…)` adds a chainable method to the Pattern class (the pattern is the **last** arg; `(pat) => …` is the no-arg shape from the docs). Put it in `prelude.ts` to make it global to every track. There is **no canonical community "mod pack"** — everyone rolls their own with `register`.
 
 ## What if you can't find a tool?
 

@@ -134,7 +134,7 @@ note("<C2 ~ C2 ~ G1 ~ ~ Bb1>")
   .gain(.8)
 ```
 
-Critical: 808s in trap are **tuned to the key**. If the chord is Cm, the 808 root is C. If you have a bass note on "and-of-3", the 808 slides there. The `.glide()` or pitch slides between notes (portamento) are the trap producer's signature. In Strudel: `.legato(1.5)` extends notes so they can slide — or use chromatic steps in the pattern itself.
+Critical: 808s in trap are **tuned to the key**. If the chord is Cm, the 808 root is C. If you have a bass note on "and-of-3", the 808 slides there. Pitch slides between notes (portamento) are the trap producer's signature. In our pinned `@strudel/web@1.3.0` there's **no `.glide()`** — use `.slide(semitones)` (sweeps pitch across the note; pattern it to the interval to the next note) plus `.legato(1.5)` so notes connect, or use chromatic steps in the pattern itself.
 
 ### Acid bass (acid house, acid techno)
 

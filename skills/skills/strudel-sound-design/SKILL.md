@@ -153,9 +153,9 @@ The enemy is the "synth preset no one opened." These are the moves:
 
 1. **Filter envelope**: even a subtle `.lpa(.05).lpd(.3).lpe(2)` makes each note have a unique timbral arc.
 2. **Vibrato with delay**: `.vib(5).vibmod(.4)` — vibrato that kicks in mid-note sounds performed.
-3. **Velocity modulation**: in Strudel, vary `.gain(rand.range(.7,1))` or `.fm(rand.range(2,6))` per note — softer hits feel human.
+3. **Velocity modulation**: in Strudel, vary `.gain(perlin.range(.7,1))` or `.fm(perlin.range(2,6))` per note — softer hits feel human.
 4. **Small pitch drift**: `.add(note(perlin.range(-.05,.05)))` = tape instability, the "alive" quality of old hardware.
-5. **Release variation**: notes stopping at slightly different rates (`release(rand.range(.1,.5))`) vs. all cutting at exactly the same moment.
+5. **Release variation**: notes stopping at slightly different rates (`release(perlin.range(.1,.5))`) vs. all cutting at exactly the same moment.
 
 **The synthesis-level pro insight** (Sound on Sound Synth Secrets): the filter closing on each note is your most powerful "played" signal. A human performer's attack and decay is never the same twice. Model that.
 
