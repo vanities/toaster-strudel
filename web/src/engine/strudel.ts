@@ -3,6 +3,7 @@
 // the same source the vanilla player uses — via a vite-ignored dynamic import.
 
 import { setupHighlightTap } from './highlight';
+import { PRELUDE } from './prelude';
 
 const STRUDEL_URL = 'https://unpkg.com/@strudel/web@1.3.0/dist/index.mjs';
 const SOUNDFONTS_URL = 'https://unpkg.com/@strudel/soundfonts@1.3.0/dist/index.mjs';
@@ -11,6 +12,14 @@ const SOUNDFONTS_URL = 'https://unpkg.com/@strudel/soundfonts@1.3.0/dist/index.m
 // `node tools/mirror-strudel-assets.mjs`. The two unpkg URLs above are just the
 // JS engine + soundfont module — small, and still CDN-loaded.
 const LOCAL = '/strudel-assets';
+// Vendored community custom-method library (switchangel prebake, ~29 chainable
+// methods: .humanize .strum .bend .acid …). Flip to false if it ever misbehaves —
+// the player works fine without it. See web/public/strudel-assets/community-prebake.strudel.
+const LOAD_COMMUNITY_PREBAKE = true;
+// Community sample banks (awesome-strudel) — extra *sounds* (not methods), background-
+// loaded via github: shortcuts. These are runtime fetches, NOT mirrored; for the
+// deployed radio they should eventually be mirrored (tools/mirror-strudel-assets.mjs).
+const LOAD_COMMUNITY_BANKS = true;
 
 export interface StrudelModule {
   initStrudel: (opts?: unknown) => Promise<unknown>;
@@ -105,6 +114,47 @@ export function boot(onProgress?: Progress): Promise<void> {
       }
     }
     ready = true;
+    // Community sample banks — fire-and-forget AFTER ready so they never slow the
+    // critical boot; they trickle in over the next moment (our own tracks don't use
+    // them, so background loading is fine). github: = runtime fetch; mirror for prod.
+    if (LOAD_COMMUNITY_BANKS) {
+      void Promise.all(
+        [
+          'github:yaxu/clean-breaks',
+          'github:Bubobubobubobubo/Dough-Juj',
+          'github:algorave-dave/samples',
+          'github:mot4i/garden',
+          'github:TristanCacqueray/mirus',
+          'github:prismograph/departure',
+          'github:tesspilot/samples',
+          'github:wyan/livecoding-samples',
+          'github:AuditeMarlow/samples',
+        ].map((b) => m.samples(b).catch(() => {}))
+      );
+    }
+    // Register toaster-strudel custom pattern methods (.bowed, .space, .breathe…)
+    // once — register() mutates the Pattern class, so every later evaluate() sees
+    // them. Non-fatal: if it fails, tracks still play, the methods just won't exist.
+    onProgress?.('registering custom methods', 72);
+    try {
+      await m.evaluate(PRELUDE);
+    } catch (e) {
+      console.warn('[boot] custom-method prelude failed — .bowed/.space/etc unavailable:', e);
+    }
+    // Community prebake (vendored). Isolated + non-fatal: a failure here only means
+    // its methods are absent; our presets, viz shims, and all tracks still work.
+    if (LOAD_COMMUNITY_PREBAKE) {
+      onProgress?.('loading community mods', 73);
+      // Loaded in order; later files win for any overlapping method names.
+      for (const f of ['community-prebake.strudel', 'community-prebake-tzwaan.strudel']) {
+        try {
+          const res = await fetch(`${LOCAL}/${f}`, { cache: 'no-cache' });
+          if (res.ok) await m.evaluate((await res.text()) + '\n;silence');
+        } catch (e) {
+          console.warn(`[boot] prebake ${f} failed — its methods unavailable:`, e);
+        }
+      }
+    }
     onProgress?.('warming up samples', 75);
     try {
       await m.evaluate(
