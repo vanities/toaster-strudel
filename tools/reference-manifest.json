@@ -1,0 +1,712 @@
+[
+  {
+    "skill": "style-bonobo",
+    "label": "Bonobo \u00b7 Prelude",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bonobo - Black Sands  Japanese Edition (2010) [CD FLAC] {BRC-255}/01. Prelude.flac"
+  },
+  {
+    "skill": "style-bonobo",
+    "label": "Bonobo \u00b7 Kong",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bonobo - Black Sands  Japanese Edition (2010) [CD FLAC] {BRC-255}/03. Kong.flac"
+  },
+  {
+    "skill": "style-bonobo",
+    "label": "Bonobo \u00b7 Eyesdown",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bonobo - Black Sands  Japanese Edition (2010) [CD FLAC] {BRC-255}/04. Eyesdown.flac"
+  },
+  {
+    "skill": "style-bonobo",
+    "label": "Bonobo \u00b7 1009",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bonobo - Black Sands  Japanese Edition (2010) [CD FLAC] {BRC-255}/07. 1009.flac"
+  },
+  {
+    "skill": "style-bonobo",
+    "label": "Bonobo \u00b7 Animals",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bonobo - Black Sands  Japanese Edition (2010) [CD FLAC] {BRC-255}/11. Animals.flac"
+  },
+  {
+    "skill": "style-bonobo",
+    "label": "Bonobo \u00b7 Black Sands",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bonobo - Black Sands  Japanese Edition (2010) [CD FLAC] {BRC-255}/12. Black Sands.flac"
+  },
+  {
+    "skill": "style-djrum",
+    "label": "DJRUM \u00b7 Unblocked",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Djrum - Portrait with Firewood (2018)/01 - Unblocked.flac"
+  },
+  {
+    "skill": "style-djrum",
+    "label": "DJRUM \u00b7 Creature, Pt. 1",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Djrum - Portrait with Firewood (2018)/03 - Creature, Pt. 1.flac"
+  },
+  {
+    "skill": "style-djrum",
+    "label": "DJRUM \u00b7 Creature, Pt. 2",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Djrum - Portrait with Firewood (2018)/04 - Creature, Pt. 2.flac"
+  },
+  {
+    "skill": "style-djrum",
+    "label": "DJRUM \u00b7 Sex",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Djrum - Portrait with Firewood (2018)/05 - Sex.flac"
+  },
+  {
+    "skill": "style-djrum",
+    "label": "DJRUM \u00b7 Reprise",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Djrum - Under Tangled Silence (2025) - WEB FLAC/07. Reprise.flac"
+  },
+  {
+    "skill": "style-djrum",
+    "label": "DJRUM \u00b7 Waxcap",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Djrum - Under Tangled Silence (2025) - WEB FLAC/02. Waxcap.flac"
+  },
+  {
+    "skill": "style-djrum",
+    "label": "DJRUM \u00b7 Hold",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Djrum - Under Tangled Silence (2025) - WEB FLAC/05. Hold.flac"
+  },
+  {
+    "skill": "style-floating-points",
+    "label": "Floating Points \u00b7 Last Bloom",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Floating Points - Crush (2019) [FLAC] {ZENCD259}/02 - Last Bloom.flac"
+  },
+  {
+    "skill": "style-floating-points",
+    "label": "Floating Points \u00b7 LesAlpx",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Floating Points - Crush (2019) [FLAC] {ZENCD259}/06 - LesAlpx.flac"
+  },
+  {
+    "skill": "style-floating-points",
+    "label": "Floating Points \u00b7 Requiem for CS70 and Strings",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Floating Points - Crush (2019) [FLAC] {ZENCD259}/04 - Requiem for CS70 and Strings.flac"
+  },
+  {
+    "skill": "style-floating-points",
+    "label": "Floating Points \u00b7 Floating Points - Birth4000",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Floating Points - Cascade (2024) [ZENDNL303] [WEB FLAC]/03 - Floating Points - Birth4000.flac"
+  },
+  {
+    "skill": "style-floating-points",
+    "label": "Floating Points \u00b7 Floating Points - Afflecks Palace",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Floating Points - Cascade (2024) [ZENDNL303] [WEB FLAC]/07 - Floating Points - Afflecks Palace.flac"
+  },
+  {
+    "skill": "style-floating-points",
+    "label": "Floating Points \u00b7 Mojave Desert",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Floating Points - Reflections - Mojave Desert (2017) {LBOP5041 CD} [FLAC]/01 Mojave Desert.flac"
+  },
+  {
+    "skill": "style-floating-points",
+    "label": "Floating Points \u00b7 Kelso Dunes",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Floating Points - Reflections - Mojave Desert (2017) {LBOP5041 CD} [FLAC]/04 Kelso Dunes.flac"
+  },
+  {
+    "skill": "style-kiasmos",
+    "label": "Kiasmos \u00b7 Lit",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Kiasmos - Kiasmos (2014) ERATP062CD [flac]/01. Lit.flac"
+  },
+  {
+    "skill": "style-kiasmos",
+    "label": "Kiasmos \u00b7 Held",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Kiasmos - Kiasmos (2014) ERATP062CD [flac]/02. Held.flac"
+  },
+  {
+    "skill": "style-kiasmos",
+    "label": "Kiasmos \u00b7 Looped",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Kiasmos - Kiasmos (2014) ERATP062CD [flac]/03. Looped.flac"
+  },
+  {
+    "skill": "style-kiasmos",
+    "label": "Kiasmos \u00b7 Swayed",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Kiasmos - Kiasmos (2014) ERATP062CD [flac]/04. Swayed.flac"
+  },
+  {
+    "skill": "style-kiasmos",
+    "label": "Kiasmos \u00b7 Thrown",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Kiasmos - Kiasmos (2014) ERATP062CD [flac]/05. Thrown.flac"
+  },
+  {
+    "skill": "style-kiasmos",
+    "label": "Kiasmos \u00b7 Bent",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Kiasmos - Kiasmos (2014) ERATP062CD [flac]/07. Bent.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - Rev8617",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Compro (2018) {Ilian Tape - ITLP04} [WEB 16-48 FLAC]/03 - Skee Mask - Rev8617.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - Flyby VFR",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Compro (2018) {Ilian Tape - ITLP04} [WEB 16-48 FLAC]/09 - Skee Mask - Flyby VFR.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - Via Sub Mids",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Compro (2018) {Ilian Tape - ITLP04} [WEB 16-48 FLAC]/05 - Skee Mask - Via Sub Mids.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - ITLP09 Skee Mask - Pool - 03 LFO",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Pool [2021] [WEB-FLAC]/Skee Mask - ITLP09 Skee Mask - Pool - 03 LFO.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - ITLP09 Skee Mask - Pool - 08 Breathing Method",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Pool [2021] [WEB-FLAC]/Skee Mask - ITLP09 Skee Mask - Pool - 08 Breathing Method.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - Element",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Resort (2024 WF)/04 - Skee Mask - Element.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - 7AM At The Rodeo",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Resort (2024 WF)/11 - Skee Mask - 7AM At The Rodeo.flac"
+  },
+  {
+    "skill": "style-sonic",
+    "label": "Sonic \u00b7 Green Hill Zone",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Sonic 1 (1991) [96-24 FLAC]/02 - Green Hill Zone.m4a"
+  },
+  {
+    "skill": "style-sonic",
+    "label": "Sonic \u00b7 Labyrinth Zone",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Sonic 1 (1991) [96-24 FLAC]/05 - Labyrinth Zone.m4a"
+  },
+  {
+    "skill": "style-sonic",
+    "label": "Sonic \u00b7 Star Light Zone",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Sonic 1 (1991) [96-24 FLAC]/06 - Star Light Zone.m4a"
+  },
+  {
+    "skill": "style-sonic",
+    "label": "Sonic \u00b7 Chemical Plant Zone",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Sonic 2 (1992) [96-24 FLAC]/04 - Chemical Plant Zone.m4a"
+  },
+  {
+    "skill": "style-sonic",
+    "label": "Sonic \u00b7 Mystic Cave Zone",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Sonic 2 (1992) [96-24 FLAC]/08 - Mystic Cave Zone.m4a"
+  },
+  {
+    "skill": "style-sonic",
+    "label": "Sonic \u00b7 1-04 Hydrocity 1",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Sonic 3 & Knuckles (1994) [24-96 FLAC]/Disc 1 (Sonic 3)/1-04 Hydrocity 1.m4a"
+  },
+  {
+    "skill": "style-sonic",
+    "label": "Sonic \u00b7 1-08 Carnival Night 1",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Sonic 3 & Knuckles (1994) [24-96 FLAC]/Disc 1 (Sonic 3)/1-08 Carnival Night 1.m4a"
+  },
+  {
+    "skill": "style-sonic",
+    "label": "Sonic \u00b7 1-10 Ice Cap 1",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Sonic 3 & Knuckles (1994) [24-96 FLAC]/Disc 1 (Sonic 3)/1-10 Ice Cap 1.m4a"
+  },
+  {
+    "skill": "style-void-stranger",
+    "label": "Void Stranger \u00b7 Affection Air",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Elegy of the Stars -Void Stranger Original Soundtrack- (2023) [WEB, 16-44]/07. Affection Air.flac"
+  },
+  {
+    "skill": "style-void-stranger",
+    "label": "Void Stranger \u00b7 Buzzing Boogie",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Elegy of the Stars -Void Stranger Original Soundtrack- (2023) [WEB, 16-44]/09. Buzzing Boogie.flac"
+  },
+  {
+    "skill": "style-void-stranger",
+    "label": "Void Stranger \u00b7 Greedy Groove",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Elegy of the Stars -Void Stranger Original Soundtrack- (2023) [WEB, 16-44]/12. Greedy Groove.flac"
+  },
+  {
+    "skill": "style-void-stranger",
+    "label": "Void Stranger \u00b7 Lax Lullaby",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Elegy of the Stars -Void Stranger Original Soundtrack- (2023) [WEB, 16-44]/17. Lax Lullaby.flac"
+  },
+  {
+    "skill": "style-void-stranger",
+    "label": "Void Stranger \u00b7 Void Symphony",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Elegy of the Stars -Void Stranger Original Soundtrack- (2023) [WEB, 16-44]/03. Void Symphony.flac"
+  },
+  {
+    "skill": "style-void-stranger",
+    "label": "Void Stranger \u00b7 My brightest blossom",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Elegy of the Stars -Void Stranger Original Soundtrack- (2023) [WEB, 16-44]/05. My brightest blossom.flac"
+  },
+  {
+    "skill": "style-void-stranger",
+    "label": "Void Stranger \u00b7 Gray nostalgia",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Elegy of the Stars -Void Stranger Original Soundtrack- (2023) [WEB, 16-44]/14. Gray nostalgia.flac"
+  },
+  {
+    "skill": "style-void-stranger",
+    "label": "Void Stranger \u00b7 Voided",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Elegy of the Stars -Void Stranger Original Soundtrack- (2023) [WEB, 16-44]/21. Voided.flac"
+  },
+  {
+    "skill": "style-david-wise",
+    "label": "David Wise \u00b7 Thorny-Thorny Barrel Maze",
+    "path": "/Users/vanities/git/work/me/game/references/audio/David Wise - Super Donkey Kong 2 Dixie & Diddy Original Sound Version (1996) [FLAC]/16 - Thorny-Thorny Barrel Maze.flac"
+  },
+  {
+    "skill": "style-david-wise",
+    "label": "David Wise \u00b7 Misty Woods",
+    "path": "/Users/vanities/git/work/me/game/references/audio/David Wise - Super Donkey Kong 2 Dixie & Diddy Original Sound Version (1996) [FLAC]/22 - Misty Woods.flac"
+  },
+  {
+    "skill": "style-david-wise",
+    "label": "David Wise \u00b7 Icy Lake",
+    "path": "/Users/vanities/git/work/me/game/references/audio/David Wise - Super Donkey Kong 2 Dixie & Diddy Original Sound Version (1996) [FLAC]/25 - Icy Lake.flac"
+  },
+  {
+    "skill": "style-mitsuda",
+    "label": "Mitsuda \u00b7 Yasunori Mitsuda - Chrono Trigger",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Chrono Trigger Original Sound Version (1995) [CD FLAC]/Disc 1/02 - Yasunori Mitsuda - Chrono Trigger.flac"
+  },
+  {
+    "skill": "style-mitsuda",
+    "label": "Mitsuda \u00b7 Yasunori Mitsuda - Secret of the Forest",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Chrono Trigger Original Sound Version (1995) [CD FLAC]/Disc 1/11 - Yasunori Mitsuda - Secret of the Forest.flac"
+  },
+  {
+    "skill": "style-mitsuda",
+    "label": "Mitsuda \u00b7 Yasunori Mitsuda - Yearnings of the Wind",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Chrono Trigger Original Sound Version (1995) [CD FLAC]/Disc 1/09 - Yasunori Mitsuda - Yearnings of the Wind.flac"
+  },
+  {
+    "skill": "style-mitsuda",
+    "label": "Mitsuda \u00b7 Yasunori Mitsuda - Schala's Theme",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Chrono Trigger Original Sound Version (1995) [CD FLAC]/Disc 3/06 - Yasunori Mitsuda - Schala's Theme.flac"
+  },
+  {
+    "skill": "style-mitsuda",
+    "label": "Mitsuda \u00b7 Yasunori Mitsuda - Frog's Theme",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Chrono Trigger Original Sound Version (1995) [CD FLAC]/Disc 1/19 - Yasunori Mitsuda - Frog's Theme.flac"
+  },
+  {
+    "skill": "style-dark-souls",
+    "label": "Dark Souls \u00b7 Majula",
+    "path": "/Users/vanities/git/work/me/game/references/audio/\u685c\u5ead \u7d71, \u5317\u6751 \u53cb\u9999 - Dark Souls II Original Soundtrack [FFSA-ST005]/03 Majula.flac"
+  },
+  {
+    "skill": "style-dark-souls",
+    "label": "Dark Souls \u00b7 Motoi Sakuraba - A Moment's Peace",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Motoi Sakuraba - Dark Souls (2019) - FLAC/31. Motoi Sakuraba - A Moment's Peace.flac"
+  },
+  {
+    "skill": "style-yasunori-nishiki",
+    "label": "Nishiki \u00b7 At Your Back",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Octopath Traveler II Original Soundtrack by Yasunori Nishiki (2023) {SQEX-10991~6} [24-96 FLAC]/Disc 5/03 - At Your Back.flac"
+  },
+  {
+    "skill": "style-slowdive",
+    "label": "Slowdive \u00b7 alife",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Slowdive - everything is alive - (2023) {WEB - FLAC}/03 - alife.flac"
+  },
+  {
+    "skill": "style-rone",
+    "label": "Rone \u00b7 Bye Bye Macadam",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Rone - Tohu Bohu (2012) - FLAC/02 - Bye Bye Macadam.flac"
+  },
+  {
+    "skill": "style-rone",
+    "label": "Rone \u00b7 Parade",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Rone - Tohu Bohu (2012) - FLAC/08 - Parade.flac"
+  },
+  {
+    "skill": "style-rone",
+    "label": "Rone \u00b7 La Grande Ourse",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Rone - Tohu Bohu (2012) - FLAC/04 - La Grande Ourse.flac"
+  },
+  {
+    "skill": "style-rone",
+    "label": "Rone \u00b7 Icare (feat. Gaspar Claus)",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Rone - Tohu Bohu (2012) - FLAC/09 - Icare (feat. Gaspar Claus).flac"
+  },
+  {
+    "skill": "style-rone",
+    "label": "Rone \u00b7 Beast",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Rone - Tohu Bohu (2012) - FLAC/05 - Beast.flac"
+  },
+  {
+    "skill": "style-khruangbin",
+    "label": "Khruangbin \u00b7 Khruangbin - Como Me Quieres",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Khruangbin - Como Me Quieres.flac"
+  },
+  {
+    "skill": "style-khruangbin",
+    "label": "Khruangbin \u00b7 Khruangbin - August 10",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Khruangbin - August 10.flac"
+  },
+  {
+    "skill": "style-nmesh",
+    "label": "Nmesh \u00b7 Nmesh - Kimono",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Nmesh - Kimono.flac"
+  },
+  {
+    "skill": "style-matt-uelmen",
+    "label": "Matt Uelmen \u00b7 Matt Uelmen - Tristram",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Matt Uelmen - Tristram.flac"
+  },
+  {
+    "skill": "style-matt-uelmen",
+    "label": "Matt Uelmen \u00b7 Matt Uelmen - Wilderness",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Matt Uelmen - Wilderness.flac"
+  },
+  {
+    "skill": "style-bibio",
+    "label": "Bibio \u00b7 Potion",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bibio - BIB10 (2022) [FLAC] {BRC715}/02 - Potion.flac"
+  },
+  {
+    "skill": "style-bibio",
+    "label": "Bibio \u00b7 Cinnamon Cinematic",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bibio - BIB10 (2022) [FLAC] {BRC715}/06 - Cinnamon Cinematic.flac"
+  },
+  {
+    "skill": "style-bibio",
+    "label": "Bibio \u00b7 Bibio - Cherry Go Round",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bibio - Hand Cranked (2006) [Mush - MH-244]/02  Bibio - Cherry Go Round.flac"
+  },
+  {
+    "skill": "style-bibio",
+    "label": "Bibio \u00b7 Ambivalence Avenue",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bibio - Ambivalence Avenue [2009]/01 Ambivalence Avenue.flac"
+  },
+  {
+    "skill": "style-bibio",
+    "label": "Bibio \u00b7 Fire Ant",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bibio - Ambivalence Avenue [2009]/04 Fire Ant.flac"
+  },
+  {
+    "skill": "style-bibio",
+    "label": "Bibio \u00b7 Haikuesque (When She Laughs)",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bibio - Ambivalence Avenue [2009]/05 Haikuesque (When She Laughs).flac"
+  },
+  {
+    "skill": "style-bibio",
+    "label": "Bibio \u00b7 Lovers' Carvings",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Bibio - Ambivalence Avenue [2009]/07 Lovers' Carvings.flac"
+  },
+  {
+    "skill": "style-clair-obscur",
+    "label": "Clair Obscur \u00b7 Rain From the Ground",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Clair Obscur Expedition 33 Original Soundtrack [FLAC 16-48]/Disc 1/31. Rain From the Ground.flac"
+  },
+  {
+    "skill": "style-clair-obscur",
+    "label": "Clair Obscur \u00b7 Battling Breeze",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Clair Obscur Expedition 33 Original Soundtrack [FLAC 16-48]/Disc 1/17. Battling Breeze.flac"
+  },
+  {
+    "skill": "style-clair-obscur",
+    "label": "Clair Obscur \u00b7 In Lumi\u00e8re's Name",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Clair Obscur Expedition 33 Original Soundtrack [FLAC 16-48]/Disc 1/24. In Lumi\u00e8re's Name.flac"
+  },
+  {
+    "skill": "style-clair-obscur",
+    "label": "Clair Obscur \u00b7 Until You're Gone",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Clair Obscur Expedition 33 Original Soundtrack [FLAC 16-48]/Disc 1/25. Until You're Gone.flac"
+  },
+  {
+    "skill": "style-clair-obscur",
+    "label": "Clair Obscur \u00b7 Electric Tides",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Clair Obscur Expedition 33 Original Soundtrack [FLAC 16-48]/Disc 1/28. Electric Tides.flac"
+  },
+  {
+    "skill": "style-clair-obscur",
+    "label": "Clair Obscur \u00b7 Goblu",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Clair Obscur Expedition 33 Original Soundtrack [FLAC 16-48]/Disc 1/29. Goblu.flac"
+  },
+  {
+    "skill": "style-clair-obscur",
+    "label": "Clair Obscur \u00b7 Entrance of the Village",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Clair Obscur Expedition 33 Original Soundtrack [FLAC 16-48]/Disc 1/39. Entrance of the Village.flac"
+  },
+  {
+    "skill": "style-toro-y-moi",
+    "label": "Toro y Moi \u00b7 Toro Y Moi - Underneath the Pine - 04 Divina",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Toro Y Moi - Underneath the Pine (2011) [Vinyl FLAC 24bit]/Toro Y Moi - Underneath the Pine - 04 Divina.flac"
+  },
+  {
+    "skill": "style-toro-y-moi",
+    "label": "Toro y Moi \u00b7 Toro Y Moi - Underneath the Pine - 09 Still Sound",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Toro Y Moi - Underneath the Pine (2011) [Vinyl FLAC 24bit]/Toro Y Moi - Underneath the Pine - 09 Still Sound.flac"
+  },
+  {
+    "skill": "style-toro-y-moi",
+    "label": "Toro y Moi \u00b7 Toro Y Moi - Underneath the Pine - 02 New Beat",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Toro Y Moi - Underneath the Pine (2011) [Vinyl FLAC 24bit]/Toro Y Moi - Underneath the Pine - 02 New Beat.flac"
+  },
+  {
+    "skill": "style-toro-y-moi",
+    "label": "Toro y Moi \u00b7 Toro Y Moi - Underneath the Pine - 03 Go With You",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Toro Y Moi - Underneath the Pine (2011) [Vinyl FLAC 24bit]/Toro Y Moi - Underneath the Pine - 03 Go With You.flac"
+  },
+  {
+    "skill": "style-esbe",
+    "label": "Esbe \u00b7 Esbe - Bloomsday - 01 Float",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Esbe - Bloomsday FLAC/Esbe - Bloomsday - 01 Float.flac"
+  },
+  {
+    "skill": "style-esbe",
+    "label": "Esbe \u00b7 Esbe - Bloomsday - 03 Wanderlust",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Esbe - Bloomsday FLAC/Esbe - Bloomsday - 03 Wanderlust.flac"
+  },
+  {
+    "skill": "style-esbe",
+    "label": "Esbe \u00b7 Esbe - Bloomsday - 08 Reverie",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Esbe - Bloomsday FLAC/Esbe - Bloomsday - 08 Reverie.flac"
+  },
+  {
+    "skill": "style-esbe",
+    "label": "Esbe \u00b7 Esbe - Bloomsday - 19 Serenade",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Esbe - Bloomsday FLAC/Esbe - Bloomsday - 19 Serenade.flac"
+  },
+  {
+    "skill": "style-nomak",
+    "label": "Nomak \u00b7 Anger of the Earth",
+    "path": "/Users/vanities/git/work/me/game/references/audio/[HSCP 001] Nomak - Calm (2007) [CD FLAC]/01 - Anger of the Earth.flac"
+  },
+  {
+    "skill": "style-nomak",
+    "label": "Nomak \u00b7 Spiritual Home",
+    "path": "/Users/vanities/git/work/me/game/references/audio/[HSCP 001] Nomak - Calm (2007) [CD FLAC]/02 - Spiritual Home.flac"
+  },
+  {
+    "skill": "style-nomak",
+    "label": "Nomak \u00b7 Diaphanous Air",
+    "path": "/Users/vanities/git/work/me/game/references/audio/[HSCP 001] Nomak - Calm (2007) [CD FLAC]/07 - Diaphanous Air.flac"
+  },
+  {
+    "skill": "style-nomak",
+    "label": "Nomak \u00b7 Blessing Dance",
+    "path": "/Users/vanities/git/work/me/game/references/audio/[HSCP 001] Nomak - Calm (2007) [CD FLAC]/11 - Blessing Dance.flac"
+  },
+  {
+    "skill": "style-jeremy-soule",
+    "label": "Jeremy Soule \u00b7 Jeremy Soule - Secunda",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Jeremy Soule & Mark Lampert - The Elder Scrolls V Skyrim - Original Game Soundtrack (2011) - [flac] [16]/Disc 1/17 - Jeremy Soule - Secunda.flac"
+  },
+  {
+    "skill": "style-jeremy-soule",
+    "label": "Jeremy Soule \u00b7 Jeremy Soule - Dragonborn",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Jeremy Soule & Mark Lampert - The Elder Scrolls V Skyrim - Original Game Soundtrack (2011) - [flac] [16]/Disc 1/01 - Jeremy Soule - Dragonborn.flac"
+  },
+  {
+    "skill": "style-jeremy-soule",
+    "label": "Jeremy Soule \u00b7 Jeremy Soule - Far Horizons",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Jeremy Soule & Mark Lampert - The Elder Scrolls V Skyrim - Original Game Soundtrack (2011) - [flac] [16]/Disc 2/06 - Jeremy Soule - Far Horizons.flac"
+  },
+  {
+    "skill": "style-jeremy-soule",
+    "label": "Jeremy Soule \u00b7 Jeremy Soule - From Past to Present",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Jeremy Soule & Mark Lampert - The Elder Scrolls V Skyrim - Original Game Soundtrack (2011) - [flac] [16]/Disc 1/03 - Jeremy Soule - From Past to Present.flac"
+  },
+  {
+    "skill": "style-jeremy-soule",
+    "label": "Jeremy Soule \u00b7 Jeremy Soule - The Streets of Whiterun",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Jeremy Soule & Mark Lampert - The Elder Scrolls V Skyrim - Original Game Soundtrack (2011) - [flac] [16]/Disc 2/09 - Jeremy Soule - The Streets of Whiterun.flac"
+  },
+  {
+    "skill": "style-forest-swords",
+    "label": "Forest Swords \u00b7 The Highest Flood",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Forest Swords - 2017 - Compassion/02 The Highest Flood.flac"
+  },
+  {
+    "skill": "style-forest-swords",
+    "label": "Forest Swords \u00b7 Panic",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Forest Swords - 2017 - Compassion/03 Panic.flac"
+  },
+  {
+    "skill": "style-forest-swords",
+    "label": "Forest Swords \u00b7 Arms Out",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Forest Swords - 2017 - Compassion/06 Arms Out.flac"
+  },
+  {
+    "skill": "style-forest-swords",
+    "label": "Forest Swords \u00b7 Border Margin Barrier",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Forest Swords - 2017 - Compassion/05 Border Margin Barrier.flac"
+  },
+  {
+    "skill": "style-thrupence",
+    "label": "Thrupence \u00b7 Rinse Repeat",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Thrupence - Ideas of Aesthetics (2017) {FCL154, WEB} [FLAC 16]/02. Rinse Repeat.flac"
+  },
+  {
+    "skill": "style-thrupence",
+    "label": "Thrupence \u00b7 Thrupence - Thoughts (Originals Mixtape 3) - 12 Thought 12",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Thrupence - Thoughts (Originals Mixtape 3) FLAC/Thrupence - Thoughts (Originals Mixtape 3) - 12 Thought 12.flac"
+  },
+  {
+    "skill": "style-strfkr",
+    "label": "STRFKR \u00b7 Reptilians",
+    "path": "/Users/vanities/git/work/me/game/references/audio/STRFKR - Reptilians (10-Year Anniversary Edition) (2021) {Polyvinyl Records} [WEB FLAC]/07 - Reptilians.flac"
+  },
+  {
+    "skill": "style-strfkr",
+    "label": "STRFKR \u00b7 Julius",
+    "path": "/Users/vanities/git/work/me/game/references/audio/STRFKR - Reptilians (10-Year Anniversary Edition) (2021) {Polyvinyl Records} [WEB FLAC]/02 - Julius.flac"
+  },
+  {
+    "skill": "style-strfkr",
+    "label": "STRFKR \u00b7 Bury Us Alive",
+    "path": "/Users/vanities/git/work/me/game/references/audio/STRFKR - Reptilians (10-Year Anniversary Edition) (2021) {Polyvinyl Records} [WEB FLAC]/03 - Bury Us Alive.flac"
+  },
+  {
+    "skill": "style-strfkr",
+    "label": "STRFKR \u00b7 Mystery Cloud",
+    "path": "/Users/vanities/git/work/me/game/references/audio/STRFKR - Reptilians (10-Year Anniversary Edition) (2021) {Polyvinyl Records} [WEB FLAC]/04 - Mystery Cloud.flac"
+  },
+  {
+    "skill": "style-home",
+    "label": "HOME \u00b7 HOME - Odyssey (Vinyl Edition) - 03 Decay",
+    "path": "/Users/vanities/git/work/me/game/references/audio/HOME - Odyssey (Vinyl Edition)/HOME - Odyssey (Vinyl Edition) - 03 Decay.flac"
+  },
+  {
+    "skill": "style-home",
+    "label": "HOME \u00b7 HOME - Odyssey (Vinyl Edition) - 09 Resonance",
+    "path": "/Users/vanities/git/work/me/game/references/audio/HOME - Odyssey (Vinyl Edition)/HOME - Odyssey (Vinyl Edition) - 09 Resonance.flac"
+  },
+  {
+    "skill": "style-home",
+    "label": "HOME \u00b7 HOME - Odyssey (Vinyl Edition) - 05 Tides",
+    "path": "/Users/vanities/git/work/me/game/references/audio/HOME - Odyssey (Vinyl Edition)/HOME - Odyssey (Vinyl Edition) - 05 Tides.flac"
+  },
+  {
+    "skill": "style-home",
+    "label": "HOME \u00b7 HOME - Odyssey (Vinyl Edition) - 02 Native",
+    "path": "/Users/vanities/git/work/me/game/references/audio/HOME - Odyssey (Vinyl Edition)/HOME - Odyssey (Vinyl Edition) - 02 Native.flac"
+  },
+  {
+    "skill": "style-home",
+    "label": "HOME \u00b7 HOME - Odyssey (Vinyl Edition) - 04 Oort Cloud",
+    "path": "/Users/vanities/git/work/me/game/references/audio/HOME - Odyssey (Vinyl Edition)/HOME - Odyssey (Vinyl Edition) - 04 Oort Cloud.flac"
+  },
+  {
+    "skill": "style-bonobo",
+    "label": "Bonobo \u00b7 Bonobo - Cirrus",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Bonobo - Cirrus.flac"
+  },
+  {
+    "skill": "style-bonobo",
+    "label": "Bonobo \u00b7 Bonobo - Nightlite",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Bonobo - Nightlite.flac"
+  },
+  {
+    "skill": "style-djrum",
+    "label": "DJRUM \u00b7 A Tune for Us",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Djrum - Under Tangled Silence (2025) - WEB FLAC/01. A Tune for Us.flac"
+  },
+  {
+    "skill": "style-floating-points",
+    "label": "Floating Points \u00b7 Anasickmodular",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Floating Points - Crush (2019) [FLAC] {ZENCD259}/03 - Anasickmodular.flac"
+  },
+  {
+    "skill": "style-floating-points",
+    "label": "Floating Points \u00b7 Floating Points - Key103",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Floating Points - Cascade (2024) [ZENDNL303] [WEB FLAC]/02 - Floating Points - Key103.flac"
+  },
+  {
+    "skill": "style-floating-points",
+    "label": "Floating Points \u00b7 Sea-Watch",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Floating Points - Crush (2019) [FLAC] {ZENCD259}/10 - Sea-Watch.flac"
+  },
+  {
+    "skill": "style-floating-points",
+    "label": "Floating Points \u00b7 Silhouettes (I, II & III)",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Floating Points - Elaenia (2015) - FLAC/disc 1/02 Silhouettes (I, II & III).flac"
+  },
+  {
+    "skill": "style-floating-points",
+    "label": "Floating Points \u00b7 Floating Points - Vocoder (Club Mix)",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Floating Points - Cascade (2024) [ZENDNL303] [WEB FLAC]/01 - Floating Points - Vocoder (Club Mix).flac"
+  },
+  {
+    "skill": "style-khruangbin",
+    "label": "Khruangbin \u00b7 Khruangbin - Dern Kala",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Khruangbin - Dern Kala.flac"
+  },
+  {
+    "skill": "style-khruangbin",
+    "label": "Khruangbin \u00b7 Khruangbin - Les Petits Gris",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Khruangbin - Les Petits Gris.flac"
+  },
+  {
+    "skill": "style-khruangbin",
+    "label": "Khruangbin \u00b7 Khruangbin - People Everywhere Still Alive",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Khruangbin - People Everywhere Still Alive.flac"
+  },
+  {
+    "skill": "style-khruangbin",
+    "label": "Khruangbin \u00b7 Khruangbin - White Gloves",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Khruangbin - White Gloves.flac"
+  },
+  {
+    "skill": "style-kiasmos",
+    "label": "Kiasmos \u00b7 Kiasmos - Burst",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Kiasmos - Burst.flac"
+  },
+  {
+    "skill": "style-kiasmos",
+    "label": "Kiasmos \u00b7 Kiasmos - Sailed",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Kiasmos - Sailed.flac"
+  },
+  {
+    "skill": "style-kiasmos",
+    "label": "Kiasmos \u00b7 Kiasmos - Spun",
+    "path": "/Users/vanities/git/work/me/game/references/audio/_fetched/Kiasmos - Spun.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - ITLP09 Skee Mask - Pool - 05 CZ3000 Dub",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Pool [2021] [WEB-FLAC]/Skee Mask - ITLP09 Skee Mask - Pool - 05 CZ3000 Dub.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - Daytime Gamer",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Resort (2024 WF)/06 - Skee Mask - Daytime Gamer.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - H\u00f6lzl Was A Dancer",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Resort (2024 WF)/10 - Skee Mask - H\u00f6lzl Was A Dancer.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - ITLP09 Skee Mask - Pool - 01 Nvivo",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Pool [2021] [WEB-FLAC]/Skee Mask - ITLP09 Skee Mask - Pool - 01 Nvivo.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - Reminiscrmx",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Resort (2024 WF)/03 - Skee Mask - Reminiscrmx.flac"
+  },
+  {
+    "skill": "style-skee-mask",
+    "label": "Skee Mask \u00b7 Skee Mask - Terminal Z",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Skee Mask - Resort (2024 WF)/09 - Skee Mask - Terminal Z.flac"
+  },
+  {
+    "skill": "style-yasunori-nishiki",
+    "label": "Nishiki \u00b7 Battle on the Sea",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Octopath Traveler II Original Soundtrack by Yasunori Nishiki (2023) {SQEX-10991~6} [24-96 FLAC]/Disc 5/01 - Battle on the Sea.flac"
+  },
+  {
+    "skill": "style-yasunori-nishiki",
+    "label": "Nishiki \u00b7 Ruins Immemorial",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Octopath Traveler II Original Soundtrack by Yasunori Nishiki (2023) {SQEX-10991~6} [24-96 FLAC]/Disc 5/02 - Ruins Immemorial.flac"
+  },
+  {
+    "skill": "style-mitsuda",
+    "label": "Mitsuda \u00b7 Yasunori Mitsuda - Corridor of Time",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Chrono Trigger Original Sound Version (1995) [CD FLAC]/Disc 3/04 - Yasunori Mitsuda - Corridor of Time.flac"
+  },
+  {
+    "skill": "style-dark-souls",
+    "label": "Dark Souls \u00b7 Motoi Sakuraba - Firelink Shrine",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Motoi Sakuraba - Dark Souls (2019) - FLAC/02. Motoi Sakuraba - Firelink Shrine.flac"
+  }
+]
