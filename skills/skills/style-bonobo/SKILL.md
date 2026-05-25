@@ -57,8 +57,10 @@ note("<F#2 C#2>").s("sawtooth").detune(0.15)
 // Woody kick (not 909 — closer to an Akai sample with body)
 s("bd:5*4").gain(0.65).lpf(220).attack(0.001).release(0.18)
 
-// Off-beat hat with humanised gain (the "sample, not sequencer" feel)
-s("hh*8").gain(rand.range(0.2, 0.45)).pan(sine.slow(7).range(-0.3, 0.3))
+// Off-beat hat with humanised gain (the "sample, not sequencer" feel).
+// NOTE: use an explicit gain PATTERN, not rand.range — `rand` has no .range in
+// the @strudel/web player build and throws at runtime. (sine/perlin.range are OK.)
+s("hh*8").gain("0.3 0.18 0.42 0.2 0.34 0.18 0.4 0.22").pan(sine.slow(7).range(-0.3, 0.3))
 
 // For the "Black Sands"-style closer: open in real silence
 // All voices start with .mask("<0 0 0 0 1 1 1 1>/8") to hold off entry
@@ -106,3 +108,21 @@ Both hit **~50× dynamic range** — the **open-in-near-silence → full-mix blo
 - **Is the spectrum BRIGHT (1.5-2.5 kHz centroid)?** If centroid < 1000 Hz you're in Kiasmos territory, not Bonobo.
 
 Sources: per-track librosa analysis of Black Sands (Prelude, Kong, Eyesdown, 1009, Animals, Black Sands) · [Ableton: The Path to Migration](https://www.ableton.com/en/blog/bonobo-path-to-migration/) · [ADSR: Bonobo's Innovative Techniques](https://www.adsrsounds.com/news/bonobo-reveals-his-innovative-sound-techniques/) · [Attack Mag: PaulStretch Ambience](https://www.attackmagazine.com/technique/synth-secrets/bonobo-style-haunting-ambience-with-paulstretch/)
+
+## Extracted DNA — measured loops + section arcs (analysis pipeline)
+
+Ripped from the reference audio (demucs stems → Basic Pitch → music21 → BTC large-voca chords → allin1 sections). **Progression = harmonic skeleton, arc = structural blueprint** — feeding these into a compose is what made the crank land vs. style-prose alone.
+
+| Track | BPM | key (bass/mel) | progression | section arc | dyn |
+|---|---|---|---|---|---|
+| 1009 | 129.2 | F# minor/C# minor | `C# F# C# F# C# F# C# F#` | start→intro→verse→chorus→verse→chorus→inst→chorus→outro | 3.8× |
+| Animals | 136.0 | E minor/E minor | `B Em D Bm Em D Bm Bsus4` | intro→inst→solo→inst→solo→outro | 16.2× |
+| Black Sands | 89.1 | F minor/C minor | `Cm F7 Cm Fm7 Fm Cm G#maj7 Fm7` | intro→solo→break→solo→outro→end | 2932.9× |
+| Bonobo - Cirrus | 117.5 | G minor/D minor | `Dm A# Dm A#maj7 Dm A#maj7 C Gm7` | start→intro→inst→verse→chorus→solo→outro | 105.7× |
+| Bonobo - Nightlite | 80.7 | D minor/D minor | `Dm7 A7 Dm D# A# Dm Am Dm` | start→intro→verse→solo→verse→chorus→inst→solo→inst→verse→chorus→break→solo→end | 39.7× |
+| Eyesdown | 64.6 | G major/E minor | `Em7 Em Bm Bm7 Bm Em7 Em Bm` | intro→inst→verse→chorus→inst→verse→chorus→inst→chorus→outro | 5.7× |
+| Kong | 95.7 | B minor/F# minor | `E C#m7 A F#m B A B F#m` | intro→verse→chorus→solo→inst→solo→chorus→end | 5.5× |
+| Prelude | 184.6 | B- minor/B- minor | `A#m D# Fm7 D# A#m D# A#m A#m7` | start→intro→solo | 3.9× |
+
+**Full cards** (per-section Strudel `note()` seeds + register/interval/octave-displacement DNA) — in the vault at `02_SOURCES/Music/analysis/pipeline-cards/style-bonobo/`: `1009.md`, `animals.md`, `black-sands.md`, `bonobo-cirrus.md`, `bonobo-nightlite.md`, `eyesdown.md`, `kong.md`, `prelude.md`.
+
