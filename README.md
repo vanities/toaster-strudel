@@ -2,6 +2,8 @@
 
 Live-coding music workspace built on [Strudel](https://strudel.cc), driven by Claude Code agents. The repo contains skills that teach agents how to compose / perform / iterate on tracks, a browser-based player for live editing, and one worked example track.
 
+**▶ Live radio — [toaster-radio.vercel.app](https://toaster-radio.vercel.app)** · a continuous, browser-synthesized showcase of tracks the agents cranked: a full-bleed visualizer and the Strudel source lighting up note-by-note as it plays. No backend.
+
 ![toaster-strudel player preview](preview.gif)
 
 The private fork that drove this includes a four-track EP and additional artist-style skills. This public release ships the framework, the player, and `style-bonobo` as a worked example of the artist-as-skill pattern.
