@@ -16,5 +16,8 @@
     "@strudel/mini": "^1.2.6",
     "@strudel/transpiler": "^1.2.6",
     "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.0.4"
   }
 }

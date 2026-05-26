@@ -91,6 +91,27 @@ Strudel has **no per-band parametric EQ** (no surgical 3 dB cut at 340 Hz). The 
 4. **No gain variation across voices.** Every voice at equal loudness = no hierarchy. The ear doesn't know what to listen to, so it hears noise.
 5. **Center-only mixing with no z-axis.** Everything panned center and equally close = flat wall. Spread panning + reverb depth = three-dimensional mix.
 
+## Measure it: warm vs harsh vs dull (the ears)
+
+Don't trust a mix you can't hear cleanly — **measure** it. Render the track headlessly (`node tools/render-wav.mjs <id>` → WAV) and read its spectral profile (`tools/measure-wav.py`), then compare to the reference card. Two numbers diagnose most problems:
+
+- **Spectral flatness = noise / harshness.** Clean, tonal mixes sit ~0.001–0.02. Above ~0.05 the mix is noise-like — almost always too many bright voices stacked in one band (or open hi-hats). This is the single clearest harsh-vs-clean signal.
+- **Spectral centroid = bright vs dull.** Aim for the artist's card zone. Too high → harsh/brittle; too low → dull/muffled.
+
+Worked example — this project's own cranks, all measured:
+
+| track | centroid | flatness | verdict |
+|---|---|---|---|
+| gyre (Kiasmos) — loved | 872 | 0.0037 | warm **+ pristine** |
+| glade (Mitsuda) — loved | ~1176 | 0.0007 | warm **+ pristine** |
+| cobalt (scrapped) | 2191 | **0.068** | bright **+ noisy** (3 stacked squares + busy hats) |
+| grotto v1 | 593 | 0.0001 | clean but **dull** (bare triangles) |
+
+The lesson: **warmth ≠ dullness, and brightness ≠ harshness — they're different axes.**
+- **Harsh = high flatness** (noise). Fix by THINNING — fewer bright voices, carve them into separate bands — *not* by darkening.
+- **Dull = low centroid from harmonically-poor waveforms** (bare `triangle`/`sine`). Fix by reaching for **rich REAL instruments** — `gm_string_ensemble`, `piano`, `gm_cello`, `gm_koto`, `gm_flute` — which carry presence in the low-mids while staying warm. *Not* by adding raw-synth brightness (→ harsh) or a noisy sparkle layer (→ flatness spike; a high `triangle` arp once pushed grotto from 0.0001 to 0.18).
+- The pro recipe (gyre/glade, both loved): **real warm instruments + ruthless tonal discipline (no noise layers) + every voice carved into its own band + filter movement + a big dynamic arc.**
+
 ## Related skills
 
 Compositional structure → [[strudel-arrangement]]; the dynamic arc across sections → [[strudel-transitions]]; effects syntax → [[strudel-effects]]; sample gain floors and VCSL levels → [[strudel-sample-library]]; pro technique shortcuts → [[strudel-pro-tips]]; sound design (synth timbres to layer) → [[strudel-sound-design]]; genre-specific treatment → [[strudel-genres]].
