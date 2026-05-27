@@ -3,6 +3,7 @@ const KEYS: [string, string][] = [
   ['← →', 'previous / next track'],
   [', .', 'previous / next section'],
   ['a', 'toggle auto-advance'],
+  ['g', 'toggle radio (continuous station)'],
   ['t', 'cycle theme'],
   ['c', 'open chat'],
   ['shift-click', 'send a note to the chat'],

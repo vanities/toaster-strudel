@@ -216,28 +216,34 @@ const server = http.createServer(async (req, res) => {
     }
 
     // ── GET /tracks — auto-discover playable tracks on disk ──
-    // Returns top-level tracks/*.strudel as [{ id, label }], sorted.
-    // Excludes section dirs, _scrapped/, and dot/underscore files so the
-    // player menu always mirrors what's actually in the folder.
+    // Scans tracks/*.strudel AND one level of non-_/non-. subfolders
+    // (ep/, v2-gen/, …), returning [{ id, label, group }] where id is
+    // "group/name" for foldered tracks. Section dirs, _scrapped/, and
+    // dot/underscore files are excluded. Path-style ids resolve through the
+    // static handler (decodeURIComponent) and /sections (path.join).
     if (url.pathname === '/tracks' && req.method === 'GET') {
       const tracksDir = path.join(ROOT, 'tracks');
-      let entries = [];
-      try {
-        entries = fs.readdirSync(tracksDir, { withFileTypes: true });
-      } catch {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        return res.end('[]');
+      const collect = (absDir, group, out) => {
+        let entries = [];
+        try { entries = fs.readdirSync(absDir, { withFileTypes: true }); } catch { return; }
+        for (const d of entries) {
+          if (!d.isFile() || !d.name.endsWith('.strudel')) continue;
+          if (d.name.startsWith('_') || d.name.startsWith('.')) continue;
+          const name = d.name.replace(/\.strudel$/, '');
+          const dash = name.indexOf('-');
+          const label = dash > 0 ? `${name.slice(0, dash)} — ${name.slice(dash + 1)}` : name;
+          out.push({ id: group ? `${group}/${name}` : name, label, group });
+        }
+      };
+      const tracks = [];
+      collect(tracksDir, '', tracks);                        // loose top-level tracks
+      let subs = [];
+      try { subs = fs.readdirSync(tracksDir, { withFileTypes: true }); } catch {}
+      for (const d of subs) {                                // one level: ep/, v2-gen/, …
+        if (d.isDirectory() && !d.name.startsWith('_') && !d.name.startsWith('.'))
+          collect(path.join(tracksDir, d.name), d.name, tracks);
       }
-      const tracks = entries
-        .filter(d => d.isFile() && d.name.endsWith('.strudel')
-          && !d.name.startsWith('_') && !d.name.startsWith('.'))
-        .map(d => {
-          const id = d.name.replace(/\.strudel$/, '');
-          const dash = id.indexOf('-');
-          const label = dash > 0 ? `${id.slice(0, dash)} — ${id.slice(dash + 1)}` : id;
-          return { id, label };
-        })
-        .sort((a, b) => a.id.localeCompare(b.id));
+      tracks.sort((a, b) => a.id.localeCompare(b.id));
       res.writeHead(200, { 'Content-Type': 'application/json' });
       return res.end(JSON.stringify(tracks));
     }
@@ -249,7 +255,8 @@ const server = http.createServer(async (req, res) => {
     //   { manifest: <parsed manifest.json|null>, sections: [{ file, code, ascii }] }
     if (url.pathname === '/sections' && req.method === 'GET') {
       const id = url.searchParams.get('track') || '';
-      if (!/^[A-Za-z0-9_-]+$/.test(id)) {   // blocks path traversal (no . / ..)
+      // allow "name" or "group/name" (one level); no dots → blocks ../ traversal
+      if (!/^[A-Za-z0-9_-]+(\/[A-Za-z0-9_-]+)?$/.test(id)) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ error: 'invalid track id' }));
       }

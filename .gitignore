@@ -29,6 +29,11 @@ skills/skills/style-*/
 # turn-the-crank run history (local — the generated crank tracks are gitignored too)
 skills/skills/turn-the-crank/crank-log.md
 
+# strudel-covers worked examples are verbatim third-party covers of copyrighted
+# songs (eefano's repo has no license) — keep the SKILL.md public but not the
+# redistributed sources. Un-ignore only if rights are cleared.
+skills/skills/strudel-covers/examples/
+
 # Project skill symlinks → skills/skills/ (local Claude Code wiring; committing
 # them would leave broken links on a public clone — style-* sources are ignored)
 .claude/skills/
@@ -37,3 +42,18 @@ skills/skills/turn-the-crank/crank-log.md
 # tools/mirror-strudel-assets.mjs so the player runs offline. Large; regenerate
 # with `node tools/mirror-strudel-assets.mjs`, don't commit.
 web/public/strudel-assets/
+
+# Audio→symbolic transcription pipeline (tools/transcribe.py): isolated tool
+# venvs and the stem/MIDI cache (several GB of demucs wav stems). Regenerate;
+# never commit. The analysis cards under references/analysis/ are kept.
+tools/.venv-*/
+tools/.cache-stems/
+# Downloaded MIDI staging (tools/midi_dna.py). The canonical copies live in the
+# vault at 02_SOURCES/Music/midi-sourced/; this is just a local download cache.
+tools/.cache-midi/
+# references/analysis is a symlink into the Artist-Vault-Kit (the canonical home
+# for analysis cards); don't commit the symlink — it'd dangle on a fresh clone.
+references/analysis
+# Vendored BTC chord-recognition repo (clone of jayg996/BTC-ISMIR19 + 24MB
+# pretrained weights). Re-clone to tools/vendor/ if missing.
+tools/vendor/

@@ -73,10 +73,17 @@ export default function App() {
   const [resetOnSwap, setResetOnSwap] = useState(
     () => localStorage.getItem('toaster-strudel:reset-on-swap') !== 'false'
   );
+  // Radio mode: at the end of a track's section arc, roll into the NEXT track in
+  // the station (tracks sharing its group, e.g. v2-gen) and keep playing — a
+  // continuous, self-refreshing stream that picks up freshly-generated cranks.
+  const [radio, setRadio] = useState(
+    () => localStorage.getItem('toaster-strudel:radio') === 'true'
+  );
   const { theme, cycle } = useTheme();
 
   const playStartedAt = useRef(0);
   const sectionStartedAt = useRef(0);
+  const radioPlayPending = useRef(false); // set when a radio hop should auto-play the new track
 
   const playing = status === 'playing';
   const displayedSection = viewedIndex >= 0 ? sections[viewedIndex] : null;
@@ -121,6 +128,15 @@ export default function App() {
         // working copy.
         setViewedIndex(secs.length ? 0 : -1);
         flash(secs.length ? secs[0].file : `tracks/${currentId}.strudel`);
+        // radio hop just landed: start the new track at section 01 (cps reset)
+        if (radioPlayPending.current) {
+          radioPlayPending.current = false;
+          if (secs.length) {
+            engine.play(transformCps(secs[0].code, null)).catch(() => {});
+            playStartedAt.current = performance.now();
+            sectionStartedAt.current = performance.now();
+          }
+        }
       })
       .catch((e) => alive && setError(e instanceof Error ? e.message : String(e)));
     return () => {
@@ -164,14 +180,33 @@ export default function App() {
     [sections, viewedIndex, jumpToSection]
   );
 
+  // Radio: refetch the catalog (so freshly-generated cranks join the rotation),
+  // then hop to the next track in the same group as the current one, wrapping.
+  // The track-load effect auto-plays it (radioPlayPending).
+  const advanceStation = useCallback(async () => {
+    let list = tracks;
+    try { list = await fetchTracks(); setTracks(list); } catch { /* keep current list */ }
+    const cur = list.find((t) => t.id === currentId);
+    const station = cur?.group ? list.filter((t) => t.group === cur.group) : list;
+    if (!station.length) return;
+    const i = station.findIndex((t) => t.id === currentId);
+    const next = station[(i + 1) % station.length];
+    radioPlayPending.current = true;
+    setCurrentId(next.id);
+  }, [tracks, currentId]);
+
   useEffect(() => {
     if (!autoAdvance || !playing || sections.length === 0) return;
     const idx = viewedIndex < 0 ? 0 : viewedIndex;
     const cps = (cpsOverride ?? parseCps(sections[idx]?.code ?? code)) || 0.4;
     const ms = Math.max(1000, ((sections[idx]?.cycles ?? sectionLen) / cps) * 1000);
-    const h = window.setTimeout(() => jumpToSection((idx + 1) % sections.length), ms);
+    const last = idx >= sections.length - 1;
+    const h = window.setTimeout(() => {
+      if (radio && last) void advanceStation();         // end of the arc → next track
+      else jumpToSection((idx + 1) % sections.length);  // within the arc → next section
+    }, ms);
     return () => clearTimeout(h);
-  }, [autoAdvance, playing, viewedIndex, sections, sectionLen, code, cpsOverride, jumpToSection]);
+  }, [autoAdvance, playing, viewedIndex, sections, sectionLen, code, cpsOverride, jumpToSection, radio, advanceStation]);
 
   const play = useCallback(async () => {
     setError(null);
@@ -229,6 +264,18 @@ export default function App() {
     setAutoAdvance((a) => {
       const v = !a;
       localStorage.setItem('toaster-strudel:auto-advance', String(v));
+      return v;
+    });
+  }, []);
+
+  const toggleRadio = useCallback(() => {
+    setRadio((on) => {
+      const v = !on;
+      localStorage.setItem('toaster-strudel:radio', String(v));
+      if (v) {
+        setAutoAdvance(true); // radio rides the section auto-advance to move
+        localStorage.setItem('toaster-strudel:auto-advance', 'true');
+      }
       return v;
     });
   }, []);
@@ -332,6 +379,7 @@ export default function App() {
         case '.': stepSection(1); break;
         case 'r': case 'R': setReloadNonce((n) => n + 1); break;
         case 'a': case 'A': toggleAuto(); break;
+        case 'g': case 'G': toggleRadio(); break;
         case 'm': case 'M': toggleMute(); break;
         case 't': case 'T': cycle(); break;
         case 'z': case 'Z': toggleReset(); break;
@@ -346,7 +394,7 @@ export default function App() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [playing, play, stop, stepTrack, jumpTrack, stepSection, toggleAuto, toggleMute, toggleReset, cycle, nudge, refreshSections, replay]);
+  }, [playing, play, stop, stepTrack, jumpTrack, stepSection, toggleAuto, toggleRadio, toggleMute, toggleReset, cycle, nudge, refreshSections, replay]);
 
   const totalSecs =
     autoAdvance && sections.length
@@ -375,6 +423,7 @@ export default function App() {
           <button className="cbtn primary" onClick={play} disabled={playing} title="Play (space)">▶</button>
           <button className="cbtn" onClick={stop} disabled={!playing} title="Stop (space)">■</button>
           <button className="cbtn" onClick={() => stepTrack(1)} title="Next track (→)">⏭</button>
+          <button className={`cbtn${radio ? ' primary' : ''}`} onClick={toggleRadio} title="Radio — play the station continuously, hopping tracks at the end of each arc (g)">📻</button>
           <button className="cbtn" onClick={() => setReloadNonce((n) => n + 1)} title="Reload (r)">↻</button>
           <button className="cbtn" onClick={openInStrudel} title="Open in strudel.cc">↗</button>
           <button className={`cbtn${recording ? ' rec' : ''}`} onClick={toggleRecord} title="Record to WAV">●</button>

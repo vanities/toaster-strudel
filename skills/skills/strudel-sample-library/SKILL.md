@@ -47,7 +47,7 @@ Registered at boot via `@strudel/soundfonts`. Play like any pitched voice: `note
 - **Reed / sax:** `gm_soprano_sax` `gm_alto_sax` `gm_tenor_sax` `gm_baritone_sax` `gm_oboe` `gm_english_horn` `gm_bassoon` `gm_clarinet`
 - **Pipe / flute:** `gm_piccolo` `gm_flute` `gm_recorder` `gm_pan_flute` `gm_blown_bottle` `gm_shakuhachi` `gm_whistle` `gm_ocarina`
 - **Synth lead:** `gm_lead_1_square` `gm_lead_2_sawtooth` `gm_lead_3_calliope` `gm_lead_4_chiff` `gm_lead_5_charang` `gm_lead_6_voice` `gm_lead_7_fifths` `gm_lead_8_bass_lead`
-- **Synth pad:** `gm_pad_new_age` `gm_pad_warm` `gm_pad_poly` `gm_pad_choir` `gm_pad_bowed` `gm_pad_metallic` `gm_pad_halo` `gm_pad_sweep`
+- **Synth pad:** `gm_pad_new_age` `gm_pad_warm` `gm_pad_poly` `gm_pad_choir` `gm_pad_bowed` `gm_pad_metallic` `gm_pad_halo` `gm_pad_sweep` — ⚠️ pad names DROP the GM program number: it's `gm_pad_warm`, **not** `gm_pad_2_warm` (the GM-program form errors `sound … not found`). Leads keep their numbers (`gm_lead_2_sawtooth`); pads don't.
 - **Synth FX:** `gm_fx_rain` `gm_fx_soundtrack` `gm_fx_crystal` `gm_fx_atmosphere` `gm_fx_brightness` `gm_fx_goblins` `gm_fx_echoes` `gm_fx_sci_fi`
 - **Ethnic:** `gm_sitar` `gm_shamisen` `gm_koto` `gm_kalimba` `gm_bagpipe` `gm_shanai` `gm_steel_drums`
 - **Percussive:** `gm_agogo` `gm_woodblock` `gm_taiko_drum` `gm_melodic_tom` `gm_synth_drum` `gm_timpani` `gm_reverse_cymbal`

@@ -4,6 +4,7 @@
 export interface Track {
   id: string;
   label: string;
+  group?: string; // subfolder: "ep", "v2-gen", … ("" = loose top-level)
 }
 
 export interface Section {

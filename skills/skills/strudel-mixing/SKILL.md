@@ -91,6 +91,15 @@ Strudel has **no per-band parametric EQ** (no surgical 3 dB cut at 340 Hz). The 
 4. **No gain variation across voices.** Every voice at equal loudness = no hierarchy. The ear doesn't know what to listen to, so it hears noise.
 5. **Center-only mixing with no z-axis.** Everything panned center and equally close = flat wall. Spread panning + reverb depth = three-dimensional mix.
 
+## Loudness & master level (Strudel does NOT auto-normalize)
+
+Per-voice `.gain()` values ARE the master level — nothing fills the headroom for you. Conservative gains (a pad at 0.08, a mix peaking ~0.4) sound *soft* because the top half of the range sits unused. To make a track louder:
+
+- **Scale per-voice — that's the reliable lever.** Multiply each voice's `.gain()` up. It multiplies linearly and preserves balance. Render and check `peak` < ~0.9 (1.0 = clip).
+- **A master `.gain()` on the outer `stack(...)` is NOT a clean trim** — in this engine it behaved pathologically (clipping + harsh flatness at 1.3 *and* 2.0, identical; it blasts even near-silent voices like hats to the ceiling instead of scaling the summed bus). Don't reach for `stack(...).gain(x)` as a master fader. Scale voices, or use a real limiter (`.compressor()`).
+- **The loudest voice (usually the kick) caps the global boost.** Pushing a kick past ~1.0 gain distorts it. If a uniform scale sends the kick over, cap it (~0.8) and let the other voices come up around it.
+- **"Harsh" flatness on a *louder* mix is usually the [[silence artifact]], not real distortion.** Flatness is scale-invariant, so a uniform level change can't truly raise it — check `peak` first: if `peak` < 1.0 nothing's clipping, and the high flatness is the near-silent reverb-tail frames (amplified when louder loud-sections widen the dynamic gap). Fix by narrowing dynamics (lift the quiet-section floors), not by darkening. (tarn: per-voice ×1.6 read flatness 0.09 / dyn 1408× with peak 0.56 — lifting the intro/breakdown/outro floors snapped it back to 0.0001 / dyn 3.6, same loudness.)
+
 ## Measure it: warm vs harsh vs dull (the ears)
 
 Don't trust a mix you can't hear cleanly — **measure** it. Render the track headlessly (`node tools/render-wav.mjs <id>` → WAV) and read its spectral profile (`tools/measure-wav.py`), then compare to the reference card. Two numbers diagnose most problems:
@@ -106,10 +115,13 @@ Worked example — this project's own cranks, all measured:
 | glade (Mitsuda) — loved | ~1176 | 0.0007 | warm **+ pristine** |
 | cobalt (scrapped) | 2191 | **0.068** | bright **+ noisy** (3 stacked squares + busy hats) |
 | grotto v1 | 593 | 0.0001 | clean but **dull** (bare triangles) |
+| tarn (Skee Mask) | 469 | 0.0001 | warm-dark **+ pristine** (raised centroid tonally — see below) |
 
 The lesson: **warmth ≠ dullness, and brightness ≠ harshness — they're different axes.**
-- **Harsh = high flatness** (noise). Fix by THINNING — fewer bright voices, carve them into separate bands — *not* by darkening.
+- **Harsh = high flatness** (noise). Fix by THINNING — fewer bright voices, carve them into separate bands — *not* by darkening. (tarn: pushing 808 hi-hats up for "presence" spiked flatness 0.0001 → **0.07**, cobalt-harsh range. Hats are *noise* — they buy centroid and harshness together. Pulling them to near-silent texture restored 0.0001.)
 - **Dull = low centroid from harmonically-poor waveforms** (bare `triangle`/`sine`). Fix by reaching for **rich REAL instruments** — `gm_string_ensemble`, `piano`, `gm_cello`, `gm_koto`, `gm_flute` — which carry presence in the low-mids while staying warm. *Not* by adding raw-synth brightness (→ harsh) or a noisy sparkle layer (→ flatness spike; a high `triangle` arp once pushed grotto from 0.0001 to 0.18).
+  - **A FILTERED saw/square is also a valid tonal centroid-lifter** (the "raw-synth brightness → harsh" warning is about *unfiltered / high-cutoff* synths). tarn's dull triangle hook (centroid 318) → `sawtooth` under `lpf(960)` lifted centroid to **465 with flatness still 0.0001**: a low-passed saw adds warm *mid*-harmonics (centroid up) with no high-freq noise (flatness flat). Put the brightness on a LOUD tonal voice (the bass hook/pad), since loud dark voices are what pin the centroid down.
+- **Gotcha when measuring a whole dynamic ARC (not a steady loop):** near-silent + heavily-reverbed sections inflate the *average* flatness — diffuse reverb tails are broadband, so silence-drenched-in-reverb reads as "noise." If flatness is high but no single section sounds noisy, suspect **reverb-wash-in-silence** (tarn hit 0.09 at 477× dynamics this way). Fix: keep quiet sections quiet but **DRY/tonal** (cut room+delay-feedback in the dip), not washed.
 - The pro recipe (gyre/glade, both loved): **real warm instruments + ruthless tonal discipline (no noise layers) + every voice carved into its own band + filter movement + a big dynamic arc.**
 
 ## Related skills
