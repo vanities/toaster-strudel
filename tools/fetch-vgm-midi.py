@@ -66,6 +66,10 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--page", required=True, help="VGMusic system listing URL")
     ap.add_argument("--game", action="append", required=True, help="game-name substring (repeatable)")
+    ap.add_argument("--exact-game", action="store_true", help="match the game header exactly, not as a substring "
+                    "(needed when one title is a prefix of another, e.g. 'Final Fantasy II' ⊂ 'Final Fantasy III')")
+    ap.add_argument("--prefix", default="", help="prepend to each output filename — keeps same-titled tracks from "
+                    "different games (FF4/5/6 all share 'Prelude') from colliding when merged into one skill")
     ap.add_argument("--skill", required=True)
     ap.add_argument("--min-bytes", type=int, default=3000, help="skip files smaller than this (jingles)")
     ap.add_argument("--limit", type=int, default=0, help="cap downloads (0 = no cap)")
@@ -75,13 +79,14 @@ def main() -> int:
 
     base = args.page.rsplit("/", 1)[0] + "/"
     html = fetch(args.page).decode("latin-1", "replace")
-    wants = [g.lower() for g in args.game]
+    wants = [g.strip().lower() for g in args.game]
     dest = VAULT / args.skill
     dest.mkdir(parents=True, exist_ok=True)
 
     cand: dict[str, list[tuple[str, str, str]]] = {}   # clean-title -> [(href, raw, game)]
     for game, anchors in sections(html):
-        if not any(w in game.lower() for w in wants):
+        g = game.strip().lower()
+        if not (any(g == w for w in wants) if args.exact_game else any(w in g for w in wants)):
             continue
         for href, raw in anchors:
             ct = clean_title(raw)
@@ -101,7 +106,7 @@ def main() -> int:
     for ct, (href, _game) in sorted(picked.items()):
         if args.limit and got >= args.limit:
             break
-        fname = f"{slugify(ct)}.mid"
+        fname = f"{args.prefix}{slugify(ct)}.mid"
         out = dest / fname
         url = urllib.parse.urljoin(base, href)
         if out.exists():                               # attribute files already on disk

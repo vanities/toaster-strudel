@@ -133,10 +133,11 @@ Ripped from the reference audio (demucs stems → Basic Pitch → music21 → BT
 | 1009 | 129.2 | F# minor/C# minor | `C# F# C# F# C# F# C# F#` | start→intro→verse→chorus→verse→chorus→inst→chorus→outro | 3.8× |
 | Animals | 136.0 | E minor/E minor | `B Em D Bm Em D Bm Bsus4` | intro→inst→solo→inst→solo→outro | 16.2× |
 | Black Sands | 89.1 | F minor/C minor | `Cm F7 Cm Fm7 Fm Cm G#maj7 Fm7` | intro→solo→break→solo→outro→end | 2932.9× |
-| Bonobo - Cirrus | 117.5 | G minor/D minor | `Dm A# Dm A#maj7 Dm A#maj7 C Gm7` | start→intro→inst→verse→chorus→solo→outro | 105.7× |
-| Bonobo - Nightlite | 80.7 | D minor/D minor | `Dm7 A7 Dm D# A# Dm Am Dm` | start→intro→verse→solo→verse→chorus→inst→solo→inst→verse→chorus→break→solo→end | 39.7× |
+| Bonobo - Cirrus | 117.5 | G minor/D minor | `Dm A# Dm A#maj7 Dm A#maj7 C Gm7` | A→B→C→D→E→F→G→H | 105.7× |
+| Bonobo - Nightlite | 80.7 | D minor/D minor | `Dm7 A7 Dm D# A# Dm Am Dm` | A→B→C→D→E→F→G→H | 39.7× |
 | Eyesdown | 64.6 | G major/E minor | `Em7 Em Bm Bm7 Bm Em7 Em Bm` | intro→inst→verse→chorus→inst→verse→chorus→inst→chorus→outro | 5.7× |
+| Kong | 95.7 | B minor/F# minor | `E C#m7 A F#m B A B F#m` | intro→verse→chorus→solo→inst→solo→chorus→end | 5.5× |
 | Prelude | 184.6 | B- minor/B- minor | `A#m D# Fm7 D# A#m D# A#m A#m7` | start→intro→solo | 3.9× |
 
-**Full cards** (per-section Strudel `note()` seeds + register/interval/octave-displacement DNA) — in the vault at `02_SOURCES/Music/analysis/pipeline-cards/style-bonobo/`: `1009.md`, `animals.md`, `black-sands.md`, `bonobo-cirrus.md`, `bonobo-nightlite.md`, `eyesdown.md`, `prelude.md`.
+**Full cards** (per-section Strudel `note()` seeds + register/interval/octave-displacement DNA) — in the vault at `02_SOURCES/Music/analysis/pipeline-cards/style-bonobo/`: `1009.md`, `animals.md`, `black-sands.md`, `bonobo-cirrus.md`, `bonobo-nightlite.md`, `eyesdown.md`, `kong.md`, `prelude.md`.
 

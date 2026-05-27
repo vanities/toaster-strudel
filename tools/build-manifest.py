@@ -78,6 +78,30 @@ EXACT = {
         "Sonic 3 & Knuckles (1994) [24-96 FLAC]/Disc 1 (Sonic 3)/1-08 Carnival Night 1.m4a",
         "Sonic 3 & Knuckles (1994) [24-96 FLAC]/Disc 1 (Sonic 3)/1-10 Ice Cap 1.m4a",
     ],
+    # Nobuo Uematsu — SNES Final Fantasy (SPC700). Curated signature audio from FF4 + FF6
+    # (FF5 has no OST on disk → MIDI-only, see midi-sourced/style-uematsu). Spread across
+    # ballad / overworld / villain / boss / opera / WoR to cover his emotional range.
+    "style-uematsu": [
+        "Final Fantasy IV (MP3).zophar/04 Theme of Love.mp3",
+        "Final Fantasy IV (MP3).zophar/07a Main Theme.mp3",
+        "Final Fantasy IV (MP3).zophar/23 Golbez, Clad in Dark.mp3",
+        "Final Fantasy IV (MP3).zophar/43 The Final Battle.mp3",
+        "Final Fantasy VI (MP3).zophar/201 Terra.mp3",
+        "Final Fantasy VI (MP3).zophar/208 Aria de Mezzo Carattere.mp3",
+        "Final Fantasy VI (MP3).zophar/124 The Decisive Battle.mp3",
+        "Final Fantasy VI (MP3).zophar/307 Searching for Friends.mp3",
+    ],
+    # Yoko Shimomura — Super Mario RPG (1996, SPC700). .m4a, resolved verbatim (BY_NAME
+    # skips non-flac/mp3). Title / Forest Maze / sad ballad / battle / town / starlight / final boss.
+    "style-shimomura": [
+        "[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION スーパーマリオＲＰＧオリジナル・サウンド・ヴァージョン FLAC/Disc 1/01 楽しい冒険 愉快な冒険.m4a",
+        "[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION スーパーマリオＲＰＧオリジナル・サウンド・ヴァージョン FLAC/Disc 1/28 森のキノコにご用心.m4a",
+        "[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION スーパーマリオＲＰＧオリジナル・サウンド・ヴァージョン FLAC/Disc 1/25 かなしいうた.m4a",
+        "[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION スーパーマリオＲＰＧオリジナル・サウンド・ヴァージョン FLAC/Disc 1/10 対モンスター戦.m4a",
+        "[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION スーパーマリオＲＰＧオリジナル・サウンド・ヴァージョン FLAC/Disc 1/29 Rose Town.m4a",
+        "[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION スーパーマリオＲＰＧオリジナル・サウンド・ヴァージョン FLAC/Disc 2/03 星の光の花咲く丘で.m4a",
+        "[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION スーパーマリオＲＰＧオリジナル・サウンド・ヴァージョン FLAC/Disc 2/18 対 カジオー戦.m4a",
+    ],
 }
 
 BY_NAME = {
@@ -152,6 +176,7 @@ ARTIST = {
     "style-toro-y-moi": "Toro y Moi", "style-esbe": "Esbe", "style-nomak": "Nomak",
     "style-jeremy-soule": "Jeremy Soule", "style-forest-swords": "Forest Swords",
     "style-thrupence": "Thrupence", "style-strfkr": "STRFKR", "style-home": "HOME",
+    "style-uematsu": "Uematsu", "style-shimomura": "Shimomura",
 }
 
 

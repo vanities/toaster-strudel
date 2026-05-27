@@ -1218,6 +1218,405 @@
     "source_url": "https://www.vgmusic.com/music/console/sony/ps1/zelbess_V1_0_1.mid"
   },
   {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Barrel Volcano",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/barrel-volcano.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Volcano.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Battle Victory",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/battle-victory.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/rpgvict.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Bean Valley Still the Road Is Full of Monsters",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/bean-valley-still-the-road-is-full-of-monsters.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/SMRPG_Bean_Valley-KM.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Bean Valley",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/bean-valley.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Bean_Valley.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Big Boss Battle",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/big-boss-battle.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/mrpgmajr.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Booster S Hill",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/booster-s-hill.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/MRpgSlope.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Booster S Personal Railway",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/booster-s-personal-railway.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Booster_2.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Booster S Tower",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/booster-s-tower.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/smrpgbooster1.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Boss",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/boss.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/rpgboss2.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Bowser Music",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/bowser-music.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/marpgbow.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Bowser S Keep",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/bowser-s-keep.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Bowserkp.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Catch a Falling Star Piece",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/catch-a-falling-star-piece.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/starpiec-1.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Chasing the Axem Rangers",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/chasing-the-axem-rangers.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Axmchase.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Culex Battle",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/culex-battle.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/smrpgcul.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Culex Departure",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/culex-departure.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/SuperMarioRPG-CulexDeparture.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Culex Victory",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/culex-victory.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/smrpg_culexvic.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Data Select",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/data-select.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/SMRPG_Data_Select-KM.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Dodo S Beak Dodge",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/dodo-s-beak-dodge.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/smrpgdodo.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Ending Ending Theme",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/ending-ending-theme.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/maz.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Ending Parade Ending",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/ending-parade-ending.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/SMRpgPEndPrt2.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Ending",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/ending.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/MarioRPG_Full_Ending.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Fight Theme Fight Against Monsters",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/fight-theme-fight-against-monsters.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Super_Mario_RPG_-_Fight_Against_Monsters.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Fight Theme",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/fight-theme.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/rpgfigh2.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Forest Maze",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/forest-maze.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/SmRPG_forest.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Geno Awakens",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/geno-awakens.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/smrpg_genoawakens.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Grate Guy S Casino",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/grate-guy-s-casino.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/SMrpg_Heartbeat.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Invincible Star",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/invincible-star.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/smrpg_invincibility.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Kero Sewers",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/kero-sewers.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/KeroSewers.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Let S Play Geno",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/let-s-play-geno.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/MRPG_LtsPlyGno.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Mario S Pad",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/mario-s-pad.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/smrpgmariospad.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Marrymore",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/marrymore.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/merry.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Midas River Let S Go Down the Midas River",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/midas-river-let-s-go-down-the-midas-river.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Super_Mario_RPG_-_Lets_Go_Down_the_Midas_River.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Midas River",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/midas-river.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/smrpgmid.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Moleville Mountain Ride",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/moleville-mountain-ride.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Molevmtn.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Moleville",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/moleville.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/moleville.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Monstro Town",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/monstro-town.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/smrpgmonst.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Mushroom Kingdom",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/mushroom-kingdom.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/mushroom.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Mushroom Way",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/mushroom-way.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/roseway.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Nimbus Land",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/nimbus-land.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/smrpgnimbus.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Opening",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/opening.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/SMRPG_Opening_Theme.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Pipe Vault",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/pipe-vault.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/PipeVault.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Rose Town",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/rose-town.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Rosetown.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Seaside Town",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/seaside-town.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/C-sidetw_2.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Smithy S Factory Part 2",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/smithy-s-factory-part-2.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/insidefactory.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Smithy S Factory",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/smithy-s-factory.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/SFactory.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Smithy",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/smithy.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Smithy_battle1.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Starlight S Flower",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/starlight-s-flower.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/SMRPG_The_Starlights_Flower.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Sunken Ship",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/sunken-ship.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Sunken.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Super Pipe House",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/super-pipe-house.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/superpipehouse.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Tadpole Pond",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/tadpole-pond.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Tadpolep.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 The End",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/the-end.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/smrpg_end.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Toadkofsky",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/toadkofsky.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/toadkof.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Trouble Ahead",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/trouble-ahead.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Trouble_2.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Valentina",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/valentina.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Valentina_Beta.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 World Map",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/world-map.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/smrpgworldmap.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Yo Ster Isle Welcome Yo Ster Isle",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/yo-ster-isle-welcome-yo-ster-isle.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/yosterisle2.mid"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Yo Sters Isle Race",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-shimomura/yo-sters-isle-race.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/yosters_isle_race2.mid"
+  },
+  {
     "skill": "style-sonic",
     "label": "Sonic \u00b7 Act 1 Boss",
     "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-sonic/act-1-boss.mid",
@@ -1797,5 +2196,1251 @@
     "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-sonic/vs-results.mid",
     "source_site": "VGMusic.com",
     "source_url": "https://www.vgmusic.com/music/console/sega/genesis/Sonic2re.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Another Moon",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-another-moon.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Another_Moon.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Boss Battle Fight 2",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-boss-battle-fight-2.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2bsbtl.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Castle Damcyan",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-castle-damcyan.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Damcyan.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Chocobo Forest",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-chocobo-forest.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FFIV_-_Chocobo_Forest.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Cry in Sorrow",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-cry-in-sorrow.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/cryinsor.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Dancing Calbrena",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-dancing-calbrena.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Calcobre.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Dreadful Battle",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-dreadful-battle.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2dread.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Epilogue Part 3",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-epilogue-part-3.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2end3.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Epilogue",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-epilogue.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2_Epilogue2_mid.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Fabul",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-fabul.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Fabul.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Fanfare",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-fanfare.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF2-Victory.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Fight 1",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-fight-1.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2bat.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Giott the Great King",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-giott-the-great-king.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/f2giott2.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Golbez Clad in the Dark",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-golbez-clad-in-the-dark.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/golbez.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Hello Cid",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-hello-cid.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2cid.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Illusionary World",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-illusionary-world.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2_Illusionary_World_mid.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Into the Darkness",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-into-the-darkness.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/f2elban.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Kingdom Baron",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-kingdom-baron.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/baron.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Long Way to Go",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-long-way-to-go.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2elder.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Main Theme",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-main-theme.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/overw.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Melody of Lute",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-melody-of-lute.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/edward2.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Mt Ordeals",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-mt-ordeals.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/mounthob.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Mystic Mysidia",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-mystic-mysidia.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2mysid.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Palom Porom",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-palom-porom.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2pp.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Prologue",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-prologue.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/finalfant2.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Red Wings",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-red-wings.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/cecil.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Restless Moments",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-restless-moments.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ffmxrest.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Ring of Bomb",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-ring-of-bomb.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2_ring_of_bomb.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Run",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-run.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FFIV_-_Run.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Rydia",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-rydia.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2rydia.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Samba De Chocobo",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-samba-de-chocobo.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FFIV_-_Samba_de_Chocobo.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Somewhere in the World",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-somewhere-in-the-world.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2evil.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Techno De Chocobo",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-techno-de-chocobo.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/chocobo.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 the Airship",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-the-airship.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2airsh.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 the Big Whale",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-the-big-whale.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/bigwhale.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 the Final Battle",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-the-final-battle.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/at-zero.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 the Lunarians",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-the-lunarians.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2lunar.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 the Paladin",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-the-paladin.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2-the_paladin.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 the Prelude",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-the-prelude.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2prlde.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Theme of Love",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-theme-of-love.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/rosa.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Tower of Bab Il",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-tower-of-bab-il.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2babil.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Tower of Zot",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-tower-of-zot.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/zot.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Town",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-town.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2town.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Troian Beauty",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-troian-beauty.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Toria.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Underworld",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-underworld.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2under.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Wanna See Something",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-wanna-see-something.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Wanna_See_Something_v1_1_Sequenced_by_Willow.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF4 Within the Giant",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff4-within-the-giant.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff2lsub.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 a New World",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-a-new-world.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/LossOfMoral.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Ahead on Our Way",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-ahead-on-our-way.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_ahead.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Ancient Library",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-ancient-library.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_lib.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Baroque De Chocobo",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-baroque-de-chocobo.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Baroque_de_Chocobo_%28XG_Megamix%29.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Battle Theme",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-battle-theme.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_battl.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Battle With Gilgamesh",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-battle-with-gilgamesh.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_big.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Book of Sealings",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-book-of-sealings.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_seal.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Butz S Theme",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-butz-s-theme.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/butztheme.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Castle of Dawn",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-castle-of-dawn.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5val.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Cleft of Dimension",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-cleft-of-dimension.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_cleft.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Critter Tripper Fritter",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-critter-tripper-fritter.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FFV_Cripper_Tripper_Fritter.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Cursed Earth",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-cursed-earth.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_a14.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Danger",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-danger.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Danger%21.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Dear Friends",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-dear-friends.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_dear.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Decisive Battle",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-decisive-battle.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_b16.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Dragon Spreads Its Wings",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-dragon-spreads-its-wings.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_dragn.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Evil Lord Exdeath",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-evil-lord-exdeath.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff5_exdeath.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Fate in Haze",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-fate-in-haze.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff5crystal.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Fierce Battle",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-fierce-battle.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_boss1.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Fire Powered Ship",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-fire-powered-ship.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_fship.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Four Hearts",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-four-hearts.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_heart.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Go Go Boco",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-go-go-boco.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_boco.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Harvest",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-harvest.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/harvest.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Home Sweet Home",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-home-sweet-home.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_home.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Hurry Hurry",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-hurry-hurry.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_-_Hurry_Hurry.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 I M a Dancer",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-i-m-a-dancer.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff5dancer.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Icy Mountains",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-icy-mountains.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff5mount.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Intension of the Earth",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-intension-of-the-earth.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FFV_-_Intension_of_the_Earth.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Introduction a Presentiment",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-introduction-a-presentiment.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_intro.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Last Battle",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-last-battle.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_final.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Lenna S Theme",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-lenna-s-theme.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_len.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Main Theme",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-main-theme.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_a01.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Mambo De Chocobo",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-mambo-de-chocobo.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_choc2.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Music Box",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-music-box.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_mbox.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Musica Machina",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-musica-machina.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_musica.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Nostalgia",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-nostalgia.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_nost.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Pirates Ahoy",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-pirates-ahoy.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_pirat.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Prelude of the Empty Skies",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-prelude-of-the-empty-skies.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_kokuu.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Prelude",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-prelude.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_prlde.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Tenderness in the Air",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-tenderness-in-the-air.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_townx.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 the Airship",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-the-airship.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff5air.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 the Four Warriors of Dawn",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-the-four-warriors-of-dawn.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Ff54war.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 the Land Unknown",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-the-land-unknown.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_land.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 the New Origin",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-the-new-origin.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_edtit.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 the Royal Palace",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-the-royal-palace.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff5palace.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 the Seal",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-the-seal.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_a13.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 the Silent Beyond",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-the-silent-beyond.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_The_Silent_Beyond.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 the Waltz",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-the-waltz.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff5waltz.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Town of Carwen",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-town-of-carwen.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_carw.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Unknown Lands",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-unknown-lands.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_Unknown_Lands-KM-GM.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Victory",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-victory.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_a08.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 What",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-what.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_what.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 World 2",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-world-2.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/unknownlands.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 World Map",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-world-map.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff5world.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF5 Woruse Castle",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff5-woruse-castle.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF5_worus.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Airship Blackjack",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-airship-blackjack.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff3blackjack.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Another World of Beasts",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-another-world-of-beasts.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF6_Another_World_of_Beasts-KM.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Aria Di Mezzo Carattere",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-aria-di-mezzo-carattere.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF6_Aria_Di_Mezzo_Carattere_Xg.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Awakening",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-awakening.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Terra1.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Battle Theme",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-battle-theme.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff3battl.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Celes",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-celes.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/celsjump.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Coin Song",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-coin-song.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff311.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Colliery Narshe",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-colliery-narshe.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/narshe.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Cyan",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-cyan.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/cyan2.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Darill S Tomb Epitaph",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-darill-s-tomb-epitaph.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/daryl.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Dark World",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-dark-world.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/WoRNarshe.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Edgar Sabin",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-edgar-sabin.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/figaro.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Ending Theme Part 1",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-ending-theme-part-1.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff6_ending1.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Ending Theme Part 2",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-ending-theme-part-2.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff6_ending2.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Ending Theme Terra Relm",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-ending-theme-terra-relm.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/tr.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Ending Theme",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-ending-theme.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff3end.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Fanatics Tower",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-fanatics-tower.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/fanatic.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Fanfare",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-fanfare.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/fanfare.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Floating Continent New Continent",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-floating-continent-new-continent.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff3float.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Forever Rachel",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-forever-rachel.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Rachel.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Gau",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-gau.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/gau.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Gogo",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-gogo.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/gogo.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Jidoor the Magic House",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-jidoor-the-magic-house.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/owzer.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Johnny C Bad",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-johnny-c-bad.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff3colis.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Kefka S Tower Dancing Mad Kefka",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-kefka-s-tower-dancing-mad-kefka.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff380.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Kefka S Tower Dancing Mad Opening Theme Kefka",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-kefka-s-tower-dancing-mad-opening-theme-kefka.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF6DMpt4.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Kefka S Tower Dancing Mad Second Tier",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-kefka-s-tower-dancing-mad-second-tier.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff6final2.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Kefka S Tower Dancing Mad Third Tier",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-kefka-s-tower-dancing-mad-third-tier.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff6final3.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Kefka S Tower Dancing Mad",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-kefka-s-tower-dancing-mad.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Tier1.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Kefka S Tower Last Dungeon",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-kefka-s-tower-last-dungeon.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/kefkatow.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Kefka",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-kefka.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/kefka.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Kids Run Through the City Corner",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-kids-run-through-the-city-corner.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff3town.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Locke",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-locke.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/locke.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Magitek Factory Devil S Lab",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-magitek-factory-devil-s-lab.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/magitek4.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Metamorphosis",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-metamorphosis.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/seal.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Mog",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-mog.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff3mog.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Mt Kolts",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-mt-kolts.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/mtkoltz.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Mystery Train",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-mystery-train.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/train.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Opening Theme Catastrophe Terra",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-opening-theme-catastrophe-terra.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff3theme.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Opening Theme Catastrophe",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-opening-theme-catastrophe.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff303.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Opening Theme Terra",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-opening-theme-terra.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF6Terra.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Opening Theme",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-opening-theme.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/title.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Opera House Aria Di Mezzo Carattere",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-opera-house-aria-di-mezzo-carattere.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/celes.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Opera House Duel 2",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-opera-house-duel-2.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff370.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Opera House Duel",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-opera-house-duel.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff3oppanic.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Opera House Grand Finale",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-opera-house-grand-finale.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ultro.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Opera House Opening",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-opera-house-opening.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF6_Opera_Xg.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Opera House Overture",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-opera-house-overture.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff6intld.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Opera House the Wedding Waltz",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-opera-house-the-wedding-waltz.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/The_Wedding_Waltz_Duel_Part_A.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Overture 1",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-overture-1.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff365.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Overture 3",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-overture-3.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff367.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Relm",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-relm.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/relm2.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Returners",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-returners.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/returner.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Save Them",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-save-them.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Save_Them.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Searching For Friends",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-searching-for-friends.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/falcon.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Setzer",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-setzer.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/setzer.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Shadow",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-shadow.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FF3_Shadow2.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Spinach Rag",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-spinach-rag.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/spinach.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Techno De Chocobo",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-techno-de-chocobo.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Techno_de_chocobo.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Terra",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-terra.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/Legendary_Esper.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Thamasa Strago",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-thamasa-strago.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/stragos.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 the Day After",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-the-day-after.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/dayafter.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 the Decisive Battle",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-the-decisive-battle.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/bossbatt.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 the Empire Gestahl",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-the-empire-gestahl.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/empire.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 the Fierce Battle",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-the-fierce-battle.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff6atma5.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 the Mystic Forest",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-the-mystic-forest.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/forest.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 the Prelude",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-the-prelude.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/FFIIIprelude.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 the Snake Path",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-the-snake-path.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/serpent.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 the Unforgiven",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-the-unforgiven.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff3unfor.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Track",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-track.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff6-CrazyMan.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Troops March on",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-troops-march-on.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff3troop.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Umaro",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-umaro.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/umaro.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Under Martial Law",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-under-martial-law.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ff3mlaw.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Veldt Wild West",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-veldt-wild-west.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/veldt.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Wanderer of Time",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-wanderer-of-time.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/ffpwndr.mid"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 FF6 Zozo Slam Shuffle",
+    "midi": "/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/02_SOURCES/Music/midi-sourced/style-uematsu/ff6-zozo-slam-shuffle.mid",
+    "source_site": "VGMusic.com",
+    "source_url": "https://www.vgmusic.com/music/console/nintendo/snes/zozo.mid"
   }
 ]

@@ -205,6 +205,81 @@
     "path": "/Users/vanities/git/work/me/game/references/audio/Sonic 3 & Knuckles (1994) [24-96 FLAC]/Disc 1 (Sonic 3)/1-10 Ice Cap 1.m4a"
   },
   {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 Theme of Love",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Final Fantasy IV (MP3).zophar/04 Theme of Love.mp3"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 07a Main Theme",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Final Fantasy IV (MP3).zophar/07a Main Theme.mp3"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 Golbez, Clad in Dark",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Final Fantasy IV (MP3).zophar/23 Golbez, Clad in Dark.mp3"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 The Final Battle",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Final Fantasy IV (MP3).zophar/43 The Final Battle.mp3"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 Terra",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Final Fantasy VI (MP3).zophar/201 Terra.mp3"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 Aria de Mezzo Carattere",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Final Fantasy VI (MP3).zophar/208 Aria de Mezzo Carattere.mp3"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 The Decisive Battle",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Final Fantasy VI (MP3).zophar/124 The Decisive Battle.mp3"
+  },
+  {
+    "skill": "style-uematsu",
+    "label": "Uematsu \u00b7 Searching for Friends",
+    "path": "/Users/vanities/git/work/me/game/references/audio/Final Fantasy VI (MP3).zophar/307 Searching for Friends.mp3"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 \u697d\u3057\u3044\u5192\u967a \u6109\u5feb\u306a\u5192\u967a",
+    "path": "/Users/vanities/git/work/me/game/references/audio/[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION \u30b9\u30fc\u30d1\u30fc\u30de\u30ea\u30aa\uff32\uff30\uff27\u30aa\u30ea\u30b8\u30ca\u30eb\u30fb\u30b5\u30a6\u30f3\u30c9\u30fb\u30f4\u30a1\u30fc\u30b8\u30e7\u30f3 FLAC/Disc 1/01 \u697d\u3057\u3044\u5192\u967a \u6109\u5feb\u306a\u5192\u967a.m4a"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 \u68ee\u306e\u30ad\u30ce\u30b3\u306b\u3054\u7528\u5fc3",
+    "path": "/Users/vanities/git/work/me/game/references/audio/[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION \u30b9\u30fc\u30d1\u30fc\u30de\u30ea\u30aa\uff32\uff30\uff27\u30aa\u30ea\u30b8\u30ca\u30eb\u30fb\u30b5\u30a6\u30f3\u30c9\u30fb\u30f4\u30a1\u30fc\u30b8\u30e7\u30f3 FLAC/Disc 1/28 \u68ee\u306e\u30ad\u30ce\u30b3\u306b\u3054\u7528\u5fc3.m4a"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 \u304b\u306a\u3057\u3044\u3046\u305f",
+    "path": "/Users/vanities/git/work/me/game/references/audio/[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION \u30b9\u30fc\u30d1\u30fc\u30de\u30ea\u30aa\uff32\uff30\uff27\u30aa\u30ea\u30b8\u30ca\u30eb\u30fb\u30b5\u30a6\u30f3\u30c9\u30fb\u30f4\u30a1\u30fc\u30b8\u30e7\u30f3 FLAC/Disc 1/25 \u304b\u306a\u3057\u3044\u3046\u305f.m4a"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 \u5bfe\u30e2\u30f3\u30b9\u30bf\u30fc\u6226",
+    "path": "/Users/vanities/git/work/me/game/references/audio/[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION \u30b9\u30fc\u30d1\u30fc\u30de\u30ea\u30aa\uff32\uff30\uff27\u30aa\u30ea\u30b8\u30ca\u30eb\u30fb\u30b5\u30a6\u30f3\u30c9\u30fb\u30f4\u30a1\u30fc\u30b8\u30e7\u30f3 FLAC/Disc 1/10 \u5bfe\u30e2\u30f3\u30b9\u30bf\u30fc\u6226.m4a"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 Rose Town",
+    "path": "/Users/vanities/git/work/me/game/references/audio/[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION \u30b9\u30fc\u30d1\u30fc\u30de\u30ea\u30aa\uff32\uff30\uff27\u30aa\u30ea\u30b8\u30ca\u30eb\u30fb\u30b5\u30a6\u30f3\u30c9\u30fb\u30f4\u30a1\u30fc\u30b8\u30e7\u30f3 FLAC/Disc 1/29 Rose Town.m4a"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 \u661f\u306e\u5149\u306e\u82b1\u54b2\u304f\u4e18\u3067",
+    "path": "/Users/vanities/git/work/me/game/references/audio/[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION \u30b9\u30fc\u30d1\u30fc\u30de\u30ea\u30aa\uff32\uff30\uff27\u30aa\u30ea\u30b8\u30ca\u30eb\u30fb\u30b5\u30a6\u30f3\u30c9\u30fb\u30f4\u30a1\u30fc\u30b8\u30e7\u30f3 FLAC/Disc 2/03 \u661f\u306e\u5149\u306e\u82b1\u54b2\u304f\u4e18\u3067.m4a"
+  },
+  {
+    "skill": "style-shimomura",
+    "label": "Shimomura \u00b7 \u5bfe \u30ab\u30b8\u30aa\u30fc\u6226",
+    "path": "/Users/vanities/git/work/me/game/references/audio/[AAC-tan] SUPER MARIO RPG ORIGINAL SOUND VERSION \u30b9\u30fc\u30d1\u30fc\u30de\u30ea\u30aa\uff32\uff30\uff27\u30aa\u30ea\u30b8\u30ca\u30eb\u30fb\u30b5\u30a6\u30f3\u30c9\u30fb\u30f4\u30a1\u30fc\u30b8\u30e7\u30f3 FLAC/Disc 2/18 \u5bfe \u30ab\u30b8\u30aa\u30fc\u6226.m4a"
+  },
+  {
     "skill": "style-void-stranger",
     "label": "Void Stranger \u00b7 Affection Air",
     "path": "/Users/vanities/git/work/me/game/references/audio/Elegy of the Stars -Void Stranger Original Soundtrack- (2023) [WEB, 16-44]/07. Affection Air.flac"

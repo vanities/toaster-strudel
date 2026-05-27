@@ -11,6 +11,7 @@ research-midi.md for where to source them), then re-run:
     python3 tools/build-midi-manifest.py
 """
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -22,13 +23,20 @@ ARTIST = {
     "style-jeremy-soule": "Jeremy Soule", "style-matt-uelmen": "Matt Uelmen",
     "style-dark-souls": "Dark Souls", "style-yasunori-nishiki": "Nishiki",
     "style-void-stranger": "Void Stranger",
+    "style-uematsu": "Uematsu", "style-shimomura": "Shimomura",
 }
 SMALL = {"of", "the", "a", "in", "to", "and", "on"}
 
 
 def titleize(slug: str) -> str:
     words = slug.split("-")
-    return " ".join(w if w in SMALL and i else w.capitalize() for i, w in enumerate(words))
+
+    def cap(w: str, i: int) -> str:
+        if re.fullmatch(r"ff\d+", w):          # game tag prefix (ff4-/ff5-/ff6-) → FF4/FF5/FF6
+            return w.upper()
+        return w if w in SMALL and i else w.capitalize()
+
+    return " ".join(cap(w, i) for i, w in enumerate(words))
 
 
 def main() -> int:

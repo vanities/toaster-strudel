@@ -29,6 +29,19 @@ from pathlib import Path
 
 import mido
 
+# Some community-sequenced MIDIs carry a malformed key_signature meta (mode byte
+# 255) that makes mido raise KeySignatureError on load, dropping the whole file.
+# We re-derive key from the notes anyway (key_estimate), so the meta key isn't
+# load-bearing — tolerate the bad event and default it to C instead of losing the track.
+import mido.midifiles.meta as _meta
+_orig_ks_decode = _meta.MetaSpec_key_signature.decode
+def _tolerant_ks_decode(self, message, data):
+    try:
+        _orig_ks_decode(self, message, data)
+    except _meta.KeySignatureError:
+        message.key = "C"
+_meta.MetaSpec_key_signature.decode = _tolerant_ks_decode
+
 # Reuse the audio pipeline's symbolic stages verbatim — they operate on a plain
 # list[(start, end, pitch)], so MIDI notes (in quarter-note units) feed straight in.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
