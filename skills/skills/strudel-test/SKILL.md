@@ -17,6 +17,24 @@ It does two things per file: (1) a JS-structure check (`new Function`) that catc
 
 What it **can't** tell you: how it *sounds* — mix balance, whether a voice is audible, whether the hook lands. That's still the ear's job. If a green parse is all you need (the common case after composing), stop here. Use the browser workflow below only when you actually need to confirm runtime behavior beyond parsing.
 
+## Ears loop: headless render → measure (catch harsh / soft / flat)
+
+Past parsing, render the track to a WAV headlessly and measure it with librosa — this catches harshness, clutter, an over-soft mix, and a flat dynamic arc that a parse can't:
+
+```bash
+node tools/render-wav.mjs <id> <sectionLen> <timeoutSec>      # → /tmp/strudel-renders/<id_safe>.wav  (id "/" → "_")
+.venv/bin/python tools/measure-wav.py /tmp/strudel-renders/<id_safe>.wav
+```
+
+Read the verdict against the reference card: **flatness** is the harshness fingerprint (pure-tone ≈ 0.0003; cobalt-harsh ≈ 0.068 — noisy hats/grain spike it); **centroid** is brightness (warm ≈ 900–1200; shrill > ~2500); **peak** is the loudness review (healthy ~0.6–0.95; `TOO_SOFT` < 0.5, `CLIPPING` ≥ 0.98); **dyn_x** is the build (a real arc is many×, not ~1).
+
+**Gotchas learned the hard way (don't repeat them):**
+
+- **NEVER run two renders at once.** `render-wav.mjs` deletes and rewrites a *shared* path `/tmp/strudel-renders/<id_safe>.wav` at start, and each spawns a headless Chrome. Concurrent renders race (one deletes the other's WAV → "FileNotFound" at measure) and contend for memory (→ a false page-crash / OOM that looks like a track bug). Run them **strictly serially**; kill strays first (`pkill -f render-wav.mjs; pkill -f "Chrome for Testing"`).
+- **A long full-arc render is often *slower than real-time*.** Reverb-heavy, all-synth tracks (many detuned saws + continuous `sine.range` filter modulation + big `room` on every voice) render at ~1.5–2× *slower* than realtime headless, so a ~5-min arc blows past the timeout. This is a render-speed limit, **not** a track defect (live playback is realtime-fine). Fallback: **measure sections individually** — copy each `NN.strudel` into a temp 1-section folder at a short `@cycles` (6–8 = a full hook phrase or two), render fast, and read the per-section curve (intro should be quiet → peak loud). It's quicker *and* shows the dynamic arc better than one big WAV.
+- **`manifest.json` `cycles` OVERRIDE the `// @cycles` directive** in the render path (`web/src/engine/tracks.ts`). The `sectionLen` arg is only the fallback when neither is set. To change render length, edit the manifest (and the file directive) — not just the CLI arg.
+- **`gm_*` soundfonts render SILENT offline** (headless `EncodingError: Unable to decode audio data`). Keep the measurable core on synth oscillators (`sine`/`sawtooth`/`triangle`/`square`/`white`) + drum-machine samples (which *do* render); treat `gm_*` as live-only color. The recurring boot `SyntaxError: Unexpected token ']', ..."wav"` was a malformed *external* community sample pack and is harmless/now removed — not your track.
+
 ## Workflow (browser — when runtime confirmation is needed)
 
 1. **Open strudel.cc**

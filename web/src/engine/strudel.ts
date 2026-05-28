@@ -127,7 +127,9 @@ export function boot(onProgress?: Progress): Promise<void> {
           'github:TristanCacqueray/mirus',
           'github:prismograph/departure',
           'github:tesspilot/samples',
-          'github:wyan/livecoding-samples',
+          // 'github:wyan/livecoding-samples' removed — upstream strudel.json is malformed
+          // (trailing comma before ']' after a ".wav" entry), so it never loaded anyway and
+          // only spammed `SyntaxError: Unexpected token ']', ..."wav"` to the console at boot.
           'github:AuditeMarlow/samples',
         ].map((b) => m.samples(b).catch(() => {}))
       );
