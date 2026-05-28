@@ -27,6 +27,11 @@ import ChatPanel from './chat/ChatPanel';
 
 type Status = 'idle' | 'loading' | 'playing' | 'error';
 const SECTION_LEN_OPTIONS = [4, 8, 16, 32, 64, 128];
+// Strudel pattern swaps need a little time to evaluate before the next cycle
+// boundary. Auto-advancing exactly at the boundary can miss/cut the first onset
+// of the new section, so arm the next pattern just before the boundary while
+// keeping the UI timer anchored to the intended musical start time.
+const SECTION_SWITCH_LEAD_MS = 300;
 
 function fmtMMSS(ms: number): string {
   const s = Math.max(0, Math.floor(ms / 1000));
@@ -160,11 +165,11 @@ export default function App() {
   useTrackPoll(currentId, onFileChange);
 
   const jumpToSection = useCallback(
-    (i: number) => {
+    (i: number, opts?: { startedAt?: number }) => {
       if (!sections.length) return;
       const c = Math.max(0, Math.min(sections.length - 1, i));
       setViewedIndex(c);
-      sectionStartedAt.current = performance.now();
+      sectionStartedAt.current = opts?.startedAt ?? performance.now();
       flash(sections[c].file);
       if (playing) engine.play(transformCps(sections[c].code, cpsOverride)).catch(() => {});
     },
@@ -202,9 +207,10 @@ export default function App() {
     const ms = Math.max(1000, ((sections[idx]?.cycles ?? sectionLen) / cps) * 1000);
     const last = idx >= sections.length - 1;
     const h = window.setTimeout(() => {
+      const switchAt = sectionStartedAt.current + ms;
       if (radio && last) void advanceStation();         // end of the arc → next track
-      else jumpToSection((idx + 1) % sections.length);  // within the arc → next section
-    }, ms);
+      else jumpToSection((idx + 1) % sections.length, { startedAt: switchAt });  // arm just before boundary
+    }, Math.max(0, ms - SECTION_SWITCH_LEAD_MS));
     return () => clearTimeout(h);
   }, [autoAdvance, playing, viewedIndex, sections, sectionLen, code, cpsOverride, jumpToSection, radio, advanceStation]);
 
