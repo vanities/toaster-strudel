@@ -33,21 +33,14 @@ interface SectionManifestEntry {
   cycles?: number;
   label?: string;
 }
-interface SectionsResponse {
+export interface SectionsResponse {
   manifest?: { sections?: SectionManifestEntry[]; slots?: SectionManifestEntry[] } | null;
   sections?: { file: string; code: string; ascii?: string }[];
 }
 
-// The server enumerates tracks/<id>/NN.strudel and returns code + ascii inline
-// (no blind 404 probing). Manifest cycles/label override per-file directives.
-export async function fetchSections(id: string): Promise<Section[]> {
-  let data: SectionsResponse = {};
-  try {
-    const res = await fetch(`/sections?track=${encodeURIComponent(id)}`, { cache: 'no-cache' });
-    if (res.ok) data = (await res.json()) as SectionsResponse;
-  } catch {
-    /* no sections */
-  }
+// Parse the raw /sections payload into Section[] — manifest cycles/label override
+// per-file @cycles directives. Exported so the live-reload poll reuses it.
+export function parseSections(data: SectionsResponse): Section[] {
   const manSections = data.manifest?.sections ?? data.manifest?.slots;
   return (data.sections ?? []).map((s, idx) => {
     const cyclesMatch = s.code.match(/\/\/\s*@cycles\s+(\d+)/i);
@@ -62,6 +55,19 @@ export async function fetchSections(id: string): Promise<Section[]> {
       label: man?.label ?? `v${idx + 1}`,
     };
   });
+}
+
+// The server enumerates tracks/<id>/NN.strudel and returns code + ascii inline
+// (no blind 404 probing).
+export async function fetchSections(id: string): Promise<Section[]> {
+  let data: SectionsResponse = {};
+  try {
+    const res = await fetch(`/sections?track=${encodeURIComponent(id)}`, { cache: 'no-cache' });
+    if (res.ok) data = (await res.json()) as SectionsResponse;
+  } catch {
+    /* no sections */
+  }
+  return parseSections(data);
 }
 
 export function parseCps(code: string): number | null {

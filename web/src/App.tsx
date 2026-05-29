@@ -15,7 +15,7 @@ import { startRecording, stopRecording } from './engine/recorder';
 import { startRing } from './engine/ring';
 import { renderAlbumOffline } from './engine/render';
 import { useTheme } from './useTheme';
-import { useTrackPoll } from './useTrackPoll';
+import { useTrackPoll, useSectionsPoll } from './useTrackPoll';
 import CodePanel from './CodePanel';
 import Timeline from './Timeline';
 import Viz from './Viz';
@@ -91,6 +91,12 @@ export default function App() {
   const radioPlayPending = useRef(false); // set when a radio hop should auto-play the new track
 
   const playing = status === 'playing';
+  // Mirror playback + sections into refs so the track-load effect and the
+  // live-reload polls can read the latest without re-subscribing on every change.
+  const playingRef = useRef(false);
+  playingRef.current = playing;
+  const sectionsRef = useRef<Section[]>([]);
+  sectionsRef.current = sections;
   const displayedSection = viewedIndex >= 0 ? sections[viewedIndex] : null;
   const displayedCode = displayedSection ? displayedSection.code : code;
   const segment = displayedSection ? displayedSection.file : 'live';
@@ -133,14 +139,17 @@ export default function App() {
         // working copy.
         setViewedIndex(secs.length ? 0 : -1);
         flash(secs.length ? secs[0].file : `tracks/${currentId}.strudel`);
-        // radio hop just landed: start the new track at section 01 (cps reset)
-        if (radioPlayPending.current) {
-          radioPlayPending.current = false;
-          if (secs.length) {
-            engine.play(transformCps(secs[0].code, null)).catch(() => {});
-            playStartedAt.current = performance.now();
-            sectionStartedAt.current = performance.now();
-          }
+        // Cut the transport over to the freshly-loaded track when we arrived
+        // here while already playing (manual switch) or via a radio hop: play
+        // its section 01 (or the live working copy if it has none), which
+        // replaces the old pattern at the next cycle boundary. When stopped we
+        // stay put — no autoplay on boot, and an intentional stop is respected.
+        const playNow = radioPlayPending.current || playingRef.current;
+        radioPlayPending.current = false;
+        if (playNow) {
+          engine.play(transformCps(secs.length ? secs[0].code : src, null)).catch(() => {});
+          playStartedAt.current = performance.now();
+          sectionStartedAt.current = performance.now();
         }
       })
       .catch((e) => alive && setError(e instanceof Error ? e.message : String(e)));
@@ -163,6 +172,27 @@ export default function App() {
     [playing, viewedIndex, cpsOverride, flash]
   );
   useTrackPoll(currentId, onFileChange);
+
+  // Section files (tracks/<id>/NN.strudel) live-reload too: refresh the section
+  // list on any change and, if we're playing the section that actually changed,
+  // hot-swap it in. The live working copy (viewedIndex < 0) is handled above.
+  const onSectionsChange = useCallback(
+    (next: Section[]) => {
+      if (viewedIndex >= 0) {
+        const cur = sectionsRef.current[viewedIndex];
+        const nx = next[viewedIndex];
+        // Viewed section's source changed on disk: flash + refresh the panel,
+        // and hot-swap the audio when we're playing it.
+        if (nx && (!cur || cur.code !== nx.code)) {
+          flash('patched');
+          if (playing) engine.play(transformCps(nx.code, cpsOverride)).catch(() => {});
+        }
+      }
+      setSections(next);
+    },
+    [playing, viewedIndex, cpsOverride, flash]
+  );
+  useSectionsPoll(currentId, onSectionsChange);
 
   const jumpToSection = useCallback(
     (i: number, opts?: { startedAt?: number }) => {
