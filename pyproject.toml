@@ -1,0 +1,12 @@
+[project]
+name = "toaster-strudel-tools"
+version = "0.1.0"
+description = "Python analysis helpers for toaster-strudel track measurements"
+requires-python = ">=3.12"
+dependencies = [
+  "numpy>=2.0",
+  "librosa>=0.11",
+]
+
+[tool.uv]
+package = false
