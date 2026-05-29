@@ -134,4 +134,4 @@ See `skills/skills/strudel-sample-library/` for the full catalogue. Default load
 
 ## License
 
-MIT. See `LICENSE`.
+GNU General Public License v3.0. See `LICENSE`.
