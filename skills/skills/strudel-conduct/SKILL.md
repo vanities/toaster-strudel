@@ -3,15 +3,15 @@ name: strudel-conduct
 description: Live-perform music in this repo by editing track files while the user listens. The browser player auto-reloads on file change and Strudel crossfades at the next cycle boundary, so each edit lands as a real-time musical patch. Use when the user says "add layers", "perform", "/loop add a layer", or wants to iterate on a track in real time. Covers the build-then-strip arc, the critical .bank() rule, pacing math, and the gotchas we learned the hard way.
 ---
 
-You're conducting a live Strudel session. The user listens through the browser player at `localhost:4747/player/`. When you edit a `tracks/*.strudel` file, the player polls every 600ms, picks up the change, and crossfades into the new pattern at the next cycle boundary. Each edit is also automatically captured as a section in localStorage, so you can experiment without fear — the user can rewind.
+You're conducting a live Strudel session. The user listens through the browser player — the React app at `localhost:5273/`, with a Node backend on `:4747` serving the track files and audio endpoints. When you edit a track's file, the player polls it — the live working copy `tracks/<id>.strudel` every ~700ms, the section files `tracks/<id>/NN.strudel` every ~900ms — picks up the change, and crossfades into the new pattern at the next cycle boundary (when it's the copy/section currently playing). Sections are real files on disk, not localStorage — so comment-don't-delete (rule 2 below) and let git be the rewind.
 
 ## Architecture (one screen)
 
 - **Audio**: `@strudel/web@1.3.0` runs in our page (NOT iframed strudel.cc). We tap an `AnalyserNode` into the AudioContext before init by patching `AudioNode.prototype.connect` — this is what drives the visualisers.
 - **Editor display**: read-only `<pre>` with per-character spans. Live note highlight is hooked via `Pattern.onTrigger(fn, false)` on each evaluate — `false` (non-dominant) is essential so the default audio output still fires.
 - **Live highlight locations** are objects `{start, end}` on `hap.context.locations` — not arrays. Don't destructure as `[s, e]` or it throws silently inside `try/catch`.
-- **Auto-reload**: `pollForChanges()` re-fetches the current track file every 600ms and re-evaluates if content changed.
-- **Sections**: every detected file change pushes `{ts, code}` into `localStorage[strudel-skills-history:<id>]`. Capped at 200 entries per track.
+- **Auto-reload**: `useTrackPoll` re-fetches `tracks/<id>.strudel` (~700ms) and `useSectionsPoll` re-fetches `/sections` (~900ms); a detected change re-evaluates the live pattern when it's the copy/section currently playing.
+- **Sections**: the numbered files on disk — `tracks/<id>/NN.strudel`, enumerated by the backend's `/sections` endpoint (code returned inline). The timeline reflects them live; new files appear without a reload. Switching tracks while playing cuts straight to the new track's section 01.
 
 ## Two rules that override everything else
 

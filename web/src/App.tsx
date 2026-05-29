@@ -418,6 +418,7 @@ export default function App() {
         case 'g': case 'G': toggleRadio(); break;
         case 'm': case 'M': toggleMute(); break;
         case 't': case 'T': cycle(); break;
+        case 'c': case 'C': window.dispatchEvent(new CustomEvent('strudel:toggle-chat')); break;
         case 'z': case 'Z': toggleReset(); break;
         case 'h': case 'H': setHumOpen((v) => !v); break;
         case 'k': case 'K': refreshSections(); break;

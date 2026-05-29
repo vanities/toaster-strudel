@@ -112,11 +112,14 @@ export default function ChatPanel({ viewingTrack }: { viewingTrack: string | nul
       );
       setTimeout(() => inputRef.current?.focus(), 0);
     };
+    const onToggle = () => setOpen((o) => !o);
     window.addEventListener('strudel:note-pick', onPick);
     window.addEventListener('strudel:hum-pattern', onHum);
+    window.addEventListener('strudel:toggle-chat', onToggle);
     return () => {
       window.removeEventListener('strudel:note-pick', onPick);
       window.removeEventListener('strudel:hum-pattern', onHum);
+      window.removeEventListener('strudel:toggle-chat', onToggle);
     };
   }, []);
 
