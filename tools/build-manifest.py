@@ -144,6 +144,12 @@ BY_NAME = {
     "style-thrupence": {"dir": "thrupence", "tracks": ["rinse repeat", "thought 12"]},
     "style-strfkr": {"dir": "strfkr", "tracks": ["reptilians", "julius", "bury us alive", "mystery cloud"]},
     "style-home": {"dir": "home - odyssey", "tracks": ["decay", "resonance", "tides", "native", "oort cloud"]},
+    # Boards of Canada (2026-05-30) — fetched via yt-dlp into _fetched/ (not in the FLAC
+    # library). Detuned-nostalgia hauntology; Olson is Adam's loved track. Cross-section
+    # spans the pastoral pole (Olson) + the downtempo pole (Roygbiv/Telephasic/Aquarius/
+    # Dayvan Cowboy) + Geogaddi vocoder (1969, stood in for the unavailable IABP album cut).
+    "style-boards-of-canada": {"dir": "_fetched", "tracks": [
+        "olson", "roygbiv", "telephasic workshop", "aquarius", "dayvan cowboy", "1969"]},
 }
 
 # Adam's ❤️ heart tracks (heart-tracks-analysis.md) not already covered above —
@@ -177,6 +183,7 @@ ARTIST = {
     "style-jeremy-soule": "Jeremy Soule", "style-forest-swords": "Forest Swords",
     "style-thrupence": "Thrupence", "style-strfkr": "STRFKR", "style-home": "HOME",
     "style-uematsu": "Uematsu", "style-shimomura": "Shimomura",
+    "style-boards-of-canada": "Boards of Canada",
 }
 
 
