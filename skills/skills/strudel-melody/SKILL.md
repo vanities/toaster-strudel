@@ -69,10 +69,13 @@ A melody that never pauses sounds like a lecture. Silence is not failure — it'
 - **The wandering line**: no repeated motif, no arc, no peak — just a series of diatonic notes that go nowhere. Fix: cut it to 4 bars, find the best 3-note phrase inside it, make that the motif.
 - **Over-decoration**: too many grace notes, trills, slides — the listener can't find the hook inside the ornament. Strip to skeleton first, decorate sparingly after.
 - **Resolving too completely too early**: a melody that cadences on the root every 2 bars feels like a period at the end of every sentence. Use half-cadences (end on 5) to keep phrases open and propulsive.
+- **Phrase-boundary cutoffs in Strudel hooks**: with `<[phrase A] [phrase B] ...>`, each bracket phrase is one cycle choice. A trailing `~` at the end of the bracket can create an audible pause/cutoff right before the next cycle/phrase, especially on percussive voices like `piano`. If the user hears a seam between `] [` handoffs, the syntax is probably fine; smooth the line by replacing terminal rests with tiny in-key pickup/bridge notes and/or lengthening `.release()` slightly. Preserve the loved contour — fix the handoff, not the hook.
 - **Burying the hook in rhythm**: an intricate, syncopated rhythmic figure that *also* has a complex pitch sequence. Nobody can internalize both at once. Simpler pitch sequence when the rhythm is complex; more adventurous pitches when the rhythm is simple.
 - **No contrast between phrases**: verse melody and chorus melody share the same register, rhythm, and contour — so the section change goes unnoticed. Make choruses higher, simpler, and more rhythmically punchy than verses.
 
 ## Strudel application
+
+**Legato hook gotcha:** don't use angle-bracket phrase alternation (`note("<[phrase A] [phrase B]>")`) for a long, hummable theme that should flow continuously. The `] [` cycle handoff can feel like a hard restart/cutoff, even if the syntax parses and release tails are long. For song-like/VGM melodies, write one continuous phrase and slow it across the intended span instead: `note("g4 c5 eb5 ...").slow(8)`. Use bracket alternation for clearly separate one-cycle variations, not for a single legato tune.
 
 Scale-degree melodies stay in key automatically and are the fastest path to an in-key hook:
 

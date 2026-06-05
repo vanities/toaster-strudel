@@ -47,6 +47,8 @@ s("pink")
   .room(0.7).roomsize(6).gain(0.06).slow(32)
 ```
 
+**Snow/rain/air gotcha:** environmental noise is seductive but it can quickly become the foreground in sparse intros. In a melody-first crank, if the user likes the hook, keep the noise bed *behind* it: start around `gain(0.003–0.01)` for exposed sections and only rise gently at blooms. High flatness in a quiet intro can be a noise-tail artifact, but if the hook feels buried, fix the music first: pull `pink`/`white` down, bring the tonal hook forward, or add a quiet tonal shimmer instead of more air. "Winter" should read as crystalline/tonal, not just hiss.
+
 ## Field recordings — organic world-building
 
 The Dirt library ships `wind crow insect space birds industrial` — available by default via `github:tidalcycles/Dirt-Samples`, no loading needed.
