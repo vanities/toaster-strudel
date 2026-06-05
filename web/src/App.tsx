@@ -3,6 +3,7 @@ import * as engine from './engine/strudel';
 import {
   fetchTracks,
   loadTrackCode,
+  loadArrangement,
   fetchSections,
   parseCps,
   parseTitle,
@@ -84,6 +85,15 @@ export default function App() {
   const [radio, setRadio] = useState(
     () => localStorage.getItem('toaster-strudel:radio') === 'true'
   );
+  // Arc mode: play the whole section arc as ONE continuous pattern — the
+  // generated tracks/<id>/arrange.strudel (arrange([cycles, …section…], …)) —
+  // instead of stepping section-by-section. The way to actually listen to a
+  // track "as it was meant to be ran". arcCode is '' until the file loads (or
+  // when a track has no arrangement, which disables the toggle).
+  const [arcMode, setArcMode] = useState(
+    () => localStorage.getItem('toaster-strudel:arc') === 'true'
+  );
+  const [arcCode, setArcCode] = useState('');
   const { theme, cycle } = useTheme();
 
   const playStartedAt = useRef(0);
@@ -97,9 +107,15 @@ export default function App() {
   playingRef.current = playing;
   const sectionsRef = useRef<Section[]>([]);
   sectionsRef.current = sections;
-  const displayedSection = viewedIndex >= 0 ? sections[viewedIndex] : null;
-  const displayedCode = displayedSection ? displayedSection.code : code;
-  const segment = displayedSection ? displayedSection.file : 'live';
+  const arcCodeRef = useRef('');
+  arcCodeRef.current = arcCode;
+  const arcModeRef = useRef(false);
+  arcModeRef.current = arcMode;
+  // Arc mode only "active" once an arrangement is actually loaded for this track.
+  const arcActive = arcMode && !!arcCode;
+  const displayedSection = !arcActive && viewedIndex >= 0 ? sections[viewedIndex] : null;
+  const displayedCode = arcActive ? arcCode : displayedSection ? displayedSection.code : code;
+  const segment = arcActive ? 'arrange.strudel' : displayedSection ? displayedSection.file : 'live';
   const baseCps = parseCps(displayedCode) ?? 0.4;
   const effectiveCps = cpsOverride ?? baseCps;
   const trackNum = currentId.includes('-') ? currentId.split('-')[0] : '';
@@ -130,24 +146,35 @@ export default function App() {
     if (!currentId) return;
     let alive = true;
     setCpsOverride(null);
-    Promise.all([loadTrackCode(currentId), fetchSections(currentId)])
-      .then(([src, secs]) => {
+    Promise.all([loadTrackCode(currentId), fetchSections(currentId), loadArrangement(currentId)])
+      .then(([src, secs, arc]) => {
         if (!alive) return;
         setCode(src);
         setSections(secs);
+        setArcCode(arc ?? '');
         // Jump to the first segment (section 01) on track select, not the live
         // working copy.
         setViewedIndex(secs.length ? 0 : -1);
-        flash(secs.length ? secs[0].file : `tracks/${currentId}.strudel`);
+        // Arc mode wins when the freshly-loaded track actually has an arrangement.
+        const arcNow = arcModeRef.current && !!arc;
+        flash(
+          arcNow
+            ? `tracks/${currentId}/arrange.strudel`
+            : secs.length
+              ? secs[0].file
+              : `tracks/${currentId}.strudel`
+        );
         // Cut the transport over to the freshly-loaded track when we arrived
         // here while already playing (manual switch) or via a radio hop: play
-        // its section 01 (or the live working copy if it has none), which
-        // replaces the old pattern at the next cycle boundary. When stopped we
-        // stay put — no autoplay on boot, and an intentional stop is respected.
+        // the whole arc (arc mode) or its section 01 (or the live working copy
+        // if it has none), which replaces the old pattern at the next cycle
+        // boundary. When stopped we stay put — no autoplay on boot, and an
+        // intentional stop is respected.
         const playNow = radioPlayPending.current || playingRef.current;
         radioPlayPending.current = false;
         if (playNow) {
-          engine.play(transformCps(secs.length ? secs[0].code : src, null)).catch(() => {});
+          const startCode = arcNow ? arc! : secs.length ? secs[0].code : src;
+          engine.play(transformCps(startCode, null)).catch(() => {});
           playStartedAt.current = performance.now();
           sectionStartedAt.current = performance.now();
         }
@@ -166,10 +193,13 @@ export default function App() {
   const onFileChange = useCallback(
     (next: string) => {
       setCode(next);
+      // In arc mode the single-loop file isn't playing — don't let its edits
+      // hot-swap over (and kill) the running arrangement.
+      if (arcActive) return;
       flash('patched');
       if (playing && viewedIndex < 0) engine.play(transformCps(next, cpsOverride)).catch(() => {});
     },
-    [playing, viewedIndex, cpsOverride, flash]
+    [playing, viewedIndex, cpsOverride, flash, arcActive]
   );
   useTrackPoll(currentId, onFileChange);
 
@@ -178,7 +208,7 @@ export default function App() {
   // hot-swap it in. The live working copy (viewedIndex < 0) is handled above.
   const onSectionsChange = useCallback(
     (next: Section[]) => {
-      if (viewedIndex >= 0) {
+      if (!arcActive && viewedIndex >= 0) {
         const cur = sectionsRef.current[viewedIndex];
         const nx = next[viewedIndex];
         // Viewed section's source changed on disk: flash + refresh the panel,
@@ -190,20 +220,25 @@ export default function App() {
       }
       setSections(next);
     },
-    [playing, viewedIndex, cpsOverride, flash]
+    [playing, viewedIndex, cpsOverride, flash, arcActive]
   );
   useSectionsPoll(currentId, onSectionsChange);
 
   const jumpToSection = useCallback(
     (i: number, opts?: { startedAt?: number }) => {
       if (!sections.length) return;
+      // Scrubbing to a specific section means leaving the whole-arc view.
+      if (arcMode) {
+        setArcMode(false);
+        localStorage.setItem('toaster-strudel:arc', 'false');
+      }
       const c = Math.max(0, Math.min(sections.length - 1, i));
       setViewedIndex(c);
       sectionStartedAt.current = opts?.startedAt ?? performance.now();
       flash(sections[c].file);
       if (playing) engine.play(transformCps(sections[c].code, cpsOverride)).catch(() => {});
     },
-    [sections, playing, cpsOverride, flash]
+    [sections, playing, cpsOverride, flash, arcMode]
   );
 
   const stepSection = useCallback(
@@ -231,7 +266,9 @@ export default function App() {
   }, [tracks, currentId]);
 
   useEffect(() => {
-    if (!autoAdvance || !playing || sections.length === 0) return;
+    // Arc mode plays one continuous pattern — arrange() owns the sequencing, so
+    // the section auto-advance timer must stand down.
+    if (!autoAdvance || arcActive || !playing || sections.length === 0) return;
     const idx = viewedIndex < 0 ? 0 : viewedIndex;
     const cps = (cpsOverride ?? parseCps(sections[idx]?.code ?? code)) || 0.4;
     const ms = Math.max(1000, ((sections[idx]?.cycles ?? sectionLen) / cps) * 1000);
@@ -242,16 +279,21 @@ export default function App() {
       else jumpToSection((idx + 1) % sections.length, { startedAt: switchAt });  // arm just before boundary
     }, Math.max(0, ms - SECTION_SWITCH_LEAD_MS));
     return () => clearTimeout(h);
-  }, [autoAdvance, playing, viewedIndex, sections, sectionLen, code, cpsOverride, jumpToSection, radio, advanceStation]);
+  }, [autoAdvance, arcActive, playing, viewedIndex, sections, sectionLen, code, cpsOverride, jumpToSection, radio, advanceStation]);
 
   const play = useCallback(async () => {
     setError(null);
     setStatus('loading');
     setMuted(false);
     try {
-      const startSection = autoAdvance && sections.length ? 0 : viewedIndex;
-      if (startSection >= 0 && sections[startSection]) setViewedIndex(startSection);
-      const src = startSection >= 0 && sections[startSection] ? sections[startSection].code : code;
+      let src: string;
+      if (arcActive) {
+        src = arcCode; // the whole arrangement as one pattern
+      } else {
+        const startSection = autoAdvance && sections.length ? 0 : viewedIndex;
+        if (startSection >= 0 && sections[startSection]) setViewedIndex(startSection);
+        src = startSection >= 0 && sections[startSection] ? sections[startSection].code : code;
+      }
       await engine.play(transformCps(src, cpsOverride));
       void startRing();
       playStartedAt.current = performance.now();
@@ -261,7 +303,7 @@ export default function App() {
       setError(e instanceof Error ? e.message : String(e));
       setStatus('error');
     }
-  }, [autoAdvance, sections, viewedIndex, code, cpsOverride]);
+  }, [arcActive, arcCode, autoAdvance, sections, viewedIndex, code, cpsOverride]);
 
   const stop = useCallback(async () => {
     await engine.stop();
@@ -316,6 +358,28 @@ export default function App() {
     });
   }, []);
 
+  const toggleArc = useCallback(() => {
+    setArcMode((on) => {
+      const v = !on;
+      localStorage.setItem('toaster-strudel:arc', String(v));
+      const arc = arcCodeRef.current;
+      if (v && !arc) return v; // track has no arrangement yet — nothing to switch to
+      // Cut the running transport into / out of the whole-arc pattern.
+      if (playingRef.current) {
+        if (v) {
+          engine.play(transformCps(arc, cpsOverride)).catch(() => {});
+        } else {
+          const idx = viewedIndex < 0 ? 0 : viewedIndex;
+          setViewedIndex(idx);
+          engine.play(transformCps(sections[idx]?.code ?? code, cpsOverride)).catch(() => {});
+        }
+        playStartedAt.current = performance.now();
+        sectionStartedAt.current = performance.now();
+      }
+      return v;
+    });
+  }, [cpsOverride, viewedIndex, sections, code]);
+
   const toggleReset = useCallback(() => {
     setResetOnSwap((r) => {
       const v = !r;
@@ -364,13 +428,23 @@ export default function App() {
   }, [currentId]);
 
   const replay = useCallback(() => {
+    // In arc mode, restart the whole arrangement from the top (don't fall
+    // through to jumpToSection, which would exit arc).
+    if (arcActive) {
+      if (playing) {
+        engine.play(transformCps(arcCode, cpsOverride)).catch(() => {});
+        playStartedAt.current = performance.now();
+        sectionStartedAt.current = performance.now();
+      } else void play();
+      return;
+    }
     if (!sections.length) return;
     if (playing) jumpToSection(0);
     else {
       setViewedIndex(0);
       void play();
     }
-  }, [sections, playing, jumpToSection, play]);
+  }, [arcActive, arcCode, cpsOverride, sections, playing, jumpToSection, play]);
 
   const openInStrudel = useCallback(() => {
     try {
@@ -415,6 +489,7 @@ export default function App() {
         case '.': stepSection(1); break;
         case 'r': case 'R': setReloadNonce((n) => n + 1); break;
         case 'a': case 'A': toggleAuto(); break;
+        case 'f': case 'F': toggleArc(); break;
         case 'g': case 'G': toggleRadio(); break;
         case 'm': case 'M': toggleMute(); break;
         case 't': case 'T': cycle(); break;
@@ -431,16 +506,25 @@ export default function App() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [playing, play, stop, stepTrack, jumpTrack, stepSection, toggleAuto, toggleRadio, toggleMute, toggleReset, cycle, nudge, refreshSections, replay]);
+  }, [playing, play, stop, stepTrack, jumpTrack, stepSection, toggleAuto, toggleArc, toggleRadio, toggleMute, toggleReset, cycle, nudge, refreshSections, replay]);
 
   const totalSecs =
-    autoAdvance && sections.length
+    (autoAdvance || arcActive) && sections.length
       ? sections.reduce((s, snap) => s + sectionSeconds(snap), 0)
       : sectionSeconds(sections[viewedIndex < 0 ? 0 : viewedIndex]);
   const elapsed = playing ? performance.now() - playStartedAt.current : 0;
-  const nextRemain = autoAdvance && playing ? Math.max(0, sectionStartedAt.current + sectionSeconds(sections[viewedIndex < 0 ? 0 : viewedIndex]) * 1000 - performance.now()) : null;
+  // Arc plays one continuous pattern, so there's no per-section "next" boundary.
+  const nextRemain = !arcActive && autoAdvance && playing ? Math.max(0, sectionStartedAt.current + sectionSeconds(sections[viewedIndex < 0 ? 0 : viewedIndex]) * 1000 - performance.now()) : null;
   const curSecMs = sectionSeconds(sections[viewedIndex < 0 ? 0 : viewedIndex]) * 1000;
-  const progress = playing && curSecMs > 0 ? Math.min(1, (performance.now() - sectionStartedAt.current) / curSecMs) : 0;
+  // In arc mode the progress bar tracks the WHOLE arrangement; otherwise the
+  // position within the current section.
+  const progress = arcActive
+    ? playing && totalSecs > 0
+      ? Math.min(1, elapsed / (totalSecs * 1000))
+      : 0
+    : playing && curSecMs > 0
+      ? Math.min(1, (performance.now() - sectionStartedAt.current) / curSecMs)
+      : 0;
 
   return (
     <div className="flex h-full flex-col" style={{ overflow: 'hidden' }}>
@@ -460,6 +544,12 @@ export default function App() {
           <button className="cbtn primary" onClick={play} disabled={playing} title="Play (space)">▶</button>
           <button className="cbtn" onClick={stop} disabled={!playing} title="Stop (space)">■</button>
           <button className="cbtn" onClick={() => stepTrack(1)} title="Next track (→)">⏭</button>
+          <button
+            className={`cbtn${arcActive ? ' primary' : ''}`}
+            onClick={toggleArc}
+            disabled={!arcCode}
+            title="Full arrangement — play the whole section arc as one continuous track, as it was meant to be heard (f)"
+          >🎼</button>
           <button className={`cbtn${radio ? ' primary' : ''}`} onClick={toggleRadio} title="Radio — play the station continuously, hopping tracks at the end of each arc (g)">📻</button>
           <button className="cbtn" onClick={() => setReloadNonce((n) => n + 1)} title="Reload (r)">↻</button>
           <button className="cbtn" onClick={openInStrudel} title="Open in strudel.cc">↗</button>
@@ -502,6 +592,7 @@ export default function App() {
             sections={sections}
             viewedIndex={viewedIndex}
             autoAdvance={autoAdvance}
+            arcActive={arcActive}
             sectionLen={sectionLen}
             progress={progress}
             resetOnSwap={resetOnSwap}

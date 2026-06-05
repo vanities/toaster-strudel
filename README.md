@@ -60,6 +60,8 @@ make stop          # stop the backend server
 
 Auto-advance is on by default. Hit ▶ to start and the player moves through the sections, looping the track at the end. Turn on **radio** (📻 / `g`) to play continuously *across* tracks: at the end of each track's arc it hops to the next track in the station (and refetches the catalog, so freshly-generated tracks join the rotation).
 
+To hear a track **as one continuous piece** instead of section-by-section, hit the **🎼 arc** toggle (`f`): it plays `tracks/<id>/arrange.strudel`, a generated single-file `arrange([cycles, …section…], …)` that stitches the whole arc together with no seams between sections. Regenerate these after editing sections with `make arrangements` (see [How sections work](#how-sections-work)).
+
 ## How sections work
 
 When **auto-advance** (⟳ button or `A`) is on:
@@ -74,6 +76,8 @@ When you **click a section dot manually**:
 - If **reset-on-swap** (`↺` button or `Z`) is **ON** (default): the section timer restarts — the section you clicked gets its full duration to play
 - If **reset-on-swap** is **OFF**: the timer keeps running — useful for previewing the very end of a section without resetting
 
+To listen to the **whole arc as one continuous track**, toggle **🎼 arc** (`f`) — it plays the generated `tracks/<id>/arrange.strudel` (one `arrange()` pattern, no section seams) and the section auto-advance stands down. Rebuild these files from the sections any time with `make arrangements` (or `make arrangements ARGS="v2-gen/crank-glade"` for one); `tools/build-arrangements.mjs` mirrors the player's cycle resolution (`manifest.json` → `@cycles` → default).
+
 ## Keybinds (full list — see `?` in the player)
 
 | Key | Action |
@@ -83,6 +87,7 @@ When you **click a section dot manually**:
 | `1`–`4` | jump to track N |
 | `,` `.` | previous / next section |
 | `a` | toggle auto-advance |
+| `f` | toggle full-arrangement (🎼 arc) playback |
 | `g` | toggle radio (continuous station) |
 | `z` | toggle reset-on-swap |
 | `\` | replay all sections once |

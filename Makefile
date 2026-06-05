@@ -9,7 +9,7 @@ PIDFILE := .server.pid
 WEB_URL := http://localhost:5273/
 PC ?= pc
 
-.PHONY: help install play serve web stop status list analyze sections-pc midi
+.PHONY: help install play serve web stop status list arrangements analyze sections-pc midi
 
 help:
 	@echo "strudel-skills"
@@ -21,6 +21,7 @@ help:
 	@echo "  make stop     stop the background backend"
 	@echo "  make status   show whether the backend is running"
 	@echo "  make list     list available tracks"
+	@echo "  make arrangements  (re)build each track's whole-arc arrange.strudel from its sections"
 	@echo ""
 	@echo "  make analyze      re-run reference analysis (after adding songs) → cards + skills"
 	@echo "  make midi         re-run MIDI-exact DNA (after adding .mid to midi-sourced/) → cards + skills"
@@ -61,6 +62,13 @@ status:
 
 list:
 	@ls -1 tracks/*.strudel | sed 's|tracks/||; s|\.strudel||'
+
+# Stitch each track's section files (NN.strudel) into one whole-arc
+# arrange.strudel, so the player's "arc" toggle (🎼) and strudel.cc can play the
+# full intended arrangement as a single continuous pattern. Re-run after editing
+# sections. Pass ids to rebuild specific tracks:  make arrangements ARGS="v2-gen/crank-glade"
+arrangements:
+	@node tools/build-arrangements.mjs $(ARGS)
 
 # ── reference-analysis pipeline ───────────────────────────────────────────────
 # Add songs: edit tools/build-manifest.py (EXACT paths or BY_NAME terms), then:

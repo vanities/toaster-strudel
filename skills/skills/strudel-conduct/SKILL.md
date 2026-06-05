@@ -64,6 +64,19 @@ The player parses `@cycles N` and uses N cycles for that section only. Missing d
 
 Tooltip on each timeline dot shows the section's cycles and seconds. Total song duration = sum of all per-section cycles.
 
+## Whole-arc playback: the 🎼 arc toggle + `arrange.strudel`
+
+Section-by-section auto-advance is for *conducting*; to actually **listen to a track as one continuous piece**, the header has a **🎼 arc** toggle (key `f`). It plays `tracks/<id>/arrange.strudel` — a single self-contained file that stitches every section into one `arrange([cycles, …section…], …)` pattern (same cycle counts as auto-advance, no re-eval seams between sections). In arc mode the section auto-advance stands down, the timeline reads *"full arrangement"*, and ↗ "open in strudel.cc" exports the whole song.
+
+These files are **generated, not hand-written** — regenerate after editing sections:
+
+```bash
+make arrangements                         # rebuild all tracks
+make arrangements ARGS="v2-gen/crank-glade"   # just one
+```
+
+`tools/build-arrangements.mjs` resolves each section's cycles exactly like the player (manifest `cycles` → `// @cycles N` → 32), hoists the shared `setcps()`, and IIFE-wraps any section that declares top-level `const`/`let`. `arrange.strudel` lives inside the section dir but isn't `NN.strudel`, so `/tracks` and `/sections` ignore it — the player fetches it directly. (Live edits to sections won't show in arc mode until you re-run the generator; arc mode is for hearing the finished arc, not editing it.)
+
 ## Recording to WAV / FLAC
 
 The header has a **● rec** button. Click to start; click again to save a 16-bit stereo WAV to your downloads. Convert to FLAC (or any format) with one line:
