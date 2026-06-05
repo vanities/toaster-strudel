@@ -17,6 +17,9 @@ web/dist/
 # macOS
 .DS_Store
 
+# Generated local music-video renders (large MP4/PNG frame artifacts)
+renders/
+
 # EP working tracks (personal, in-progress) — keep the example demo public
 tracks/*
 !tracks/example.strudel
