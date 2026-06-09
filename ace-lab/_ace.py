@@ -50,9 +50,29 @@ os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 log = logging.getLogger("ace-lab")
 
-# DiT config + LM checkpoint names (the turbo/0.6B pair the macOS launcher uses)
+# DiT config name (the macOS launcher's turbo pair).
 DIT_CONFIG = "acestep-v15-turbo"
-LM_MODEL = "acestep-5Hz-lm-0.6B"
+
+
+def _resolve_lm_model():
+    """Use $ACESTEP_LM_MODEL if set; else an already-downloaded 5Hz LM under
+    checkpoints/ (prefer 1.7B — it ships with the main bundle); else a default.
+    The handler does NOT auto-download the LM, so pick one that's present."""
+    env = os.environ.get("ACESTEP_LM_MODEL")
+    if env:
+        return env
+    if CHECKPOINT_DIR.exists():
+        avail = sorted(p.name for p in CHECKPOINT_DIR.iterdir()
+                       if p.is_dir() and p.name.startswith("acestep-5Hz-lm-"))
+        for pref in ("acestep-5Hz-lm-1.7B", "acestep-5Hz-lm-0.6B"):
+            if pref in avail:
+                return pref
+        if avail:
+            return avail[0]
+    return "acestep-5Hz-lm-1.7B"
+
+
+LM_MODEL = _resolve_lm_model()
 
 _handlers = None
 
@@ -91,11 +111,27 @@ def _init():
     return _handlers
 
 
-def generate(params, out_dir, batch_size: int = 1):
-    """Run one generation. `params` is an acestep GenerationParams. Returns wav paths."""
+def generate(params, out_dir, batch_size: int = 1, lora_path=None, lora_scale: float = 1.0):
+    """Run one generation. `params` is an acestep GenerationParams. Returns wav paths.
+    Pass `lora_path` (an adapter dir with adapter_model.safetensors) to apply a trained
+    LoRA; `lora_scale` (0-1) controls how strongly it pulls toward the learned style."""
     from acestep.inference import GenerationConfig, generate_music
 
     dit, llm = _init()
+    if lora_path:
+        p = str(Path(lora_path).expanduser())
+        log.info("[ace] loading LoRA: %s", p)
+        log.info("[ace] %s", dit.load_lora(p))
+        try:
+            dit.set_use_lora(True)
+        except Exception:
+            pass
+        if lora_scale != 1.0:
+            try:
+                dit.set_lora_scale(lora_scale)
+                log.info("[ace] LoRA scale=%.2f", lora_scale)
+            except Exception as e:  # noqa: BLE001
+                log.warning("[ace] could not set LoRA scale: %s", e)
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     cfg = GenerationConfig(batch_size=batch_size, audio_format="wav")

@@ -25,6 +25,8 @@ def main():
     ap.add_argument("--key", default="", help='e.g. "F# minor", "C major"')
     ap.add_argument("--steps", type=int, default=8, help="diffusion steps (8 = turbo)")
     ap.add_argument("--seed", type=int, default=-1, help="-1 = random")
+    ap.add_argument("--lora", default=None, help="trained LoRA adapter dir (e.g. lora_output/downtempo/final)")
+    ap.add_argument("--lora-scale", type=float, default=1.0, help="LoRA influence, 0-1")
     ap.add_argument("--out", default=str(Path(__file__).resolve().parent / "out" / "text2music"))
     args = ap.parse_args()
 
@@ -44,7 +46,7 @@ def main():
         seed=args.seed,
         thinking=True,
     )
-    generate(params, args.out)
+    generate(params, args.out, lora_path=args.lora, lora_scale=args.lora_scale)
 
 
 if __name__ == "__main__":
