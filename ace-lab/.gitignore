@@ -1,0 +1,12 @@
+# the cloned upstream repo (has its own git) + all heavy/generated artifacts
+vendor/
+.venv/
+out/
+datasets/
+preprocessed/
+lora_output/
+checkpoints/
+*.wav
+*.mp3
+*.flac
+*.ogg
