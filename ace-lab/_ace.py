@@ -18,11 +18,24 @@ import sys
 import time
 from pathlib import Path
 
-ACE_ROOT = Path(__file__).resolve().parent / "vendor" / "ACE-Step"
+def _find_ace_root():
+    """Locate the ACE-Step-1.5 checkout. Override with $ACE_ROOT; else prefer a
+    `vendor/ACE-Step` (Mac layout) or a sibling `ACE-Step` (remote-box layout)."""
+    env = os.environ.get("ACE_ROOT")
+    if env:
+        return Path(env).expanduser().resolve()
+    here = Path(__file__).resolve().parent
+    for cand in (here / "vendor" / "ACE-Step", here / "ACE-Step"):
+        if cand.exists():
+            return cand
+    return here / "vendor" / "ACE-Step"
+
+
+ACE_ROOT = _find_ace_root()
 CHECKPOINT_DIR = ACE_ROOT / "checkpoints"
 
 if not ACE_ROOT.exists():
-    sys.exit(f"[ace] ACE-Step not found at {ACE_ROOT} — run ./setup.sh first.")
+    sys.exit(f"[ace] ACE-Step not found at {ACE_ROOT} — run ./setup.sh first (or set $ACE_ROOT).")
 sys.path.insert(0, str(ACE_ROOT))
 
 # their smoke test strips proxies before importing torch/mlx; mirror it

@@ -9,7 +9,7 @@ cd "$(dirname "$0")"
 
 if [ ! -d vendor/ACE-Step ]; then
   echo "[setup] cloning ACE-Step (code only)…"
-  GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/ace-step/ACE-Step vendor/ACE-Step
+  GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/ace-step/ACE-Step-1.5 vendor/ACE-Step
 fi
 
 if ! command -v uv >/dev/null 2>&1; then
