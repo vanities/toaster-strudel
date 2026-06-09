@@ -1,0 +1,27 @@
+# Hand-picked LoRA corpus — Adam's favorites (full-quality FLAC source).
+# One audio path per line. Blank lines and #-comments ignored.
+# Build with:  python3 build_corpus.py --manifest corpora/handpicked.txt --name handpicked
+# Captions are auto-assigned per artist (see build_corpus.py CAPTIONS).
+
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Bonobo - Black Sands  Japanese Edition (2010) [CD FLAC] {BRC-255}/03. Kong.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Bonobo - Black Sands  Japanese Edition (2010) [CD FLAC] {BRC-255}/01. Prelude.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Bonobo - Black Sands  Japanese Edition (2010) [CD FLAC] {BRC-255}/02. Kiara.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Carbon Based Lifeforms - Seeker (2023) [FLAC 24∕44.1]/01 - Seeker.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Djrum - Under Tangled Silence (2025) - WEB FLAC/02. Waxcap.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Djrum - Under Tangled Silence (2025) - WEB FLAC/07. Reprise.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Floating Points - Cascade (2024) [ZENDNL303] [WEB FLAC]/02 - Floating Points - Key103.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Floating Points - Crush (2019) [FLAC] {ZENCD259}/06 - LesAlpx.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Floating Points - Crush (2019) [FLAC] {ZENCD259}/10 - Sea-Watch.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Floating Points - Crush (2019) [FLAC] {ZENCD259}/03 - Anasickmodular.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/HOME - Odyssey (Vinyl Edition)/HOME - Odyssey (Vinyl Edition) - 09 Resonance.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/HOME - Odyssey (Vinyl Edition)/HOME - Odyssey (Vinyl Edition) - 04 Oort Cloud.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/HOME - Odyssey (Vinyl Edition)/HOME - Odyssey (Vinyl Edition) - 03 Decay.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Rone - Tohu Bohu (2012) - FLAC/02 - Bye Bye Macadam.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Skee Mask - Compro (2018) {Ilian Tape - ITLP04} [WEB 16-48 FLAC]/03 - Skee Mask - Rev8617.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Skee Mask - Compro (2018) {Ilian Tape - ITLP04} [WEB 16-48 FLAC]/09 - Skee Mask - Flyby VFR.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Skee Mask - Pool [2021] [WEB-FLAC]/Skee Mask - ITLP09 Skee Mask - Pool - 05 CZ3000 Dub.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Skee Mask - Resort (2024 WF)/01 - Skee Mask - Hedwig Transformation Group.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Skee Mask - Resort (2024 WF)/09 - Skee Mask - Terminal Z.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Skee Mask - Resort (2024 WF)/10 - Skee Mask - Hölzl Was A Dancer.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Thrupence - Ideas of Aesthetics (2017) {FCL154, WEB} [FLAC 16]/01. Forest On The Sun.flac
+/Users/vanities/git/work/matty/Artist-Vault-Kit/vault/_attachments/reference-audio/Thrupence - Ideas of Aesthetics (2017) {FCL154, WEB} [FLAC 16]/02. Rinse Repeat.flac

@@ -29,7 +29,7 @@ def main():
     ap.add_argument("--strength", type=float, default=0.2, help="0.2=style transfer, 0.8=close cover")
     ap.add_argument("--duration", type=float, default=-1.0, help="seconds; -1 = match/auto")
     ap.add_argument("--seed", type=int, default=-1)
-    ap.add_argument("--out", default=str(Path(__file__).resolve().parent / "out" / "style_of"))
+    ap.add_argument("--out", default=str(Path(__file__).resolve().parent / "out"))
     args = ap.parse_args()
 
     ref = Path(args.reference).expanduser().resolve()

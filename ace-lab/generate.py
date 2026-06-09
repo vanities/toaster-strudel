@@ -29,7 +29,7 @@ def main():
     ap.add_argument("--seed", type=int, default=-1, help="-1 = random")
     ap.add_argument("--lora", default=None, help="trained LoRA adapter dir (e.g. lora_output/downtempo/final)")
     ap.add_argument("--lora-scale", type=float, default=1.0, help="LoRA influence, 0-1")
-    ap.add_argument("--out", default=str(Path(__file__).resolve().parent / "out" / "text2music"))
+    ap.add_argument("--out", default=str(Path(__file__).resolve().parent / "out"))
     args = ap.parse_args()
 
     logging.basicConfig(level="INFO", format="%(message)s")

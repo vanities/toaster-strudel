@@ -1,103 +1,102 @@
 #!/usr/bin/env python3
-"""Build an instrumental LoRA corpus from the stem-separated artist kit.
+"""Build an instrumental LoRA corpus from a manifest of full-quality audio files.
 
-For each track under tools/.cache-stems matching the chosen artist prefixes, mix
-the NON-VOCAL stems (other + bass + drums, vocals dropped) into one instrumental
-wav, and write the ACE-Step training sidecars:
-    <name>.lyrics.txt  -> "[Instrumental]"
-    <name>.caption.txt -> a per-artist caption (from the style-* lenses)
+Reads a text manifest (one audio path per line; blank / #-comment lines ignored),
+copies each track into ace-lab/datasets/<name>/, and writes the ACE-Step training
+sidecars next to it:
+    <track>.lyrics.txt   -> "[Instrumental]"
+    <track>.caption.txt  -> a per-artist caption (matched from the path)
 
-  python3 build_corpus.py downtempo --artists bonobo kiasmos boards-of-canada bibio rone thrupence
-  python3 build_corpus.py vgm --artists mitsuda uematsu nishiki shimomura jeremy-soule matt-uelmen david-wise sonic void-stranger
+Using full tracks (not Demucs stem-mixdowns) = clean source, no separation artifacts.
 
-Output: ace-lab/datasets/<name>/   ->   ./train_lora.sh <name>
+  python3 build_corpus.py --manifest corpora/handpicked.txt --name handpicked
+
+Output: ace-lab/datasets/<name>/  ->  rsync to box, then preprocess + train.
 """
 
 from __future__ import annotations
 
 import argparse
 import logging
-import subprocess
+import re
+import shutil
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-TS_ROOT = HERE.parent
-STEMS = TS_ROOT / "tools" / ".cache-stems"
 log = logging.getLogger("corpus")
 
-# per-artist captions, distilled from the style-* production lenses
+# artist substring (lowercase, found in the path) -> training caption.
+# Longest keys are matched first so "carbon based lifeforms" wins over nothing, etc.
 CAPTIONS = {
-    "bonobo": "warm organic downtempo, rhodes, upright bass, live drums, vinyl crackle, layered samples, instrumental",
-    "kiasmos": "minimal melodic techno, hypnotic piano, deep sub bass, subtle strings, shuffled hats, instrumental",
-    "boards-of-canada": "nostalgic analog hauntology, detuned tape-warped synths, woozy pads, dusty downtempo beats, instrumental",
-    "bibio": "tape-warped folktronica, finger-picked guitar loops, cassette hiss, sun-faded warmth, instrumental",
-    "rone": "emotive french electronica, lush analog synths, melodic techno, cinematic pads, instrumental",
+    "carbon based lifeforms": "deep evolving ambient, lush analog pads, slow atmospheric electronica, instrumental",
+    "floating points": "modular electronic jazz, analog synths, intricate live rhythms, cinematic builds, instrumental",
+    "skee mask": "atmospheric IDM and breakbeat techno, dub chords, ambient pads, instrumental",
     "thrupence": "organic ambient, field recordings, textured loops, warm lo-fi, instrumental",
-    # VGM
-    "mitsuda": "wistful melodic JRPG score, celtic-tinged, accordion and strings, SNES, instrumental",
-    "uematsu": "epic orchestral JRPG score, sweeping melodies, Final Fantasy style, instrumental",
-    "nishiki": "lively orchestral JRPG battle score, Octopath style, dynamic strings and brass, instrumental",
-    "shimomura": "emotive orchestral game score, piano and strings, instrumental",
-    "jeremy-soule": "sweeping fantasy orchestral score, Skyrim style, choirs, horns, ambient strings, instrumental",
-    "matt-uelmen": "dark ambient gothic guitar, Diablo Tristram style, sparse and haunting, instrumental",
-    "david-wise": "atmospheric SNES soundtrack, Donkey Kong Country style, ambient pads and percussion, instrumental",
-    "sonic": "upbeat retro 16-bit game music, Sega Genesis style, bright synth leads, funky bass, instrumental",
-    "void-stranger": "melodic indie chiptune-leaning game music, lo-fi synths, instrumental",
+    "bonobo": "warm organic downtempo, rhodes, upright bass, live drums, vinyl crackle, layered samples, instrumental",
+    "djrum": "genre-fluid electronic, jazzy chopped breakbeat into ambient, intricate sampled texture, instrumental",
+    "rone": "emotive french electronica, lush analog synths, melodic techno, instrumental",
+    "home": "nostalgic synthwave, warm analog pads, dreamy retro-futurist, instrumental",
 }
 
 
-def caption_for(track_dir_name: str, artists: list[str]) -> str:
-    # longest matching artist prefix wins (handles 'boards-of-canada' vs 'bonobo')
-    best = ""
-    for a in sorted(artists, key=len, reverse=True):
-        if track_dir_name.startswith(a) and a in CAPTIONS:
-            best = CAPTIONS[a]
-            break
-    return best or "instrumental music, atmospheric"
+def caption_for(path_str: str) -> tuple[str, str]:
+    low = path_str.lower()
+    for artist, cap in sorted(CAPTIONS.items(), key=lambda kv: -len(kv[0])):
+        if artist in low:
+            return artist, cap
+    return "misc", "atmospheric instrumental electronic music, instrumental"
+
+
+def slug(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("name", help="dataset name, e.g. downtempo / vgm")
-    ap.add_argument("--artists", nargs="+", required=True, help="artist prefixes to include")
+    ap.add_argument("--manifest", required=True, help="text file of audio paths")
+    ap.add_argument("--name", required=True, help="dataset name, e.g. handpicked")
     args = ap.parse_args()
     logging.basicConfig(level="INFO", format="%(message)s")
 
-    if not STEMS.exists():
-        sys.exit(f"no stems dir at {STEMS}")
+    manifest = Path(args.manifest)
+    if not manifest.is_absolute():
+        manifest = HERE / manifest
+    if not manifest.exists():
+        sys.exit(f"manifest not found: {manifest}")
+
+    lines = [ln.strip() for ln in manifest.read_text(encoding="utf-8").splitlines()
+             if ln.strip() and not ln.lstrip().startswith("#")]
     out = HERE / "datasets" / args.name
     out.mkdir(parents=True, exist_ok=True)
 
-    tracks = sorted(d for d in STEMS.iterdir()
-                    if d.is_dir() and any(d.name.startswith(a) for a in args.artists))
-    if not tracks:
-        sys.exit(f"no tracks matched artists={args.artists}")
-
-    n = 0
-    for t in tracks:
-        sub = next((p for p in (t / "htdemucs").glob("*") if p.is_dir()), None)
-        if not sub:
-            log.info("  skip (no htdemucs stems): %s", t.name)
+    n, missing = 0, []
+    for line in lines:
+        src = Path(line).expanduser()
+        if not src.exists():
+            missing.append(line)
             continue
-        stems = {s: sub / f"{s}.wav" for s in ("other", "bass", "drums")}
-        if not all(p.exists() for p in stems.values()):
-            log.info("  skip (missing stems): %s", t.name)
-            continue
-        dst = out / f"{t.name}.wav"
-        subprocess.run(
-            ["ffmpeg", "-y", "-i", str(stems["other"]), "-i", str(stems["bass"]), "-i", str(stems["drums"]),
-             "-filter_complex", "[0][1][2]amix=inputs=3:normalize=0[a]", "-map", "[a]", str(dst)],
-            check=False, capture_output=True,
-        )
+        artist, cap = caption_for(line)
+        name = f"{slug(artist)}-{slug(src.stem)}"
+        dst = out / f"{name}{src.suffix.lower()}"
+        k = 1
+        while dst.exists():
+            dst = out / f"{name}-{k}{src.suffix.lower()}"
+            k += 1
+        shutil.copy(src, dst)
         base = dst.with_suffix("")
         Path(str(base) + ".lyrics.txt").write_text("[Instrumental]\n", encoding="utf-8")
-        Path(str(base) + ".caption.txt").write_text(caption_for(t.name, args.artists) + "\n", encoding="utf-8")
+        Path(str(base) + ".caption.txt").write_text(cap + "\n", encoding="utf-8")
         n += 1
-        log.info("  %-48s -> %s", t.name, caption_for(t.name, args.artists)[:40])
+        log.info("  %-44s [%s]", src.name[:44], artist)
 
-    log.info("\n[corpus] %d instrumental tracks -> %s", n, out)
-    log.info("[corpus] next: rsync to box, then ./train_lora.sh %s", args.name)
+    if missing:
+        log.warning("\n[corpus] %d MISSING (check paths):", len(missing))
+        for m in missing:
+            log.warning("  %s", m)
+    log.info("\n[corpus] %d/%d tracks -> %s", n, len(lines), out)
+    if n:
+        log.info("[corpus] next: rsync to box, then preprocess + train_lora.sh %s", args.name)
 
 
 if __name__ == "__main__":
