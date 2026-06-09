@@ -23,7 +23,9 @@ def main():
     ap.add_argument("--duration", type=float, default=60.0, help="seconds (10-600)")
     ap.add_argument("--bpm", type=int, default=None)
     ap.add_argument("--key", default="", help='e.g. "F# minor", "C major"')
-    ap.add_argument("--steps", type=int, default=8, help="diffusion steps (8 = turbo)")
+    ap.add_argument("--steps", type=int, default=8, help="diffusion steps (8=turbo; 32-60 for base/sft)")
+    ap.add_argument("--guidance", type=float, default=3.0, help="CFG scale (base/sft; turbo ignores). ~3 good; lower if harsh.")
+    ap.add_argument("--dcw", action="store_true", help="enable experimental DCW correction (default OFF — it garbles output on this setup)")
     ap.add_argument("--seed", type=int, default=-1, help="-1 = random")
     ap.add_argument("--lora", default=None, help="trained LoRA adapter dir (e.g. lora_output/downtempo/final)")
     ap.add_argument("--lora-scale", type=float, default=1.0, help="LoRA influence, 0-1")
@@ -43,6 +45,8 @@ def main():
         vocal_language="unknown",
         duration=args.duration,
         inference_steps=args.steps,
+        guidance_scale=args.guidance,
+        dcw_enabled=args.dcw,
         seed=args.seed,
         thinking=True,
     )

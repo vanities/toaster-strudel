@@ -86,11 +86,12 @@ def _init():
     from acestep.handler import AceStepHandler
     from acestep.llm_inference import LLMHandler
 
+    dit_config = os.environ.get("ACESTEP_DIT_CONFIG", DIT_CONFIG)  # turbo (fast) | base/sft (quality)
     t0 = time.perf_counter()
-    log.info("[ace] loading DiT (%s, device=auto) — first run downloads weights…", DIT_CONFIG)
+    log.info("[ace] loading DiT (%s, device=auto) — first run downloads weights…", dit_config)
     dit = AceStepHandler()
     msg, ok = dit.initialize_service(
-        project_root=str(ACE_ROOT), config_path=DIT_CONFIG, device="auto", offload_to_cpu=False,
+        project_root=str(ACE_ROOT), config_path=dit_config, device="auto", offload_to_cpu=False,
     )
     if not ok:
         sys.exit(f"[ace] DiT init failed: {msg}")
