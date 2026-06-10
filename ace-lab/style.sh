@@ -3,4 +3,4 @@
 #   ./style.sh ~/Music/track_i_like.mp3 "make it ambient" --strength 0.2
 set -euo pipefail
 cd "$(dirname "$0")"
-exec uv run --project vendor/ACE-Step python style_of.py "$@"
+exec uv run --project "${ACE_ROOT:-vendor/ACE-Step}" python style_of.py "$@"

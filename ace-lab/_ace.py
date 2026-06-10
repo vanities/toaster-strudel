@@ -53,20 +53,57 @@ log = logging.getLogger("ace-lab")
 # DiT config name (the macOS launcher's turbo pair).
 DIT_CONFIG = "acestep-v15-turbo"
 
+# Short variant name -> checkpoint config. Tensors/LoRAs are variant-specific.
+# "sftturbo50" = community 0.5 sft+turbo weight merge (Aryanne/acestep-v15-test-merges,
+# assembled locally into checkpoints/acestep-v15-sftturbo50) — the consensus best
+# LISTENING checkpoint: "less crust, higher sound quality, less wrong notes".
+VARIANTS = ("turbo", "sftturbo50", "base", "sft", "xl-turbo", "xl-base", "xl-sft")
+
+
+def set_variant(name: str) -> str:
+    """Select the DiT variant by short name ('base', 'xl-sft', ...) or full
+    config name. Must be called before the first generate()."""
+    cfg = name if name.startswith("acestep-") else f"acestep-v15-{name}"
+    os.environ["ACESTEP_DIT_CONFIG"] = cfg
+    return cfg
+
+
+def variant_defaults(cfg: str | None = None) -> dict:
+    """Per-variant inference defaults (docs/en/INFERENCE.md). Mismatched
+    shift/steps is a classic garbled-output cause: turbo wants shift 3.0 &
+    8 steps (no CFG); base/sft want shift 1.0, ~50 steps, guidance 5-9."""
+    cfg = cfg or os.environ.get("ACESTEP_DIT_CONFIG", DIT_CONFIG)
+    if "sftturbo" in cfg:
+        # merge checkpoints want more steps than turbo and LOW guidance
+        # (community-tested: 32-50 steps, CFG 1.0-1.5; high CFG turns harsh)
+        return {"steps": 32, "shift": 3.0, "guidance": 1.2}
+    if "turbo" in cfg:
+        shift = 1.0 if "shift1" in cfg else 3.0
+        # 12 steps not 8: infer_steps is honored on turbo since upstream v0.1.7,
+        # and 12-20 is the community recommendation. Turbo ignores CFG.
+        return {"steps": 12, "shift": shift, "guidance": 7.0}
+    return {"steps": 50, "shift": 1.0, "guidance": 7.0}
+
+
+def _has_weights(d: Path) -> bool:
+    """True if a checkpoint dir has finished downloading (has weight shards)."""
+    return d.is_dir() and (any(d.glob("*.safetensors")) or any(d.glob("**/*.safetensors")))
+
 
 def _resolve_lm_model():
-    """Use $ACESTEP_LM_MODEL if set; else an already-downloaded 5Hz LM under
-    checkpoints/ (prefer 1.7B — it ships with the main bundle); else a default.
-    The handler does NOT auto-download the LM, so pick one that's present."""
+    """Use $ACESTEP_LM_MODEL if set; else the LARGEST fully-downloaded 5Hz LM
+    under checkpoints/ (4B > 1.7B > 0.6B — 4B is the quality move with enough
+    RAM); else the 1.7B default. The handler does NOT auto-download the LM, so
+    pick one that's actually present (and not a half-finished download)."""
     env = os.environ.get("ACESTEP_LM_MODEL")
     if env:
         return env
     if CHECKPOINT_DIR.exists():
-        avail = sorted(p.name for p in CHECKPOINT_DIR.iterdir()
-                       if p.is_dir() and p.name.startswith("acestep-5Hz-lm-"))
-        for pref in ("acestep-5Hz-lm-1.7B", "acestep-5Hz-lm-0.6B"):
-            if pref in avail:
+        for pref in ("acestep-5Hz-lm-4B", "acestep-5Hz-lm-1.7B", "acestep-5Hz-lm-0.6B"):
+            if _has_weights(CHECKPOINT_DIR / pref):
                 return pref
+        avail = sorted(p.name for p in CHECKPOINT_DIR.iterdir()
+                       if p.name.startswith("acestep-5Hz-lm-") and _has_weights(p))
         if avail:
             return avail[0]
     return "acestep-5Hz-lm-1.7B"
@@ -75,12 +112,21 @@ def _resolve_lm_model():
 LM_MODEL = _resolve_lm_model()
 
 _handlers = None
+_handlers_mlx_dit = None
 
 
-def _init():
-    """Load DiT + LLM once; weights download to checkpoints/ on first call."""
-    global _handlers
+def _init(use_mlx_dit: bool = True):
+    """Load DiT + LLM once; weights download to checkpoints/ on first call.
+
+    use_mlx_dit=False forces the PyTorch(-MPS) DiT. REQUIRED when loading a
+    LoRA on a Mac: the MLX DiT converts decoder weights once at init and then
+    silently ignores any PEFT adapter loaded afterward (mlx_dit_init.py)."""
+    global _handlers, _handlers_mlx_dit
     if _handlers is not None:
+        if _handlers_mlx_dit != use_mlx_dit:
+            log.warning("[ace] handlers already initialized with use_mlx_dit=%s — "
+                        "requested %s ignored (one init per process)",
+                        _handlers_mlx_dit, use_mlx_dit)
         return _handlers
 
     from acestep.handler import AceStepHandler
@@ -88,10 +134,12 @@ def _init():
 
     dit_config = os.environ.get("ACESTEP_DIT_CONFIG", DIT_CONFIG)  # turbo (fast) | base/sft (quality)
     t0 = time.perf_counter()
-    log.info("[ace] loading DiT (%s, device=auto) — first run downloads weights…", dit_config)
+    log.info("[ace] loading DiT (%s, device=auto, mlx_dit=%s) — first run downloads weights…",
+             dit_config, use_mlx_dit)
     dit = AceStepHandler()
     msg, ok = dit.initialize_service(
-        project_root=str(ACE_ROOT), config_path=dit_config, device="auto", offload_to_cpu=False,
+        project_root=str(ACE_ROOT), config_path=dit_config, device="auto",
+        offload_to_cpu=False, use_mlx_dit=use_mlx_dit,
     )
     if not ok:
         sys.exit(f"[ace] DiT init failed: {msg}")
@@ -109,6 +157,7 @@ def _init():
     log.info("[ace] LLM ready in %.1fs", time.perf_counter() - t0)
 
     _handlers = (dit, llm)
+    _handlers_mlx_dit = use_mlx_dit
     return _handlers
 
 
@@ -118,7 +167,9 @@ def generate(params, out_dir, batch_size: int = 1, lora_path=None, lora_scale: f
     LoRA; `lora_scale` (0-1) controls how strongly it pulls toward the learned style."""
     from acestep.inference import GenerationConfig, generate_music
 
-    dit, llm = _init()
+    if lora_path:
+        log.info("[ace] LoRA requested — using PyTorch DiT (MLX DiT would silently ignore it)")
+    dit, llm = _init(use_mlx_dit=not lora_path)
     if lora_path:
         p = str(Path(lora_path).expanduser())
         log.info("[ace] loading LoRA: %s", p)

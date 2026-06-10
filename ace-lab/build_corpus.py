@@ -56,8 +56,21 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--manifest", required=True, help="text file of audio paths")
     ap.add_argument("--name", required=True, help="dataset name, e.g. handpicked")
+    ap.add_argument("--meta", default=None,
+                    help="per-track metadata json (corpora/<name>.meta.json): "
+                         '{"<dest-stem>": {"bpm": 94, "keyscale": "F# minor", ...}}. '
+                         "Defaults to corpora/<name>.meta.json if it exists. "
+                         "Real bpm/key measurably improves LoRA conditioning.")
     args = ap.parse_args()
     logging.basicConfig(level="INFO", format="%(message)s")
+
+    import json
+    meta_path = Path(args.meta) if args.meta else HERE / "corpora" / f"{args.name}.meta.json"
+    if not meta_path.is_absolute():
+        meta_path = HERE / meta_path
+    meta = json.loads(meta_path.read_text()) if meta_path.exists() else {}
+    if meta:
+        log.info("[corpus] per-track metadata: %s (%d tracks)", meta_path, len(meta))
 
     manifest = Path(args.manifest)
     if not manifest.is_absolute():
@@ -87,8 +100,12 @@ def main():
         base = dst.with_suffix("")
         Path(str(base) + ".lyrics.txt").write_text("[Instrumental]\n", encoding="utf-8")
         Path(str(base) + ".caption.txt").write_text(cap + "\n", encoding="utf-8")
+        m = meta.get(dst.stem)
+        if m:
+            Path(str(base) + ".json").write_text(json.dumps(m) + "\n", encoding="utf-8")
         n += 1
-        log.info("  %-44s [%s]", src.name[:44], artist)
+        log.info("  %-44s [%s]%s", src.name[:44], artist,
+                 f"  {m['bpm']} bpm, {m.get('keyscale','?')}" if m else "")
 
     if missing:
         log.warning("\n[corpus] %d MISSING (check paths):", len(missing))

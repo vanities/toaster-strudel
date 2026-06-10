@@ -1,0 +1,26 @@
+diff --git a/acestep/training_v2/fixed_lora_module.py b/acestep/training_v2/fixed_lora_module.py
+index baa5028..09c7718 100644
+--- a/acestep/training_v2/fixed_lora_module.py
++++ b/acestep/training_v2/fixed_lora_module.py
+@@ -84,7 +84,11 @@ def _select_compute_dtype(device_type: str) -> torch.dtype:
+     if device_type in ("cuda", "xpu"):
+         return torch.bfloat16
+     if device_type == "mps":
+-        return torch.float16
++        # ace-lab patch: fp16 + "16-mixed" crashes in Fabric's clip_gradients_norm
++        # ("Attempting to unscale FP16 gradients" — GradScaler can't unscale a
++        # model whose weights are themselves fp16). bf16 needs no GradScaler and
++        # bf16 autocast+backward is verified working on MPS (torch 2.10, M4).
++        return torch.bfloat16
+     return torch.float32
+ 
+ 
+@@ -92,7 +96,7 @@ def _select_fabric_precision(device_type: str) -> str:
+     if device_type in ("cuda", "xpu"):
+         return "bf16-mixed"
+     if device_type == "mps":
+-        return "16-mixed"
++        return "bf16-mixed"  # ace-lab patch: see _select_compute_dtype
+     return "32-true"
+ 
+ 

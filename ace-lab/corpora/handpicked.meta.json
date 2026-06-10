@@ -1,0 +1,112 @@
+{
+  "bonobo-01-prelude": {
+    "bpm": 98,
+    "keyscale": "A# minor",
+    "timesignature": "4/4"
+  },
+  "bonobo-02-kiara": {
+    "bpm": 96,
+    "keyscale": "D# major",
+    "timesignature": "4/4"
+  },
+  "bonobo-03-kong": {
+    "bpm": 94,
+    "keyscale": "F# minor",
+    "timesignature": "4/4"
+  },
+  "carbon-based-lifeforms-01-seeker": {
+    "bpm": 89,
+    "keyscale": "A minor",
+    "timesignature": "4/4"
+  },
+  "djrum-02-waxcap": {
+    "bpm": 133,
+    "keyscale": "G minor",
+    "timesignature": "4/4"
+  },
+  "djrum-07-reprise": {
+    "bpm": 129,
+    "keyscale": "A major",
+    "timesignature": "4/4"
+  },
+  "floating-points-02-floating-points-key103": {
+    "bpm": 136,
+    "keyscale": "D minor",
+    "timesignature": "4/4"
+  },
+  "floating-points-03-anasickmodular": {
+    "bpm": 136,
+    "keyscale": "D# minor",
+    "timesignature": "4/4"
+  },
+  "floating-points-06-lesalpx": {
+    "bpm": 130,
+    "keyscale": "F minor",
+    "timesignature": "4/4"
+  },
+  "floating-points-10-sea-watch": {
+    "bpm": 136,
+    "keyscale": "A# minor",
+    "timesignature": "4/4"
+  },
+  "home-home-odyssey-vinyl-edition-03-decay": {
+    "bpm": 89,
+    "keyscale": "D major",
+    "timesignature": "4/4"
+  },
+  "home-home-odyssey-vinyl-edition-04-oort-cloud": {
+    "bpm": 117,
+    "keyscale": "D minor",
+    "timesignature": "4/4"
+  },
+  "home-home-odyssey-vinyl-edition-09-resonance": {
+    "bpm": 112,
+    "keyscale": "F minor",
+    "timesignature": "4/4"
+  },
+  "rone-02-bye-bye-macadam": {
+    "bpm": 96,
+    "keyscale": "E minor",
+    "timesignature": "4/4"
+  },
+  "skee-mask-01-skee-mask-hedwig-transformation-group": {
+    "bpm": 100,
+    "keyscale": "G# major",
+    "timesignature": "4/4"
+  },
+  "skee-mask-03-skee-mask-rev8617": {
+    "bpm": 67,
+    "keyscale": "F# minor",
+    "timesignature": "4/4"
+  },
+  "skee-mask-09-skee-mask-flyby-vfr": {
+    "bpm": 136,
+    "keyscale": "E minor",
+    "timesignature": "4/4"
+  },
+  "skee-mask-09-skee-mask-terminal-z": {
+    "bpm": 103,
+    "keyscale": "B minor",
+    "timesignature": "4/4"
+  },
+  "skee-mask-10-skee-mask-h-lzl-was-a-dancer": {
+    "bpm": 144,
+    "keyscale": "C major",
+    "timesignature": "4/4"
+  },
+  "skee-mask-skee-mask-itlp09-skee-mask-pool-05-cz3000-dub": {
+    "bpm": 144,
+    "keyscale": "F minor",
+    "timesignature": "4/4"
+  },
+  "thrupence-01-forest-on-the-sun": {
+    "bpm": 86,
+    "keyscale": "D# major",
+    "timesignature": "4/4"
+  },
+  "thrupence-02-rinse-repeat": {
+    "bpm": 103,
+    "keyscale": "F# major",
+    "timesignature": "4/4"
+  }
+}

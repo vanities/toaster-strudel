@@ -1,0 +1,11 @@
+{
+  "name": "bonobo-kong",
+  "north_star": "Black Sands era Bonobo: every sound feels like a sample of a real instrument; layers ANSWER each other (call-and-response), never shout together",
+  "reference": "Bonobo · Kong (F# minor/Dorian, 94 BPM, centroid ~1980 Hz, dyn 5.5x; arc intro-verse-chorus-solo-inst-solo-chorus-end)",
+  "caption": "warm organic downtempo, sampled acoustic instruments, kalimba and vibraphone bell phrases answering each other, upright bass, live drums played soft, vinyl crackle, slow stretched drone bed underneath, dusty soulful cinematic layers, call and response",
+  "script": "[Intro - lone kalimba phrase over drone]\n[Verse - upright bass and soft drums join]\n[Chorus - layered bloom, bells answer]\n[Instrumental - horn melody takes the lead]\n[Breakdown - drone bed, sparse bells]\n[Chorus - full bloom returns]\n[Outro - layers peel away to the drone]",
+  "bpm": 94,
+  "key": "F# minor",
+  "duration": 165,
+  "targets": {"centroid_hz": "1400-2200 (warm-bright)", "flatness": "<0.01", "dyn_x": ">5 (real build)"}
+}

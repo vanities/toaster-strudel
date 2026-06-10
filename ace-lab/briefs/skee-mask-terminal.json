@@ -1,0 +1,11 @@
+{
+  "name": "skee-mask-terminal",
+  "north_star": "Adam's Skee Mask: the dark, sparse, PURE-TONE dub side (Terminal Z model) — NOT the granular-noise dense IDM side",
+  "reference": "Skee Mask · Terminal Z (B min, 99 BPM, centroid 940 Hz, flatness 0.0011, 2.1 onsets/s — dark, sparse, melodic)",
+  "caption": "dark melodic dub techno, sparse and patient, deep sub bass that swells and releases, rhodes piano echoing through dub delay, pure dark analog synth tones, broken 2-step drums, warm hardware tape character, hypnotic, nocturnal, spacious",
+  "script": "[Intro - deep sub and distant echoes]\n[Verse - sparse 2-step groove, dark melody]\n[Build - dub delays swell]\n[Chorus - sub bass blooms, full groove]\n[Breakdown - echoes and tails only]\n[Verse - groove returns, darker]\n[Outro - dissolves into delay tails]",
+  "bpm": 99,
+  "key": "B minor",
+  "duration": 165,
+  "targets": {"centroid_hz": "900-1300 (dark)", "flatness": "<0.005 (pure-tone)", "onsets_per_s": "2-4 (sparse)"}
+}

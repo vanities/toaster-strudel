@@ -60,3 +60,9 @@ references/analysis
 # Vendored BTC chord-recognition repo (clone of jayg996/BTC-ISMIR19 + 24MB
 # pretrained weights). Re-clone to tools/vendor/ if missing.
 tools/vendor/
+
+# ace-lab local artifacts: HF hub cache, LoRA training output (84MB+ of
+# checkpoints synced back from the PC box), and ad-hoc run logs
+ace-lab/.cache/
+ace-lab/lora_output*/
+ace-lab/*.log
