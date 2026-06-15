@@ -24,7 +24,11 @@ Pick **one or two** dimensions per variation:
 2. Decide on 2-3 dimensions worth varying — name them out loud so the user knows what they're A/B'ing.
 3. Write each variation as a sibling file: `tracks/03-tides.alt-a.strudel`, `.alt-b.strudel`, etc. Keep the comment header so the user can tell what changed.
 4. Each variation should be ≤1 dimension off from the original — multi-axis variations are confusing to compare.
-5. Test each (invoke `strudel-test` — don't ship un-parsed variations).
+5. Test each (invoke `strudel-test` — don't ship un-parsed variations). For
+   sectioned tracks, also `make eval ARGS="<track-id>"` after promoting a
+   variation — the baseline check catches a variation that quietly flattened
+   the track's dynamics (re-record with `make eval ARGS="--update"` only when
+   the change was intended).
 6. Tell the user the changes in a short table:
 
    | variation | what changed |

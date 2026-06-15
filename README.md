@@ -46,6 +46,10 @@ strudel-skills/
 │   ├── analyze-patterns.py      ← static analyzer (predicts per-section RMS
 │   │                              from .strudel code, no audio render needed)
 │   ├── analyze-wav.py           ← librosa analyzer for recorded WAVs
+│   ├── eval-tracks.py           ← `make eval`: structural gates over every track
+│   │                              (contrast / build-strip arc / baseline drift)
+│   ├── loudness.py              ← `make loudness`: per-track playbackGain
+│   │                              (BS.1770 LUFS from renders, or --predict)
 │   └── render-strudel.mjs       ← offline Node renderer (blocked, see file)
 └── web/                         ← the browser player (React + Vite)
     └── src/                       App.tsx · engine/ (Strudel audio) · chat/ (agent editor)
@@ -122,6 +126,34 @@ uv run python3 tools/analyze-patterns.py 01-dawn
 ```
 
 Outputs voice count, total gain (predicted RMS), rhythmic density, spectral brightness, and a bar chart per section. Tells you if the build-strip arc is working, if any section is too flat, etc.
+
+## Quality gates (`make eval`)
+
+The analyzer's diagnoses, promoted to hard assertions plus a regression
+baseline — so an edit that flattens a track fails mechanically instead of
+getting discovered by ear three tracks later:
+
+```bash
+make eval                        # every track: contrast / build-strip arc / baseline drift
+make eval ARGS="v2-gen/crank-x"  # one track
+make eval ARGS="--update"        # re-record baselines after an intended change
+```
+
+Per-track thresholds live in the track manifest's `"eval"` block (e.g.
+`{ "allow_flat": true }` for an intentionally-static ambient piece).
+Exit code is CI-able; `--json` for agents.
+
+## Loudness normalization (`make loudness`)
+
+The radio plays tracks back-to-back, so loudness mismatches lurch on every
+hop. `make loudness` writes a per-track `"playbackGain"` into each manifest —
+integrated LUFS (ITU-R BS.1770) measured from rendered WAVs in
+`/tmp/strudel-renders` (the player's ⤓ offline render lands there), targeting
+−14 LUFS; `--predict` adds a static estimate for unrendered tracks (relative
+leveling, marked `"predicted"`, superseded by any later measurement). Both
+players route output through a master GainNode and apply the gain on track
+switch — within-track dynamics are untouched. Re-publish the radio
+(`pnpm publish-tracks`) after re-running.
 
 ## Recording
 

@@ -256,27 +256,41 @@ def bar(val, peak, width=30):
     return "▮" * n + "·" * (width - n)
 
 
-def main():
-    args = sys.argv[1:]
-    as_json = "--json" in args
-    args = [a for a in args if a != "--json"]
-    if not args:
-        print(__doc__)
-        return 1
-    track_id = args[0]
+def load_manifest(tdir):
+    manifest_path = tdir / "manifest.json"
+    return json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
+
+
+def manifest_sections(manifest):
+    """Manifests use "sections" (current) or "slots" (legacy) — accept both."""
+    return manifest.get("sections") or manifest.get("slots") or []
+
+
+def section_files(tdir):
+    """The track's numbered section files. Excludes arrange.strudel (the
+    generated whole-arc stitch — analyzing it as a section double-counts the
+    entire track). Falls back to any non-arrange .strudel for odd layouts."""
+    files = sorted(p for p in tdir.glob("*.strudel") if re.fullmatch(r"\d+\.strudel", p.name))
+    if not files:
+        files = sorted(p for p in tdir.glob("*.strudel") if p.name != "arrange.strudel")
+    return files
+
+
+def analyze_track(track_id):
+    """Static per-section analysis for tracks/<track_id>.
+
+    Returns (slot_results, manifest). Raises FileNotFoundError when the track
+    dir or its section files are missing. This is the import surface for
+    eval-tracks.py / loudness.py; main() below is the CLI veneer.
+    """
     tdir = TRACKS_DIR / track_id
     if not tdir.is_dir():
-        print(f"no such track: {tdir}", file=sys.stderr)
-        return 1
-
-    manifest_path = tdir / "manifest.json"
-    manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
-    manifest_slots = manifest.get("slots") or []
-
-    slot_files = sorted(tdir.glob("*.strudel"))
+        raise FileNotFoundError(f"no such track: {tdir}")
+    manifest = load_manifest(tdir)
+    manifest_slots = manifest_sections(manifest)
+    slot_files = section_files(tdir)
     if not slot_files:
-        print("no .strudel files found", file=sys.stderr)
-        return 1
+        raise FileNotFoundError(f"no .strudel section files in {tdir}")
 
     slot_results = []
     for i, p in enumerate(slot_files):
@@ -305,6 +319,23 @@ def main():
         )
         slot["duration_s"] = round(cycles / slot["cps"], 1)
         slot_results.append(slot)
+
+    return slot_results, manifest
+
+
+def main():
+    args = sys.argv[1:]
+    as_json = "--json" in args
+    args = [a for a in args if a != "--json"]
+    if not args:
+        print(__doc__)
+        return 1
+    track_id = args[0]
+    try:
+        slot_results, manifest = analyze_track(track_id)
+    except FileNotFoundError as e:
+        print(e, file=sys.stderr)
+        return 1
 
     if as_json:
         print(json.dumps(slot_results, indent=2))

@@ -9,9 +9,11 @@ import {
   parseTitle,
   cpsToBpm,
   transformCps,
+  trackGains,
   type Track,
   type Section,
 } from './engine/tracks';
+import { setMasterGain } from './audio-patch';
 import { startRecording, stopRecording } from './engine/recorder';
 import { startRing } from './engine/ring';
 import { renderAlbumOffline } from './engine/render';
@@ -152,6 +154,8 @@ export default function App() {
         setCode(src);
         setSections(secs);
         setArcCode(arc ?? '');
+        // Loudness normalization: the track's manifest playbackGain (default 1).
+        setMasterGain(trackGains.get(currentId) ?? 1);
         // Jump to the first segment (section 01) on track select, not the live
         // working copy.
         setViewedIndex(secs.length ? 0 : -1);

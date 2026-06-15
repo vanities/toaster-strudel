@@ -49,9 +49,18 @@ interface SectionManifestEntry {
   label?: string;
 }
 export interface SectionsResponse {
-  manifest?: { sections?: SectionManifestEntry[]; slots?: SectionManifestEntry[] } | null;
+  manifest?: {
+    sections?: SectionManifestEntry[];
+    slots?: SectionManifestEntry[];
+    playbackGain?: number;
+  } | null;
   sections?: { file: string; code: string; ascii?: string }[];
 }
+
+// Per-track playback gain (loudness normalization, manifest "playbackGain" —
+// written by tools/loudness.py). Populated as a side effect of fetchSections;
+// App applies it via setMasterGain on track switch.
+export const trackGains = new Map<string, number>();
 
 // Parse the raw /sections payload into Section[] — manifest cycles/label override
 // per-file @cycles directives. Exported so the live-reload poll reuses it.
@@ -82,6 +91,9 @@ export async function fetchSections(id: string): Promise<Section[]> {
   } catch {
     /* no sections */
   }
+  const gain = data.manifest?.playbackGain;
+  if (typeof gain === 'number' && Number.isFinite(gain) && gain > 0) trackGains.set(id, gain);
+  else trackGains.delete(id);
   return parseSections(data);
 }
 

@@ -1,0 +1,1013 @@
+{
+ "ep/01-dawn": {
+  "dyn_ratio": 10.3,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 0.55,
+    "voices": 3
+   },
+   {
+    "cycles": 12,
+    "file": "02.strudel",
+    "gain": 0.81,
+    "voices": 4
+   },
+   {
+    "cycles": 12,
+    "file": "03.strudel",
+    "gain": 1.64,
+    "voices": 6
+   },
+   {
+    "cycles": 12,
+    "file": "04.strudel",
+    "gain": 1.91,
+    "voices": 7
+   },
+   {
+    "cycles": 12,
+    "file": "05.strudel",
+    "gain": 3.15,
+    "voices": 10
+   },
+   {
+    "cycles": 12,
+    "file": "06.strudel",
+    "gain": 3.61,
+    "voices": 11
+   },
+   {
+    "cycles": 12,
+    "file": "07.strudel",
+    "gain": 4.45,
+    "voices": 12
+   },
+   {
+    "cycles": 4,
+    "file": "08.strudel",
+    "gain": 0.43,
+    "voices": 3
+   }
+  ]
+ },
+ "ep/02-drift": {
+  "dyn_ratio": 22.4,
+  "sections": [
+   {
+    "cycles": 16,
+    "file": "01.strudel",
+    "gain": 0.435,
+    "voices": 3
+   },
+   {
+    "cycles": 16,
+    "file": "02.strudel",
+    "gain": 1.04,
+    "voices": 3
+   },
+   {
+    "cycles": 16,
+    "file": "03.strudel",
+    "gain": 9.26,
+    "voices": 5
+   },
+   {
+    "cycles": 16,
+    "file": "04.strudel",
+    "gain": 9.54,
+    "voices": 6
+   },
+   {
+    "cycles": 16,
+    "file": "05.strudel",
+    "gain": 9.76,
+    "voices": 7
+   },
+   {
+    "cycles": 32,
+    "file": "06.strudel",
+    "gain": 9.54,
+    "voices": 6
+   },
+   {
+    "cycles": 32,
+    "file": "07.strudel",
+    "gain": 9.67,
+    "voices": 7
+   },
+   {
+    "cycles": 32,
+    "file": "08.strudel",
+    "gain": 0.82,
+    "voices": 6
+   }
+  ]
+ },
+ "ep/03-surge": {
+  "dyn_ratio": 2.0,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 0.98,
+    "voices": 3
+   },
+   {
+    "cycles": 8,
+    "file": "02.strudel",
+    "gain": 1.81,
+    "voices": 5
+   },
+   {
+    "cycles": 8,
+    "file": "03.strudel",
+    "gain": 1.63,
+    "voices": 4
+   },
+   {
+    "cycles": 8,
+    "file": "04.strudel",
+    "gain": 1.84,
+    "voices": 5
+   },
+   {
+    "cycles": 16,
+    "file": "05.strudel",
+    "gain": 1.95,
+    "voices": 5
+   },
+   {
+    "cycles": 16,
+    "file": "06.strudel",
+    "gain": 1.74,
+    "voices": 6
+   }
+  ]
+ },
+ "v2-gen/01-dawn": {
+  "dyn_ratio": 10.3,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 0.55,
+    "voices": 3
+   },
+   {
+    "cycles": 12,
+    "file": "02.strudel",
+    "gain": 0.81,
+    "voices": 4
+   },
+   {
+    "cycles": 12,
+    "file": "03.strudel",
+    "gain": 1.64,
+    "voices": 6
+   },
+   {
+    "cycles": 12,
+    "file": "04.strudel",
+    "gain": 1.91,
+    "voices": 7
+   },
+   {
+    "cycles": 12,
+    "file": "05.strudel",
+    "gain": 3.15,
+    "voices": 10
+   },
+   {
+    "cycles": 12,
+    "file": "06.strudel",
+    "gain": 3.61,
+    "voices": 11
+   },
+   {
+    "cycles": 12,
+    "file": "07.strudel",
+    "gain": 4.45,
+    "voices": 12
+   },
+   {
+    "cycles": 4,
+    "file": "08.strudel",
+    "gain": 0.43,
+    "voices": 3
+   }
+  ]
+ },
+ "v2-gen/22-snowwatch": {
+  "dyn_ratio": 5.5,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 0.938,
+    "voices": 2
+   },
+   {
+    "cycles": 16,
+    "file": "02.strudel",
+    "gain": 1.323,
+    "voices": 3
+   },
+   {
+    "cycles": 16,
+    "file": "03.strudel",
+    "gain": 2.569,
+    "voices": 7
+   },
+   {
+    "cycles": 16,
+    "file": "04.strudel",
+    "gain": 5.185,
+    "voices": 10
+   },
+   {
+    "cycles": 24,
+    "file": "05.strudel",
+    "gain": 2.202,
+    "voices": 12
+   },
+   {
+    "cycles": 16,
+    "file": "06.strudel",
+    "gain": 1.796,
+    "voices": 5
+   },
+   {
+    "cycles": 24,
+    "file": "07.strudel",
+    "gain": 1.671,
+    "voices": 11
+   }
+  ]
+ },
+ "v2-gen/23-lagoon": {
+  "dyn_ratio": 8.0,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 0.49,
+    "voices": 2
+   },
+   {
+    "cycles": 12,
+    "file": "02.strudel",
+    "gain": 1.536,
+    "voices": 6
+   },
+   {
+    "cycles": 16,
+    "file": "03.strudel",
+    "gain": 2.258,
+    "voices": 7
+   },
+   {
+    "cycles": 16,
+    "file": "04.strudel",
+    "gain": 3.309,
+    "voices": 11
+   },
+   {
+    "cycles": 24,
+    "file": "05.strudel",
+    "gain": 3.914,
+    "voices": 12
+   },
+   {
+    "cycles": 12,
+    "file": "06.strudel",
+    "gain": 1.225,
+    "voices": 4
+   },
+   {
+    "cycles": 20,
+    "file": "07.strudel",
+    "gain": 2.126,
+    "voices": 8
+   }
+  ]
+ },
+ "v2-gen/24-aloft": {
+  "dyn_ratio": 4.6,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 1.14,
+    "voices": 5
+   },
+   {
+    "cycles": 12,
+    "file": "02.strudel",
+    "gain": 2.79,
+    "voices": 9
+   },
+   {
+    "cycles": 16,
+    "file": "03.strudel",
+    "gain": 3.67,
+    "voices": 12
+   },
+   {
+    "cycles": 16,
+    "file": "04.strudel",
+    "gain": 1.77,
+    "voices": 8
+   },
+   {
+    "cycles": 16,
+    "file": "05.strudel",
+    "gain": 4.52,
+    "voices": 15
+   },
+   {
+    "cycles": 12,
+    "file": "06.strudel",
+    "gain": 5.26,
+    "voices": 17
+   },
+   {
+    "cycles": 16,
+    "file": "07.strudel",
+    "gain": 1.31,
+    "voices": 7
+   }
+  ]
+ },
+ "v2-gen/25-sunfade": {
+  "dyn_ratio": 4.4,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 1.033,
+    "voices": 4
+   },
+   {
+    "cycles": 8,
+    "file": "02.strudel",
+    "gain": 2.45,
+    "voices": 7
+   },
+   {
+    "cycles": 8,
+    "file": "03.strudel",
+    "gain": 3.701,
+    "voices": 10
+   },
+   {
+    "cycles": 12,
+    "file": "04.strudel",
+    "gain": 4.46,
+    "voices": 12
+   },
+   {
+    "cycles": 8,
+    "file": "05.strudel",
+    "gain": 2.854,
+    "voices": 8
+   },
+   {
+    "cycles": 8,
+    "file": "06.strudel",
+    "gain": 4.5,
+    "voices": 12
+   },
+   {
+    "cycles": 8,
+    "file": "07.strudel",
+    "gain": 2.249,
+    "voices": 7
+   }
+  ]
+ },
+ "v2-gen/25-sunfade__annealed": {
+  "dyn_ratio": 4.3,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 1.043,
+    "voices": 4
+   },
+   {
+    "cycles": 8,
+    "file": "02.strudel",
+    "gain": 2.45,
+    "voices": 7
+   },
+   {
+    "cycles": 8,
+    "file": "03.strudel",
+    "gain": 3.7,
+    "voices": 10
+   },
+   {
+    "cycles": 12,
+    "file": "04.strudel",
+    "gain": 4.457,
+    "voices": 12
+   },
+   {
+    "cycles": 8,
+    "file": "05.strudel",
+    "gain": 2.85,
+    "voices": 8
+   },
+   {
+    "cycles": 8,
+    "file": "06.strudel",
+    "gain": 4.476,
+    "voices": 12
+   },
+   {
+    "cycles": 8,
+    "file": "07.strudel",
+    "gain": 2.249,
+    "voices": 7
+   }
+  ]
+ },
+ "v2-gen/26-parallax": {
+  "dyn_ratio": 5.0,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 1.197,
+    "voices": 4
+   },
+   {
+    "cycles": 10,
+    "file": "02.strudel",
+    "gain": 3.137,
+    "voices": 7
+   },
+   {
+    "cycles": 12,
+    "file": "03.strudel",
+    "gain": 4.546,
+    "voices": 10
+   },
+   {
+    "cycles": 14,
+    "file": "04.strudel",
+    "gain": 5.723,
+    "voices": 15
+   },
+   {
+    "cycles": 12,
+    "file": "05.strudel",
+    "gain": 2.458,
+    "voices": 6
+   },
+   {
+    "cycles": 14,
+    "file": "06.strudel",
+    "gain": 5.942,
+    "voices": 15
+   },
+   {
+    "cycles": 14,
+    "file": "07.strudel",
+    "gain": 2.232,
+    "voices": 7
+   }
+  ]
+ },
+ "v2-gen/27-halation": {
+  "dyn_ratio": 8.2,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 0.608,
+    "voices": 3
+   },
+   {
+    "cycles": 10,
+    "file": "02.strudel",
+    "gain": 1.703,
+    "voices": 6
+   },
+   {
+    "cycles": 12,
+    "file": "03.strudel",
+    "gain": 3.606,
+    "voices": 9
+   },
+   {
+    "cycles": 12,
+    "file": "04.strudel",
+    "gain": 4.233,
+    "voices": 11
+   },
+   {
+    "cycles": 4,
+    "file": "05.strudel",
+    "gain": 1.45,
+    "voices": 5
+   },
+   {
+    "cycles": 16,
+    "file": "06.strudel",
+    "gain": 4.956,
+    "voices": 12
+   },
+   {
+    "cycles": 12,
+    "file": "07.strudel",
+    "gain": 1.401,
+    "voices": 5
+   }
+  ]
+ },
+ "v2-gen/28-tungsten": {
+  "dyn_ratio": 3.0,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 1.87,
+    "voices": 4
+   },
+   {
+    "cycles": 12,
+    "file": "02.strudel",
+    "gain": 3.295,
+    "voices": 7
+   },
+   {
+    "cycles": 16,
+    "file": "03.strudel",
+    "gain": 4.445,
+    "voices": 9
+   },
+   {
+    "cycles": 12,
+    "file": "04.strudel",
+    "gain": 5.06,
+    "voices": 10
+   },
+   {
+    "cycles": 8,
+    "file": "05.strudel",
+    "gain": 2.38,
+    "voices": 6
+   },
+   {
+    "cycles": 20,
+    "file": "06.strudel",
+    "gain": 5.695,
+    "voices": 11
+   },
+   {
+    "cycles": 16,
+    "file": "07.strudel",
+    "gain": 2.48,
+    "voices": 5
+   }
+  ]
+ },
+ "v2-gen/29-argon": {
+  "dyn_ratio": 4.3,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 1.38,
+    "voices": 3
+   },
+   {
+    "cycles": 12,
+    "file": "02.strudel",
+    "gain": 2.775,
+    "voices": 5
+   },
+   {
+    "cycles": 16,
+    "file": "03.strudel",
+    "gain": 4.405,
+    "voices": 9
+   },
+   {
+    "cycles": 16,
+    "file": "04.strudel",
+    "gain": 1.17,
+    "voices": 4
+   },
+   {
+    "cycles": 4,
+    "file": "05.strudel",
+    "gain": 1.26,
+    "voices": 4
+   },
+   {
+    "cycles": 20,
+    "file": "06.strudel",
+    "gain": 4.995,
+    "voices": 10
+   },
+   {
+    "cycles": 12,
+    "file": "07.strudel",
+    "gain": 2.47,
+    "voices": 5
+   }
+  ]
+ },
+ "v2-gen/30-krypton": {
+  "dyn_ratio": 3.0,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 1.449,
+    "voices": 4
+   },
+   {
+    "cycles": 12,
+    "file": "02.strudel",
+    "gain": 3.02,
+    "voices": 6
+   },
+   {
+    "cycles": 16,
+    "file": "03.strudel",
+    "gain": 3.47,
+    "voices": 7
+   },
+   {
+    "cycles": 12,
+    "file": "04.strudel",
+    "gain": 3.62,
+    "voices": 8
+   },
+   {
+    "cycles": 8,
+    "file": "05.strudel",
+    "gain": 1.435,
+    "voices": 7
+   },
+   {
+    "cycles": 18,
+    "file": "06.strudel",
+    "gain": 4.35,
+    "voices": 10
+   },
+   {
+    "cycles": 12,
+    "file": "07.strudel",
+    "gain": 1.45,
+    "voices": 5
+   }
+  ]
+ },
+ "v2-gen/crank-glade": {
+  "dyn_ratio": 8.3,
+  "sections": [
+   {
+    "cycles": 6,
+    "file": "01.strudel",
+    "gain": 0.2,
+    "voices": 1
+   },
+   {
+    "cycles": 8,
+    "file": "02.strudel",
+    "gain": 0.66,
+    "voices": 2
+   },
+   {
+    "cycles": 8,
+    "file": "03.strudel",
+    "gain": 1.06,
+    "voices": 3
+   },
+   {
+    "cycles": 8,
+    "file": "04.strudel",
+    "gain": 1.5,
+    "voices": 5
+   },
+   {
+    "cycles": 12,
+    "file": "05.strudel",
+    "gain": 1.67,
+    "voices": 5
+   },
+   {
+    "cycles": 8,
+    "file": "06.strudel",
+    "gain": 1.52,
+    "voices": 5
+   },
+   {
+    "cycles": 8,
+    "file": "07.strudel",
+    "gain": 0.58,
+    "voices": 2
+   },
+   {
+    "cycles": 12,
+    "file": "08.strudel",
+    "gain": 0.62,
+    "voices": 3
+   }
+  ]
+ },
+ "v2-gen/crank-gyre": {
+  "dyn_ratio": 4.8,
+  "sections": [
+   {
+    "cycles": 6,
+    "file": "01.strudel",
+    "gain": 0.58,
+    "voices": 2
+   },
+   {
+    "cycles": 12,
+    "file": "02.strudel",
+    "gain": 1.18,
+    "voices": 4
+   },
+   {
+    "cycles": 12,
+    "file": "03.strudel",
+    "gain": 2.38,
+    "voices": 7
+   },
+   {
+    "cycles": 12,
+    "file": "04.strudel",
+    "gain": 2.43,
+    "voices": 7
+   },
+   {
+    "cycles": 12,
+    "file": "05.strudel",
+    "gain": 0.86,
+    "voices": 3
+   },
+   {
+    "cycles": 12,
+    "file": "06.strudel",
+    "gain": 2.01,
+    "voices": 6
+   },
+   {
+    "cycles": 20,
+    "file": "07.strudel",
+    "gain": 2.79,
+    "voices": 9
+   },
+   {
+    "cycles": 24,
+    "file": "08.strudel",
+    "gain": 0.77,
+    "voices": 3
+   }
+  ]
+ },
+ "v2-gen/crank-halo": {
+  "dyn_ratio": 4.7,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 0.85,
+    "voices": 4
+   },
+   {
+    "cycles": 16,
+    "file": "02.strudel",
+    "gain": 1.2,
+    "voices": 5
+   },
+   {
+    "cycles": 16,
+    "file": "03.strudel",
+    "gain": 2.49,
+    "voices": 8
+   },
+   {
+    "cycles": 24,
+    "file": "04.strudel",
+    "gain": 3.355,
+    "voices": 10
+   },
+   {
+    "cycles": 16,
+    "file": "05.strudel",
+    "gain": 1.23,
+    "voices": 5
+   },
+   {
+    "cycles": 24,
+    "file": "06.strudel",
+    "gain": 3.97,
+    "voices": 12
+   },
+   {
+    "cycles": 24,
+    "file": "07.strudel",
+    "gain": 2.245,
+    "voices": 8
+   }
+  ]
+ },
+ "v2-gen/crank-lumen": {
+  "dyn_ratio": 6.9,
+  "sections": [
+   {
+    "cycles": 16,
+    "file": "01.strudel",
+    "gain": 0.853,
+    "voices": 2
+   },
+   {
+    "cycles": 16,
+    "file": "02.strudel",
+    "gain": 1.599,
+    "voices": 3
+   },
+   {
+    "cycles": 16,
+    "file": "03.strudel",
+    "gain": 2.464,
+    "voices": 6
+   },
+   {
+    "cycles": 32,
+    "file": "04.strudel",
+    "gain": 5.902,
+    "voices": 11
+   },
+   {
+    "cycles": 48,
+    "file": "05.strudel",
+    "gain": 5.902,
+    "voices": 11
+   },
+   {
+    "cycles": 32,
+    "file": "06.strudel",
+    "gain": 1.957,
+    "voices": 6
+   }
+  ]
+ },
+ "v2-gen/crank-neon": {
+  "dyn_ratio": 3.1,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 1.32,
+    "voices": 3
+   },
+   {
+    "cycles": 8,
+    "file": "02.strudel",
+    "gain": 2.43,
+    "voices": 6
+   },
+   {
+    "cycles": 8,
+    "file": "03.strudel",
+    "gain": 3.13,
+    "voices": 7
+   },
+   {
+    "cycles": 8,
+    "file": "04.strudel",
+    "gain": 3.64,
+    "voices": 8
+   },
+   {
+    "cycles": 8,
+    "file": "05.strudel",
+    "gain": 1.46,
+    "voices": 4
+   },
+   {
+    "cycles": 8,
+    "file": "06.strudel",
+    "gain": 4.055,
+    "voices": 9
+   },
+   {
+    "cycles": 8,
+    "file": "07.strudel",
+    "gain": 2.12,
+    "voices": 6
+   }
+  ]
+ },
+ "v2-gen/crank-onslaught": {
+  "dyn_ratio": 4.7,
+  "sections": [
+   {
+    "cycles": 32,
+    "file": "01.strudel",
+    "gain": 1.0,
+    "voices": 3
+   },
+   {
+    "cycles": 32,
+    "file": "02.strudel",
+    "gain": 2.92,
+    "voices": 7
+   },
+   {
+    "cycles": 32,
+    "file": "03.strudel",
+    "gain": 3.58,
+    "voices": 9
+   },
+   {
+    "cycles": 32,
+    "file": "04.strudel",
+    "gain": 4.04,
+    "voices": 11
+   },
+   {
+    "cycles": 32,
+    "file": "05.strudel",
+    "gain": 1.54,
+    "voices": 4
+   },
+   {
+    "cycles": 32,
+    "file": "06.strudel",
+    "gain": 4.68,
+    "voices": 12
+   },
+   {
+    "cycles": 32,
+    "file": "07.strudel",
+    "gain": 2.38,
+    "voices": 6
+   }
+  ]
+ },
+ "v2-gen/crank-wraith": {
+  "dyn_ratio": 6.4,
+  "sections": [
+   {
+    "cycles": 8,
+    "file": "01.strudel",
+    "gain": 0.17,
+    "voices": 1
+   },
+   {
+    "cycles": 16,
+    "file": "02.strudel",
+    "gain": 0.34,
+    "voices": 2
+   },
+   {
+    "cycles": 16,
+    "file": "03.strudel",
+    "gain": 0.72,
+    "voices": 3
+   },
+   {
+    "cycles": 16,
+    "file": "04.strudel",
+    "gain": 0.92,
+    "voices": 4
+   },
+   {
+    "cycles": 24,
+    "file": "05.strudel",
+    "gain": 1.09,
+    "voices": 5
+   },
+   {
+    "cycles": 16,
+    "file": "06.strudel",
+    "gain": 0.725,
+    "voices": 4
+   },
+   {
+    "cycles": 16,
+    "file": "07.strudel",
+    "gain": 0.58,
+    "voices": 3
+   },
+   {
+    "cycles": 24,
+    "file": "08.strudel",
+    "gain": 0.62,
+    "voices": 3
+   }
+  ]
+ }
+}

@@ -9,7 +9,7 @@ PIDFILE := .server.pid
 WEB_URL := http://localhost:5273/
 PC ?= pc
 
-.PHONY: help install play serve web stop status list arrangements analyze sections-pc midi
+.PHONY: help install play serve web stop status list arrangements analyze sections-pc midi eval loudness
 
 help:
 	@echo "strudel-skills"
@@ -26,6 +26,11 @@ help:
 	@echo "  make analyze      re-run reference analysis (after adding songs) → cards + skills"
 	@echo "  make midi         re-run MIDI-exact DNA (after adding .mid to midi-sourced/) → cards + skills"
 	@echo "  make sections-pc  (optional) refresh allin1 section labels on the GPU box ($(PC))"
+	@echo ""
+	@echo "  make eval         structural quality gates over every track (contrast/arc/baselines)"
+	@echo "                    ARGS=\"--update\" re-records baselines · ARGS=\"v2-gen/x\" one track"
+	@echo "  make loudness     per-track playback gain → manifest playbackGain (LUFS from"
+	@echo "                    /tmp/strudel-renders WAVs · ARGS=\"--predict\" static fallback)"
 
 install:
 	@pnpm -C web install
@@ -96,6 +101,22 @@ midi:
 	python3 tools/build-midi-manifest.py
 	tools/.venv-transcribe/bin/python tools/midi_dna.py --manifest tools/midi-manifest.json --out references/analysis
 	python3 tools/distill-skills.py
+
+# ── quality gates ─────────────────────────────────────────────────────────────
+# Structural eval over every track (static, no render — runs in ~50ms):
+#   make eval                          — assert contrast / arc / baselines
+#   make eval ARGS="--update"          — re-record baselines after intended edits
+#   make eval ARGS="v2-gen/crank-x"    — one track
+eval:
+	uv run python3 tools/eval-tracks.py $(ARGS)
+
+# Per-track playback gain (loudness normalization for the rotation):
+#   make loudness                      — measured LUFS from /tmp/strudel-renders WAVs
+#   make loudness ARGS="--predict"     — static fallback for unrendered tracks
+#   make loudness ARGS="--dry-run --predict"  — preview only
+# Then re-publish the radio (toaster-radio: pnpm publish-tracks).
+loudness:
+	uv run python3 tools/loudness.py $(ARGS)
 
 sections-pc:
 	python3 tools/build-manifest.py

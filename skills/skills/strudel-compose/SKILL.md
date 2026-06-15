@@ -49,6 +49,19 @@ Always test before declaring done. Invoke the `strudel-test` skill (or do it man
 
 A pattern that doesn't parse is worse than no pattern.
 
+For a sectioned track, also run the structural gates — they're static (no render)
+and catch flat dynamics or a missing build/strip arc before anyone listens:
+
+```bash
+make eval ARGS="v2-gen/<track-id>"     # contrast / arc / baseline assertions
+make eval ARGS="--update"              # record the new track's baseline once it passes
+```
+
+A track that fails `contrast` or `arc` isn't done — fix the section gains/voices
+(quiet intro and outro, a real climax, a strip-back section), don't lower the bar.
+An intentionally-flat ambient piece can declare that in its manifest:
+`"eval": { "allow_flat": true }`.
+
 ## Common pitfalls
 
 - **`s("bd")` SILENTLY DROPS without a bank.** The drum pack we load (`tidal-drum-machines.json`) prefixes every sample with its drum-machine name — `AkaiLinn_bd`, `RolandTR909_bd`, etc. Bare `"bd"` / `"sd"` / `"hh"` resolve to nothing and you hear nothing. Always chain `.bank("AkaiLinn")` (or another bank with the kit you want) on percussion. Synth oscillators (`sine`, `sawtooth`, `triangle`, `square`, `white`) need no bank.

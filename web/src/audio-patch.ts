@@ -12,6 +12,8 @@
 
 let analyser: AnalyserNode | null = null;
 let strudelCtx: AudioContext | null = null;
+let masterGain: GainNode | null = null;
+let masterGainValue = 1;
 export const registeredWorkletURLs = new Set<string>();
 
 (function patchAudio() {
@@ -33,10 +35,40 @@ export const registeredWorkletURLs = new Set<string>();
   window.AudioContext = TappedAudioContext as unknown as typeof AudioContext;
   if (w.webkitAudioContext) w.webkitAudioContext = TappedAudioContext as unknown as typeof AudioContext;
 
-  // 2. Master tap: any node → destination also → analyser.
+  // 2. Master tap + master gain. Any node → destination also fans into the
+  //    analyser, and live-context connects to the destination detour through a
+  //    master GainNode — the per-track loudness-normalization stage (set from
+  //    the track manifest's "playbackGain", written by tools/loudness.py).
+  //    The analyser tap stays PRE-gain: viz amplitude and recordings reflect
+  //    the un-normalized signal, so renders stay raw for (re-)measurement.
+  //    Offline render contexts bypass all of this (masterGain lives in the
+  //    live context only).
   const origConnect = AudioNode.prototype.connect;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   AudioNode.prototype.connect = function (this: AudioNode, target: any, ...rest: any[]): any {
+    if (
+      strudelCtx &&
+      target instanceof AudioDestinationNode &&
+      target === strudelCtx.destination &&
+      this.context === strudelCtx &&
+      this !== analyser &&
+      this !== masterGain
+    ) {
+      if (!masterGain) {
+        masterGain = strudelCtx.createGain();
+        masterGain.gain.value = masterGainValue;
+        (origConnect as (this: AudioNode, n: AudioNode) => unknown).call(masterGain, strudelCtx.destination);
+      }
+      const result = (origConnect as (this: AudioNode, n: AudioNode) => AudioNode).call(this, masterGain);
+      if (analyser) {
+        try {
+          (origConnect as (this: AudioNode, n: AudioNode) => unknown).call(this, analyser);
+        } catch {
+          /* already tapped */
+        }
+      }
+      return result;
+    }
     const result = origConnect.call(this, target, ...rest);
     if (analyser && this !== analyser && target instanceof AudioDestinationNode) {
       try {
@@ -71,4 +103,19 @@ export function getAnalyser(): AnalyserNode | null {
 }
 export function getStrudelCtx(): AudioContext | null {
   return strudelCtx;
+}
+
+// Per-track playback gain (loudness normalization). Short ramp to avoid
+// clicks on track hops; the value sticks and is applied when masterGain is
+// first created, so it's safe to call before audio boots.
+export function setMasterGain(value: number, rampSec = 0.08): void {
+  const v = Number.isFinite(value) && value > 0 ? Math.min(4, Math.max(0.05, value)) : 1;
+  masterGainValue = v;
+  if (!masterGain || !strudelCtx) return;
+  const t = strudelCtx.currentTime;
+  masterGain.gain.cancelScheduledValues(t);
+  masterGain.gain.setTargetAtTime(v, t, rampSec);
+}
+export function getMasterGain(): number {
+  return masterGainValue;
 }

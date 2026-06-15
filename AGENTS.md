@@ -24,6 +24,18 @@ You cannot hear audio directly. To verify a pattern works:
 
 Audible quality is the user's call — your job is to make sure the pattern parses, plays, and matches the brief.
 
+Structure, though, is checkable without ears: `make eval` runs static quality
+gates over every sectioned track (dynamic contrast, build/strip arc, per-section
+baselines in `tools/eval-baselines.json`). Run it after composing or editing
+sections; fix the track rather than the threshold (per-track overrides live in
+the manifest's `"eval"` block, for e.g. intentionally-flat ambient). After an
+intended change, re-record baselines with `make eval ARGS="--update"`.
+
+Loudness between tracks is normalized via the manifest's `"playbackGain"`
+(written by `make loudness`, measured from rendered WAVs in
+`/tmp/strudel-renders`, or `--predict` for a static estimate). Both the lab
+player and toaster-radio apply it through a master gain node at playback.
+
 ## Strudel quick reference
 
 ```javascript
